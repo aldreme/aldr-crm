@@ -1,0 +1,5 @@
+project_id = "aldr-crm"
+
+[functions.crm]
+verify_jwt = false
+import_map = "./functions/crm/deno.json"
