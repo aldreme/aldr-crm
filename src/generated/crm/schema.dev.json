@@ -1084,7 +1084,7 @@
     {
       "table_id": "tblajabfE6jPibF4",
       "name": "合同管理",
-      "revision": 44,
+      "revision": 50,
       "fields": [
         {
           "field_id": "fldfWAH551",
@@ -1418,7 +1418,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
-          "is_hidden": false,
+          "is_hidden": true,
           "property": {
             "back_field_id": "fldR9ZPRQh",
             "back_field_name": "关联合同",
@@ -1441,7 +1441,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
-          "is_hidden": false,
+          "is_hidden": true,
           "property": {
             "back_field_id": "fld9qTB7Mk",
             "back_field_name": "关联合同",
@@ -1456,7 +1456,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
-          "is_hidden": false,
+          "is_hidden": true,
           "property": {
             "back_field_id": "fldLyKBql1",
             "back_field_name": "关联合同",
@@ -1479,7 +1479,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": false,
-          "is_hidden": false,
+          "is_hidden": true,
           "property": {
             "auto_serial": {
               "options": [
@@ -3444,7 +3444,7 @@
     {
       "table_id": "tbleOlbY62RehB7R",
       "name": "费用报销",
-      "revision": 42,
+      "revision": 50,
       "fields": [
         {
           "field_id": "fldnNUwM35",
@@ -3803,7 +3803,7 @@
     {
       "table_id": "tblyjuzeXe62TYG7",
       "name": "采购申请",
-      "revision": 42,
+      "revision": 50,
       "fields": [
         {
           "field_id": "fldnNUwM35",
@@ -6009,7 +6009,7 @@
     {
       "table_id": "tblACJrUKaxQYxlk",
       "name": "往来单位管理",
-      "revision": 31,
+      "revision": 33,
       "fields": [
         {
           "field_id": "fldhZEX45y",
