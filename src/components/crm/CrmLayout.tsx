@@ -170,10 +170,35 @@ export function CrmLayout({ currentTableId, children }: CrmLayoutProps) {
               {t("crm.title")}
             </span>
           </header>
-          <div className="max-w-7xl mx-auto p-4 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <div className="max-w-7xl mx-auto px-4 pt-4 pb-24 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {children}
           </div>
         </main>
+
+        {/* Mobile bottom tab bar */}
+        <nav className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border-t border-gray-200 dark:border-zinc-800">
+          <div className="flex h-14">
+            <Link
+              to="/"
+              className={cn(
+                "flex-1 flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium",
+                path === "/"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : "text-gray-500 dark:text-gray-400",
+              )}
+            >
+              <LayoutDashboard className="w-5 h-5" />
+              {t("crm.nav.dashboard")}
+            </Link>
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="flex-1 flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-gray-500 dark:text-gray-400"
+            >
+              <Table2 className="w-5 h-5" />
+              {t("crm.nav.tables")}
+            </button>
+          </div>
+        </nav>
       </div>
       <CrmDialogContainer />
     </HeroUIProvider>

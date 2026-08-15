@@ -25,6 +25,16 @@ export function RecordForm({ table, record, isOpen, onClose, onSubmit }: RecordF
   const { t } = useCrmTranslation();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const editableFields = useMemo(
     () => table.fields.filter((f) => isFormEditable(f) && !f.is_primary),
@@ -88,7 +98,15 @@ export function RecordForm({ table, record, isOpen, onClose, onSubmit }: RecordF
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={(open) => !open && onClose()} backdrop="blur" size="2xl" scrollBehavior="inside">
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={(open) => !open && onClose()}
+      backdrop="blur"
+      placement={isMobile ? "bottom" : "center"}
+      size={isMobile ? "full" : "2xl"}
+      scrollBehavior="inside"
+      classNames={isMobile ? { base: "rounded-t-2xl rounded-b-none" } : undefined}
+    >
       <ModalContent>
         {() => (
           <>
@@ -98,7 +116,7 @@ export function RecordForm({ table, record, isOpen, onClose, onSubmit }: RecordF
               </h2>
             </ModalHeader>
             <ModalBody className="gap-4">
-              {readonlyFields.length > 0 && (
+              {record && readonlyFields.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 p-4 rounded-2xl bg-gray-50 dark:bg-zinc-800/40 border border-gray-100 dark:border-zinc-800">
                   {readonlyFields.map((field) => (
                     <div key={field.field_id} className="flex flex-col gap-1">

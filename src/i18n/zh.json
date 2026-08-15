@@ -9,6 +9,8 @@
   "crm.locale.en": "English",
   "crm.loading": "加载中...",
   "crm.tables": "数据表",
+  "crm.nav.dashboard": "工作台",
+  "crm.nav.tables": "数据表",
   "crm.dashboard.title": "CRM 工作台",
   "crm.dashboard.subtitle": "选择数据表以管理您的记录",
   "crm.records": "条记录",

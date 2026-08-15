@@ -9,6 +9,8 @@
   "crm.locale.en": "English",
   "crm.loading": "Loading...",
   "crm.tables": "Data tables",
+  "crm.nav.dashboard": "Dashboard",
+  "crm.nav.tables": "Tables",
   "crm.dashboard.title": "CRM Dashboard",
   "crm.dashboard.subtitle": "Select a table to manage your records",
   "crm.records": "records",

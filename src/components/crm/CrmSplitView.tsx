@@ -79,6 +79,14 @@ export function CrmSplitView({
   const items = data?.items ?? [];
   const [page, setPage] = useState(0);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
+
+  // On mobile this is a drill-down: selecting a record opens the detail view
+  // full-screen (with a back button). On desktop both panels stay visible.
+  const handleSelect = (recordId: string) => {
+    setSelectedId(recordId);
+    setMobileDetailOpen(true);
+  };
 
   const primaryColumn =
     columns.find((c) => c.is_primary) ?? columns[0] ?? table.fields.find((f) => f.is_primary);
@@ -122,9 +130,14 @@ export function CrmSplitView({
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 lg:h-[calc(100vh-14rem)] lg:min-h-[480px]">
+    <div className="flex gap-4 h-[calc(100dvh-13rem)] min-h-[420px] lg:h-[calc(100vh-14rem)] lg:min-h-[480px]">
       {/* Left: paginated list */}
-      <div className="lg:w-80 flex-shrink-0 h-72 lg:h-auto bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 flex flex-col overflow-hidden">
+      <div
+        className={cn(
+          "w-full lg:w-80 flex-shrink-0 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 flex-col overflow-hidden",
+          mobileDetailOpen ? "hidden lg:flex" : "flex",
+        )}
+      >
         <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-zinc-800">
           <div className="min-w-0">
             <h2 className="font-semibold text-gray-900 dark:text-white truncate">
@@ -163,7 +176,7 @@ export function CrmSplitView({
                 return (
                   <li key={record.record_id}>
                     <button
-                      onClick={() => setSelectedId(record.record_id)}
+                      onClick={() => handleSelect(record.record_id)}
                       className={cn(
                         "w-full text-left rounded-xl px-3 py-2.5 transition-colors",
                         active
@@ -249,7 +262,12 @@ export function CrmSplitView({
       </div>
 
       {/* Right: details */}
-      <div className="flex-1 min-h-[360px] lg:min-h-0 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-y-auto">
+      <div
+        className={cn(
+          "w-full lg:w-auto flex-1 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-y-auto",
+          mobileDetailOpen ? "flex" : "hidden lg:flex",
+        )}
+      >
         {selected ? (
           <div className="p-6 h-full flex flex-col">
             <div className="flex items-start justify-between gap-4">
@@ -275,6 +293,16 @@ export function CrmSplitView({
                 )}
               </div>
               <div className="flex items-center gap-1">
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  className="lg:hidden"
+                  aria-label="Back"
+                  onPress={() => setMobileDetailOpen(false)}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </Button>
                 <Button
                   isIconOnly
                   size="sm"
