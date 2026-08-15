@@ -146,7 +146,7 @@ export function CrmSplitView({
             </p>
           )}
           {loading || refreshingTable ? (
-            <div className="p-3 space-y-3">
+            <div className="p-3 space-y-3 animate-in fade-in duration-300">
               {Array.from({ length: 10 }).map((_, i) => (
                 <Skeleton key={i} className="rounded-xl">
                   <div className="h-12 w-full rounded-xl bg-gray-200 dark:bg-zinc-700" />
@@ -156,7 +156,7 @@ export function CrmSplitView({
           ) : currentItems.length === 0 ? (
             <p className="p-6 text-sm text-gray-400 text-center">{t("crm.empty")}</p>
           ) : (
-            <ul className="p-2 space-y-1">
+            <ul className="p-2 space-y-1 animate-in fade-in duration-300">
               {currentItems.map((record) => {
                 const active = selected?.record_id === record.record_id;
                 const refreshingItem = refreshingIds.has(record.record_id);
@@ -172,7 +172,7 @@ export function CrmSplitView({
                       )}
                     >
                       {refreshingItem ? (
-                        <div className="space-y-2 py-0.5">
+                        <div className="space-y-2 py-0.5 animate-in fade-in duration-200">
                           <Skeleton className="rounded-lg">
                             <div className="h-4 w-3/4 rounded-lg bg-gray-200 dark:bg-zinc-700" />
                           </Skeleton>
@@ -181,7 +181,7 @@ export function CrmSplitView({
                           </Skeleton>
                         </div>
                       ) : (
-                        <>
+                        <div className="animate-in fade-in duration-200">
                           <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                             {primaryColumn
                               ? formatFieldValue(primaryColumn, record.fields?.[primaryColumn.field_name]) ||
@@ -196,7 +196,7 @@ export function CrmSplitView({
                                 .join(" · ")}
                             </p>
                           )}
-                        </>
+                        </div>
                       )}
                     </button>
                   </li>
@@ -255,7 +255,7 @@ export function CrmSplitView({
             <div className="flex items-start justify-between gap-4">
               <div>
                 {showDetailSkeleton ? (
-                  <div className="space-y-2">
+                  <div className="space-y-2 animate-in fade-in duration-200">
                     <Skeleton className="rounded-lg">
                       <div className="h-6 w-48 rounded-lg bg-gray-200 dark:bg-zinc-700" />
                     </Skeleton>
@@ -265,7 +265,7 @@ export function CrmSplitView({
                   </div>
                 ) : (
                   <>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white animate-in fade-in duration-200">
                       {primaryColumn
                         ? formatFieldValue(primaryColumn, selected.fields?.[primaryColumn.field_name]) ||
                           selected.record_id
@@ -308,7 +308,7 @@ export function CrmSplitView({
             </div>
 
             {showDetailSkeleton ? (
-              <div className="mt-5 flex-1 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 auto-rows-fr">
+              <div className="mt-5 flex-1 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 auto-rows-fr animate-in fade-in duration-300">
                 {Array.from({ length: 12 }).map((_, i) => (
                   <div key={i} className="flex flex-col justify-center gap-3">
                     <Skeleton className="rounded-lg">
@@ -321,7 +321,7 @@ export function CrmSplitView({
                 ))}
               </div>
             ) : (
-              <dl className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+              <dl className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 animate-in fade-in duration-300">
                 {table.fields.map((field) => (
                   <div key={field.field_id} className="flex flex-col gap-1">
                     <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">

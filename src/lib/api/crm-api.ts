@@ -4,6 +4,11 @@ import type {
   UploadedMedia,
 } from "@/lib/types/crm";
 
+// Session id stored client-side. iOS (Safari/Chrome) blocks the cross-site
+// httpOnly cookie, so the SPA keeps the session id in localStorage and sends it
+// as the `x-crm-session` header on every request.
+const SESSION_KEY = "crm_session";
+
 // The edge function's absolute URL (used for top-level navigations and in prod).
 const FULL_EDGE = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/crm`;
 
@@ -13,15 +18,41 @@ const FULL_EDGE = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/crm`;
 // cross-origin directly.
 const EDGE_BASE = import.meta.env.DEV ? "/functions/v1/crm" : FULL_EDGE;
 
+function storedSessionId(): string | null {
+  try {
+    return localStorage.getItem(SESSION_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function saveSession(id: string): void {
+  try {
+    localStorage.setItem(SESSION_KEY, id);
+  } catch {
+    /* ignore */
+  }
+}
+
+export function clearSession(): void {
+  try {
+    localStorage.removeItem(SESSION_KEY);
+  } catch {
+    /* ignore */
+  }
+}
+
 async function request<T>(
   action: string,
   options: { method?: string; body?: unknown; headers?: Record<string, string> } = {},
 ): Promise<T> {
   const url = `${EDGE_BASE}?action=${encodeURIComponent(action)}`;
+  const sessionId = storedSessionId();
   const res = await fetch(url, {
     method: options.method ?? "GET",
     credentials: "include",
     headers: {
+      ...(sessionId ? { "x-crm-session": sessionId } : {}),
       ...(options.body !== undefined && !(options.body instanceof FormData)
         ? { "Content-Type": "application/json" }
         : {}),
@@ -56,8 +87,8 @@ export function loginUrl(redirectTo: string): string {
   return `${FULL_EDGE}?action=login&redirect_to=${encodeURIComponent(redirectTo)}`;
 }
 
-export function logoutUrl(redirectTo: string): string {
-  return `${FULL_EDGE}?action=logout&redirect_to=${encodeURIComponent(redirectTo)}`;
+export function logout(): Promise<void> {
+  return request<void>("logout");
 }
 
 export function getSession(): Promise<CrmSessionUser> {

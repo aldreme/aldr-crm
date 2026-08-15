@@ -245,7 +245,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
       ) : (
         <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-hidden">
         {isLoading || refreshingTable ? (
-          <div className="w-full">
+          <div className="w-full animate-in fade-in duration-300">
             <div className="flex items-center gap-6 px-4 py-4 border-b border-gray-100 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-800/50">
               {Array.from({ length: Math.min(displayColumns.length, 6) }).map((_, j) => (
                 <Skeleton key={j} className="rounded-lg" style={{ flex: j === 0 ? 2 : 1 }}>
@@ -276,6 +276,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
           <Table
             aria-label={`${table.name} records`}
             removeWrapper
+            className="animate-in fade-in duration-300"
             classNames={{
               base: "p-4",
               table: "min-h-[300px]",

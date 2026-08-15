@@ -1,4 +1,4 @@
-import { getSession, logoutUrl } from "@/lib/api/crm-api";
+import { clearSession, getSession, logout as logoutRequest, saveSession } from "@/lib/api/crm-api";
 import type { CrmSessionUser } from "@/lib/types/crm";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
@@ -27,11 +27,25 @@ export function CrmSessionProvider({ children }: { children: React.ReactNode }) 
   }, []);
 
   useEffect(() => {
+    // The edge function passes the session id back in the URL fragment
+    // (`#session=<id>`) after OAuth; store it and clean up the URL.
+    if (window.location.hash.startsWith("#session=")) {
+      saveSession(window.location.hash.slice("#session=".length));
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
     refresh();
   }, [refresh]);
 
   const logout = useCallback(() => {
-    window.location.href = logoutUrl(`${window.location.origin}/login`);
+    void (async () => {
+      try {
+        await logoutRequest();
+      } catch {
+        /* ignore */
+      }
+      clearSession();
+      window.location.href = "/login";
+    })();
   }, []);
 
   return (

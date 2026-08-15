@@ -261,7 +261,11 @@ async function actionCallback(req: Request, url: URL): Promise<Response> {
   return new Response(null, {
     status: 302,
     headers: {
-      Location: redirectTo,
+      // iOS (Safari/Chrome) blocks the cross-site httpOnly cookie, so also pass
+      // the session id back in the URL fragment for the SPA to store locally and
+      // send as the `x-crm-session` header. The cookie is kept as a fallback for
+      // browsers that accept it.
+      Location: `${redirectTo}#session=${sessionId}`,
       "Set-Cookie": buildSessionCookie(sessionId, req, SESSION_TTL_SEC),
     },
   });
@@ -327,7 +331,8 @@ async function actionDebug(ctx: Ctx, req: Request): Promise<Response> {
 }
 
 async function actionLogout(req: Request, url: URL): Promise<Response> {
-  const sessionId = readCookie(req, SESSION_COOKIE);
+  const sessionId =
+    readCookie(req, SESSION_COOKIE) || req.headers.get("x-crm-session") || null;
   if (sessionId) {
     await supabase.from("crm_sessions").delete().eq("id", sessionId);
   }
