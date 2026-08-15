@@ -326,15 +326,16 @@ async function actionDebug(ctx: Ctx, req: Request): Promise<Response> {
   });
 }
 
-async function actionLogout(req: Request): Promise<Response> {
+async function actionLogout(req: Request, url: URL): Promise<Response> {
   const sessionId = readCookie(req, SESSION_COOKIE);
   if (sessionId) {
     await supabase.from("crm_sessions").delete().eq("id", sessionId);
   }
+  const redirectTo = url.searchParams.get("redirect_to") || `${siteUrl()}/login`;
   return new Response(null, {
     status: 302,
     headers: {
-      Location: `${siteUrl()}/login`,
+      Location: redirectTo,
       "Set-Cookie": buildSessionCookie("", req, 0),
     },
   });
@@ -761,7 +762,7 @@ async function route(req: Request, ctx: Ctx): Promise<Response> {
     case "callback":
       return await actionCallback(req, url);
     case "logout":
-      return await actionLogout(req);
+      return await actionLogout(req, url);
     case "session":
       return await actionSession(ctx);
     case "debug":

@@ -56,8 +56,8 @@ export function loginUrl(redirectTo: string): string {
   return `${FULL_EDGE}?action=login&redirect_to=${encodeURIComponent(redirectTo)}`;
 }
 
-export function logoutUrl(): string {
-  return `${FULL_EDGE}?action=logout`;
+export function logoutUrl(redirectTo: string): string {
+  return `${FULL_EDGE}?action=logout&redirect_to=${encodeURIComponent(redirectTo)}`;
 }
 
 export function getSession(): Promise<CrmSessionUser> {

@@ -31,7 +31,7 @@ export function CrmSessionProvider({ children }: { children: React.ReactNode }) 
   }, [refresh]);
 
   const logout = useCallback(() => {
-    window.location.href = logoutUrl();
+    window.location.href = logoutUrl(`${window.location.origin}/login`);
   }, []);
 
   return (
