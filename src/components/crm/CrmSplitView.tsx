@@ -1,9 +1,9 @@
-import { listAllRecords } from "@/lib/api/crm-api";
+import { useOwnedRecords, useRefreshRecord } from "@/lib/api/crm-queries";
 import { FIELD_TYPE, type CrmRecord, type FieldDefinition, type TableDefinition } from "@/lib/types/crm";
 import { cn } from "@/lib/utils";
 import { Button, Skeleton } from "@heroui/react";
-import { ChevronLeft, ChevronRight, Edit, Plus, Trash2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight, Edit, Plus, RefreshCw, Trash2 } from "lucide-react";
+import { useMemo, useState } from "react";
 import { useCrmTranslation } from "./CrmI18nProvider";
 import { FieldRenderer, formatFieldValue } from "./FieldRenderer";
 
@@ -17,6 +17,8 @@ interface CrmSplitViewProps {
   onEdit: (record: CrmRecord) => void;
   onDelete: (record: CrmRecord) => void;
   onCreate: () => void;
+  deletingRecordId?: string | null;
+  refreshingTable?: boolean;
 }
 
 function pageNumbers(current: number, total: number): (number | "gap")[] {
@@ -68,12 +70,14 @@ export function CrmSplitView({
   onEdit,
   onDelete,
   onCreate,
+  deletingRecordId,
+  refreshingTable = false,
 }: CrmSplitViewProps) {
   const { t } = useCrmTranslation();
-  const [items, setItems] = useState<CrmRecord[]>([]);
+  const { data, isLoading: loading, isError, error } = useOwnedRecords(table.table_id);
+  const { mutation: refreshMutation, refreshingIds } = useRefreshRecord(table.table_id);
+  const items = data?.items ?? [];
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const primaryColumn =
@@ -96,27 +100,6 @@ export function CrmSplitView({
     });
   }, [items, sortField, sortDirection, table.fields]);
 
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
-    listAllRecords(table.table_id)
-      .then(({ items }) => {
-        if (cancelled) return;
-        setItems(items);
-        setPage(0);
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : String(err));
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [table.table_id]);
-
   const totalPages = Math.max(1, Math.ceil(sortedItems.length / PAGE_SIZE));
   const currentItems = useMemo(
     () => sortedItems.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE),
@@ -124,6 +107,14 @@ export function CrmSplitView({
   );
   const selected =
     currentItems.find((r) => r.record_id === selectedId) ?? currentItems[0] ?? null;
+
+  // The set of records being refreshed is tracked independently of the
+  // selection, so list-item skeletons stay put while switching records or
+  // refreshing multiple records concurrently.
+  const isRefreshingSelected = !!selected && refreshingIds.has(selected.record_id);
+  // The detail panel skeletons for either a single-record refresh or a
+  // whole-table refresh.
+  const showDetailSkeleton = isRefreshingSelected || refreshingTable;
 
   const goto = (p: number) => {
     const clamped = Math.min(Math.max(p, 0), totalPages - 1);
@@ -149,8 +140,12 @@ export function CrmSplitView({
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          {error && <p className="p-3 text-sm text-red-500">{error}</p>}
-          {loading ? (
+          {isError && (
+            <p className="p-3 text-sm text-red-500">
+              {error instanceof Error ? error.message : String(error)}
+            </p>
+          )}
+          {loading || refreshingTable ? (
             <div className="p-3 space-y-3">
               {Array.from({ length: 10 }).map((_, i) => (
                 <Skeleton key={i} className="rounded-xl">
@@ -164,6 +159,7 @@ export function CrmSplitView({
             <ul className="p-2 space-y-1">
               {currentItems.map((record) => {
                 const active = selected?.record_id === record.record_id;
+                const refreshingItem = refreshingIds.has(record.record_id);
                 return (
                   <li key={record.record_id}>
                     <button
@@ -175,19 +171,32 @@ export function CrmSplitView({
                           : "hover:bg-gray-50 dark:hover:bg-zinc-800/50",
                       )}
                     >
-                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                        {primaryColumn
-                          ? formatFieldValue(primaryColumn, record.fields?.[primaryColumn.field_name]) ||
-                            record.record_id
-                          : record.record_id}
-                      </p>
-                      {secondaryColumns.length > 0 && (
-                        <p className="text-xs text-gray-400 truncate mt-0.5">
-                          {secondaryColumns
-                            .map((c) => formatFieldValue(c, record.fields?.[c.field_name]))
-                            .filter(Boolean)
-                            .join(" · ")}
-                        </p>
+                      {refreshingItem ? (
+                        <div className="space-y-2 py-0.5">
+                          <Skeleton className="rounded-lg">
+                            <div className="h-4 w-3/4 rounded-lg bg-gray-200 dark:bg-zinc-700" />
+                          </Skeleton>
+                          <Skeleton className="rounded-lg">
+                            <div className="h-3 w-1/2 rounded-lg bg-gray-200 dark:bg-zinc-700" />
+                          </Skeleton>
+                        </div>
+                      ) : (
+                        <>
+                          <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                            {primaryColumn
+                              ? formatFieldValue(primaryColumn, record.fields?.[primaryColumn.field_name]) ||
+                                record.record_id
+                              : record.record_id}
+                          </p>
+                          {secondaryColumns.length > 0 && (
+                            <p className="text-xs text-gray-400 truncate mt-0.5">
+                              {secondaryColumns
+                                .map((c) => formatFieldValue(c, record.fields?.[c.field_name]))
+                                .filter(Boolean)
+                                .join(" · ")}
+                            </p>
+                          )}
+                        </>
                       )}
                     </button>
                   </li>
@@ -242,19 +251,47 @@ export function CrmSplitView({
       {/* Right: details */}
       <div className="flex-1 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-y-auto">
         {selected ? (
-          <div className="p-6">
+          <div className="p-6 h-full flex flex-col">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                  {primaryColumn
-                    ? formatFieldValue(primaryColumn, selected.fields?.[primaryColumn.field_name]) ||
-                      selected.record_id
-                    : selected.record_id}
-                </h3>
-                <p className="text-xs text-gray-400 mt-1">{selected.record_id}</p>
+                {showDetailSkeleton ? (
+                  <div className="space-y-2">
+                    <Skeleton className="rounded-lg">
+                      <div className="h-6 w-48 rounded-lg bg-gray-200 dark:bg-zinc-700" />
+                    </Skeleton>
+                    <Skeleton className="rounded-lg">
+                      <div className="h-3 w-24 rounded-lg bg-gray-200 dark:bg-zinc-700" />
+                    </Skeleton>
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                      {primaryColumn
+                        ? formatFieldValue(primaryColumn, selected.fields?.[primaryColumn.field_name]) ||
+                          selected.record_id
+                        : selected.record_id}
+                    </h3>
+                  </>
+                )}
               </div>
               <div className="flex items-center gap-1">
-                <Button isIconOnly size="sm" variant="light" onPress={() => onEdit(selected)}>
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  title={t("crm.refresh")}
+                  isLoading={refreshingIds.has(selected.record_id)}
+                  onPress={() => refreshMutation.mutate(selected.record_id)}
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </Button>
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  isDisabled={selected.record_id === deletingRecordId}
+                  onPress={() => onEdit(selected)}
+                >
                   <Edit className="w-4 h-4" />
                 </Button>
                 <Button
@@ -262,6 +299,7 @@ export function CrmSplitView({
                   size="sm"
                   variant="light"
                   color="danger"
+                  isLoading={selected.record_id === deletingRecordId}
                   onPress={() => onDelete(selected)}
                 >
                   <Trash2 className="w-4 h-4" />
@@ -269,23 +307,38 @@ export function CrmSplitView({
               </div>
             </div>
 
-            <dl className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-              {table.fields.map((field) => (
-                <div key={field.field_id} className="flex flex-col gap-1">
-                  <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
-                    {field.field_name}
-                  </dt>
-                  <dd className="text-sm text-gray-800 dark:text-gray-200">
-                    <FieldRenderer
-                      field={field}
-                      value={selected.fields?.[field.field_name]}
-                      tableId={table.table_id}
-                      recordId={selected.record_id}
-                    />
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            {showDetailSkeleton ? (
+              <div className="mt-5 flex-1 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 auto-rows-fr">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="flex flex-col justify-center gap-3">
+                    <Skeleton className="rounded-lg">
+                      <div className="h-4 w-1/3 rounded-lg bg-gray-200 dark:bg-zinc-700" />
+                    </Skeleton>
+                    <Skeleton className="rounded-lg">
+                      <div className="h-5 w-2/3 rounded-lg bg-gray-200 dark:bg-zinc-700" />
+                    </Skeleton>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <dl className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                {table.fields.map((field) => (
+                  <div key={field.field_id} className="flex flex-col gap-1">
+                    <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                      {field.field_name}
+                    </dt>
+                    <dd className="text-sm text-gray-800 dark:text-gray-200">
+                      <FieldRenderer
+                        field={field}
+                        value={selected.fields?.[field.field_name]}
+                        tableId={table.table_id}
+                        recordId={selected.record_id}
+                      />
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            )}
           </div>
         ) : (
           <div className="h-full flex items-center justify-center p-6 text-sm text-gray-400">

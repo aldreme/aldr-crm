@@ -1,12 +1,10 @@
-import { lookupRecords } from "@/lib/api/crm-api";
+import { useLookupRecords } from "@/lib/api/crm-queries";
 import { tablePrimaryFieldMap } from "@/generated/crm/manifest";
-import { linkLookupCacheAtom } from "@/store/crm-cache";
 import type { CrmRecord, FieldDefinition } from "@/lib/types/crm";
 import { cn } from "@/lib/utils";
 import { Button, Input, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 import { Check, ChevronDown, Search } from "lucide-react";
-import { useAtomValue, useSetAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { formatFieldValue } from "./FieldRenderer";
 
 interface LinkFieldInputProps {
@@ -41,46 +39,14 @@ export function LinkFieldInput({ field, value, onChange }: LinkFieldInputProps) 
   const multiple = !!(field.property as { multiple?: boolean } | undefined)?.multiple;
   const primaryField = tableId ? tablePrimaryFieldMap.get(tableId) : undefined;
 
-  const [options, setOptions] = useState<CrmRecord[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [retryKey, setRetryKey] = useState(0);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
-  const cache = useAtomValue(linkLookupCacheAtom);
-  const setCache = useSetAtom(linkLookupCacheAtom);
-
-  useEffect(() => {
-    if (!tableId) return;
-
-    const cached = cache[tableId];
-    if (cached) {
-      setOptions(cached);
-      setLoading(false);
-      setError(null);
-      return;
-    }
-
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
-    lookupRecords(tableId, primaryField?.field_name)
-      .then(({ items }) => {
-        if (cancelled) return;
-        setCache((prev) => ({ ...prev, [tableId]: items }));
-        setOptions(items);
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : String(err));
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [tableId, primaryField, retryKey]);
+  const { data, isLoading: loading, isError, error, refetch } = useLookupRecords(
+    tableId,
+    primaryField?.field_name,
+  );
+  const options = data?.items ?? [];
 
   const label = (record: CrmRecord): string => {
     if (primaryField) {
@@ -143,15 +109,17 @@ export function LinkFieldInput({ field, value, onChange }: LinkFieldInputProps) 
           />
         </div>
         <div className="w-full max-h-64 overflow-y-auto p-1">
-          {error ? (
+          {isError ? (
             <div className="p-3 text-center">
-              <p className="text-sm text-red-500">{error}</p>
+              <p className="text-sm text-red-500">
+                {error instanceof Error ? error.message : String(error)}
+              </p>
               <Button
                 size="sm"
                 variant="bordered"
                 radius="full"
                 className="mt-2"
-                onPress={() => setRetryKey((k) => k + 1)}
+                onPress={() => refetch()}
               >
                 Retry
               </Button>

@@ -348,11 +348,20 @@ function feishuAuth(userToken: string): Record<string, string> {
   return { Authorization: `Bearer ${userToken}`, "Content-Type": "application/json; charset=utf-8" };
 }
 
-async function fetchRecord(userToken: string, tableId: string, recordId: string) {
+async function fetchRecord(
+  userToken: string,
+  tableId: string,
+  recordId: string,
+  options?: { maxRetries?: number; baseDelayMs?: number },
+) {
   const url =
     `${FEISHU_DOMAIN}/open-apis/bitable/v1/apps/${baseAppToken()}/tables/${tableId}/records/${recordId}` +
     "?automatic_fields=true&user_id_type=open_id";
-  return await feishuFetchJson(url, { headers: { Authorization: `Bearer ${userToken}` } });
+  return await feishuFetchJson(
+    url,
+    { headers: { Authorization: `Bearer ${userToken}` } },
+    options,
+  );
 }
 
 function ownsRecord(record: any, openId: string): boolean {
@@ -515,7 +524,11 @@ async function actionCountRecords(ctx: Ctx, body: any): Promise<Response> {
   const tableId: string | undefined = body?.table_id;
   if (!tableId) return json({ error: "table_id required" }, 400);
 
+  // Only request the primary field so the single returned record stays tiny
+  // (we just need `total`).
+  const fieldName: string | undefined = body?.field_name;
   const params = new URLSearchParams({ page_size: "1", user_id_type: "open_id" });
+  if (fieldName) params.set("field_names", JSON.stringify([fieldName]));
   const url =
     `${FEISHU_DOMAIN}/open-apis/bitable/v1/apps/${baseAppToken()}/tables/${tableId}/records` +
     `?${params.toString()}`;
@@ -534,6 +547,7 @@ async function actionCountsRecords(ctx: Ctx, body: any): Promise<Response> {
   if (!Array.isArray(tableIds) || tableIds.length === 0) {
     return json({ error: "table_ids array required" }, 400);
   }
+  const fieldNames: Record<string, string> = body?.field_names ?? {};
 
   const counts: Record<string, number> = {};
   const errors: Record<string, string> = {};
@@ -541,7 +555,11 @@ async function actionCountsRecords(ctx: Ctx, body: any): Promise<Response> {
   // Fetch sequentially to avoid hammering Feishu with parallel requests.
   for (const tableId of tableIds) {
     try {
+      // Only request the primary field so the single returned record stays tiny
+      // (we just need `total`).
+      const fieldName = fieldNames[tableId];
       const params = new URLSearchParams({ page_size: "1", user_id_type: "open_id" });
+      if (fieldName) params.set("field_names", JSON.stringify([fieldName]));
       const url =
         `${FEISHU_DOMAIN}/open-apis/bitable/v1/apps/${baseAppToken()}/tables/${tableId}/records` +
         `?${params.toString()}`;
@@ -631,6 +649,30 @@ async function actionDeleteRecord(ctx: Ctx, body: any): Promise<Response> {
     return json({ error: data.msg || "delete record failed", code: data.code }, 400);
   }
   return json({ record_id: recordId });
+}
+
+async function actionGetRecord(ctx: Ctx, body: any): Promise<Response> {
+  const userToken = await ensureFreshAccessToken(ctx);
+  if (!userToken || !ctx.session) return unauthorized(ctx);
+
+  const tableId: string | undefined = body?.table_id;
+  const recordId: string | undefined = body?.record_id;
+  if (!tableId || !recordId) return json({ error: "table_id and record_id required" }, 400);
+
+  // Formula/lookup fields are computed asynchronously after a write; Feishu
+  // returns `1254607` ("data not ready") until they settle. Retry patiently
+  // (more attempts, longer backoff) so the response contains computed fields.
+  const existing = await fetchRecord(userToken, tableId, recordId, {
+    maxRetries: 8,
+    baseDelayMs: 500,
+  });
+  if (existing.code !== 0) {
+    return json({ error: existing.msg || "get record failed", code: existing.code }, 400);
+  }
+  if (!ownsRecord(existing, ctx.session.openId)) {
+    return json({ error: "forbidden: not the record owner" }, 403);
+  }
+  return json({ record: existing.data.record });
 }
 
 // ---------------------------------------------------------------------------
@@ -755,6 +797,8 @@ async function route(req: Request, ctx: Ctx): Promise<Response> {
         return await actionCountsRecords(ctx, body);
       case "records.create":
         return await actionCreateRecord(ctx, body);
+      case "records.get":
+        return await actionGetRecord(ctx, body);
       case "records.update":
         return await actionUpdateRecord(ctx, body);
       case "records.delete":

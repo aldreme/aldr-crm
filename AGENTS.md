@@ -30,7 +30,9 @@ deployed to GitHub Pages at `crm.aldreme.com`.
 - **Animation:** `tailwindcss-animate`.
 - **Icons:** `lucide-react`.
 - **Date handling:** `date-fns` + `react-day-picker` (calendar).
-- **State:** `jotai` for UI/dialog/cache atoms.
+- **State:** [TanStack Query](https://tanstack.com/query) for server (Feishu)
+  state — caching, invalidation, mutations; `jotai` for client/UI state
+  (dialog, locale).
 - **Utils:** `clsx` + `tailwind-merge` via `cn()`.
 
 ### Backend & Data
@@ -62,10 +64,12 @@ deployed to GitHub Pages at `crm.aldreme.com`.
 │   ├── generated/crm/      # schema.json + manifest.ts + per-table layouts (generated)
 │   ├── i18n/               # en.json, zh.json (crm.* keys)
 │   ├── lib/
-│   │   ├── api/crm-api.ts  # Edge function client (fetch wrapper)
-│   │   ├── types/crm.ts    # CRM shared types
-│   │   └── utils.ts        # cn()
-│   └── store/              # jotai atoms (crm-ui.ts, crm-cache.ts)
+│   │   ├── api/crm-api.ts    # Edge function client (fetch wrapper)
+│   │   ├── api/crm-queries.ts# TanStack Query hooks + mutations
+│   │   ├── query-client.ts   # Shared QueryClient (staleTime: Infinity, 401 redirect)
+│   │   ├── types/crm.ts      # CRM shared types
+│   │   └── utils.ts          # cn()
+│   └── store/                # jotai atoms (crm-ui.ts — dialog state)
 ├── supabase/
 │   ├── config.toml         # Local dev config (project_id "aldr-crm")
 │   ├── functions/          # crm + _shared (feishu, supabaseAdmin) + .env (secrets)
@@ -140,6 +144,13 @@ deployed to GitHub Pages at `crm.aldreme.com`.
 
 - All data access goes through `@/lib/api/crm-api` (the `crm` edge function).
   Do not talk to Feishu directly from the client.
+- **TanStack Query layer** (`@/lib/api/crm-queries`) wraps `crm-api` with hooks
+  (`useOwnedRecords`, `useLookupRecords`, `useTableCounts`, and
+  `useCreateRecord`/`useUpdateRecord`/`useDeleteRecord`). Feishu data is small
+  (~750 records), so each table's records are loaded in full once and cached.
+  Queries never go stale on their own (`staleTime: Infinity`) — data is only
+  refetched by an explicit `refetch()` (manual refresh) or `invalidateQueries`
+  after a mutation. Prefer these hooks over calling `crm-api` directly.
 - In dev the edge function is called same-origin through the Vite dev proxy
   (targeting the local Supabase at `http://localhost:54321`); in production the
   browser calls it cross-origin directly with `credentials: include`. Run a

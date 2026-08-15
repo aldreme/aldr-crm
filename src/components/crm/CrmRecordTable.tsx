@@ -1,5 +1,12 @@
-import { createRecord, deleteRecord, listRecords, updateRecord } from "@/lib/api/crm-api";
-import type { CrmRecord, FieldDefinition, ListCursor, TableDefinition } from "@/lib/types/crm";
+import {
+  useCreateRecord,
+  useDeleteRecord,
+  useFillRecordFields,
+  useOwnedRecords,
+  useUpdateRecord,
+} from "@/lib/api/crm-queries";
+import type { CrmRecord, FieldDefinition, TableDefinition } from "@/lib/types/crm";
+import { FIELD_TYPE } from "@/lib/types/crm";
 import { cn } from "@/lib/utils";
 import {
   Button,
@@ -13,8 +20,9 @@ import {
   TableRow,
   Tooltip,
 } from "@heroui/react";
+import { addToast, closeToast } from "@heroui/toast";
 import { Edit, List, Plus, RefreshCw, Table2, Trash2 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useCrmTranslation } from "./CrmI18nProvider";
 import { useCrmDialog } from "@/store/crm-ui";
 import { FieldRenderer, formatFieldValue } from "./FieldRenderer";
@@ -33,17 +41,37 @@ interface CrmRecordTableProps {
 export function CrmRecordTable({ table, columns, sortField, sortDirection }: CrmRecordTableProps) {
   const { t } = useCrmTranslation();
   const dialog = useCrmDialog();
-  const [records, setRecords] = useState<CrmRecord[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [cursor, setCursor] = useState<ListCursor | null>(null);
-  const [hasMore, setHasMore] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const { data, isLoading, isError, error, isFetching, refetch } = useOwnedRecords(table.table_id);
+  const records = data?.items ?? [];
+
+  const createMutation = useCreateRecord(table.table_id);
+  const updateMutation = useUpdateRecord(table.table_id);
+  const deleteMutation = useDeleteRecord(table.table_id);
+  const computedFieldNames = useMemo(
+    () =>
+      table.fields
+        .filter((f) => f.type === FIELD_TYPE.Formula || f.type === FIELD_TYPE.Lookup)
+        .map((f) => f.field_name),
+    [table.fields],
+  );
+  const fillRecordFields = useFillRecordFields(table.table_id, computedFieldNames);
+
   const [search, setSearch] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<CrmRecord | null>(null);
   const [view, setView] = useState<"table" | "split">("split");
-  const [dataVersion, setDataVersion] = useState(0);
+  const [deletingRecordId, setDeletingRecordId] = useState<string | null>(null);
+  const [refreshingTable, setRefreshingTable] = useState(false);
+
+  const handleRefresh = async () => {
+    setRefreshingTable(true);
+    try {
+      await refetch();
+    } finally {
+      setRefreshingTable(false);
+    }
+  };
 
   const displayColumns = useMemo(() => {
     if (columns) return columns;
@@ -51,50 +79,6 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
     const rest = table.fields.filter((f) => !f.is_primary);
     return primary ? [primary, ...rest] : rest;
   }, [table.fields, columns]);
-
-  const handleError = (err: unknown) => {
-    const status = (err as { status?: number })?.status;
-    if (status === 401) {
-      window.location.href = "/login";
-      return;
-    }
-    setError(err instanceof Error ? err.message : String(err));
-  };
-
-  const fetchRecords = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await listRecords(table.table_id);
-      setRecords(data.items);
-      setCursor(data.cursor);
-      setHasMore(data.has_more);
-    } catch (err) {
-      handleError(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [table.table_id]);
-
-  useEffect(() => {
-    fetchRecords();
-  }, [fetchRecords]);
-
-  const loadMore = async () => {
-    if (!hasMore || loadingMore) return;
-    setLoadingMore(true);
-    setError(null);
-    try {
-      const data = await listRecords(table.table_id, cursor);
-      setRecords((prev) => [...prev, ...data.items]);
-      setCursor(data.cursor);
-      setHasMore(data.has_more);
-    } catch (err) {
-      handleError(err);
-    } finally {
-      setLoadingMore(false);
-    }
-  };
 
   const filtered = useMemo(() => {
     if (!search.trim()) return records;
@@ -108,12 +92,27 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
 
   const handleSubmit = async (fields: Record<string, unknown>) => {
     if (editing) {
-      await updateRecord(table.table_id, editing.record_id, fields);
+      await updateMutation.mutateAsync({ recordId: editing.record_id, fields });
     } else {
-      await createRecord(table.table_id, fields);
+      const { record_id } = await createMutation.mutateAsync(fields);
+      // Fill in computed fields (formula/lookup) in the background with a toast.
+      const fillPromise = fillRecordFields(record_id);
+      const fillId = addToast({
+        title: t("crm.syncing_fields"),
+        promise: fillPromise,
+        color: "primary",
+        severity: "primary",
+      });
+      void fillPromise.then(() => {
+        if (fillId) closeToast(fillId);
+        addToast({
+          title: t("crm.sync_complete"),
+          color: "success",
+          severity: "success",
+          timeout: 2500,
+        });
+      });
     }
-    setDataVersion((v) => v + 1);
-    await fetchRecords();
   };
 
   const handleDelete = async (record: CrmRecord) => {
@@ -123,18 +122,31 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
       confirmLabel: t("crm.delete"),
     });
     if (!ok) return;
-    try {
-      await deleteRecord(table.table_id, record.record_id);
-      setDataVersion((v) => v + 1);
-      await fetchRecords();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
-  };
 
-  const handleRefresh = () => {
-    setDataVersion((v) => v + 1);
-    fetchRecords();
+    setDeletingRecordId(record.record_id);
+    const promise = deleteMutation.mutateAsync(record.record_id);
+    const deletingId = addToast({
+      title: t("crm.deleting"),
+      promise,
+      color: "primary",
+      severity: "primary",
+    });
+    try {
+      await promise;
+      if (deletingId) closeToast(deletingId);
+      addToast({
+        title: t("crm.record_deleted"),
+        color: "success",
+        severity: "success",
+        timeout: 2500,
+      });
+    } catch (err) {
+      if (deletingId) closeToast(deletingId);
+      const message = err instanceof Error ? err.message : String(err);
+      addToast({ title: message, color: "danger", severity: "danger", timeout: 5000 });
+    } finally {
+      setDeletingRecordId(null);
+    }
   };
 
   return (
@@ -187,9 +199,9 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
             variant="bordered"
             radius="full"
             title={t("crm.refresh")}
-            onPress={handleRefresh}
+            onPress={() => handleRefresh()}
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className={cn("w-4 h-4", isFetching && "animate-spin")} />
           </Button>
           <Button
             color="primary"
@@ -206,11 +218,14 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
         </div>
       </div>
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {isError && (
+        <p className="text-sm text-red-500">
+          {error instanceof Error ? error.message : String(error)}
+        </p>
+      )}
 
       {view === "split" ? (
         <CrmSplitView
-          key={dataVersion}
           table={table}
           columns={displayColumns}
           sortField={sortField}
@@ -220,6 +235,8 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
             setFormOpen(true);
           }}
           onDelete={handleDelete}
+          deletingRecordId={deletingRecordId}
+          refreshingTable={refreshingTable}
           onCreate={() => {
             setEditing(null);
             setFormOpen(true);
@@ -227,7 +244,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
         />
       ) : (
         <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-hidden">
-        {loading ? (
+        {isLoading || refreshingTable ? (
           <div className="w-full">
             <div className="flex items-center gap-6 px-4 py-4 border-b border-gray-100 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-800/50">
               {Array.from({ length: Math.min(displayColumns.length, 6) }).map((_, j) => (
@@ -284,6 +301,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
                 <TableRow key={record.record_id} className="hover:bg-gray-50/50 dark:hover:bg-zinc-800/20 transition-colors">
                   {(columnKey) => {
                     if (columnKey === "__actions__") {
+                      const deleting = record.record_id === deletingRecordId;
                       return (
                         <TableCell>
                           <div className="flex items-center justify-center gap-1">
@@ -292,6 +310,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
                                 isIconOnly
                                 size="sm"
                                 variant="light"
+                                isDisabled={deleting}
                                 onPress={() => {
                                   setEditing(record);
                                   setFormOpen(true);
@@ -306,6 +325,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
                                 size="sm"
                                 variant="light"
                                 color="danger"
+                                isLoading={deleting}
                                 onPress={() => handleDelete(record)}
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -335,19 +355,6 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
               )}
             </TableBody>
           </Table>
-        )}
-        {!loading && hasMore && (
-          <div className="flex justify-center p-4 border-t border-gray-50 dark:border-zinc-800/50">
-            <Button
-              variant="bordered"
-              radius="full"
-              size="sm"
-              isLoading={loadingMore}
-              onPress={loadMore}
-            >
-              {t("crm.load_more")}
-            </Button>
-          </div>
         )}
         </div>
       )}

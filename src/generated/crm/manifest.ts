@@ -65,6 +65,7 @@ interface RawField {
   type: number;
   ui_type: string;
   is_primary: boolean;
+  is_hidden?: boolean;
   options?: { id: string; name: string; color: number }[];
   property?: Record<string, unknown>;
 }
@@ -99,7 +100,7 @@ export const tableLayouts: TableLayoutDef[] = (schema as unknown as RawSchema).t
       table_id: t.table_id,
       name: t.name,
       revision: t.revision,
-      fields: t.fields as FieldDefinition[],
+      fields: (t.fields.filter((f) => !f.is_hidden) as FieldDefinition[]),
     },
     Component: components[t.name],
   }));

@@ -12,6 +12,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "CONCATENATE(LEFT(bitable::$table[tblBgJL8t2hyTKz6].$field[fldepI8PT4],5),\"-\",IF(bitable::$table[tblBgJL8t2hyTKz6].$field[fld5Kbag4q]=\"\",CONCATENATE(bitable::$table[tblBgJL8t2hyTKz6].$field[fldKRG6mgR],\"-\",bitable::$table[tblBgJL8t2hyTKz6].$field[fldaxyzzbS]),bitable::$table[tblBgJL8t2hyTKz6].$field[fld5Kbag4q]))"
@@ -22,7 +23,8 @@
           "field_name": "线索描述",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldaGWez2X",
@@ -30,6 +32,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(NOT(bitable::$table[tblBgJL8t2hyTKz6].$field[fldkXXOhUW].ISBLANK()),\"已转化\",IF(NOT(bitable::$table[tblBgJL8t2hyTKz6].$field[fldcFEPDCD].ISBLANK()),\"跟进中\",\"未跟进\"))",
@@ -76,6 +79,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldkgSqrsQ",
             "back_field_name": "关联线索",
@@ -90,6 +94,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -101,6 +106,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fld5R1kp8S",
             "back_field_name": "线索管理",
@@ -115,6 +121,7 @@
           "type": 2,
           "ui_type": "Rating",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0",
             "max": 5,
@@ -130,6 +137,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldYiZSN8T]=bitable::$table[tblBgJL8t2hyTKz6].$field[fld5Kbag4q]).$column[fldKMAXDa2].FIRST()",
@@ -176,6 +184,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tbl8kQh9XlMp7PQW",
@@ -188,6 +197,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -197,7 +207,8 @@
           "field_name": "潜在客户名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fldaxyzzbS",
@@ -205,6 +216,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": true,
           "options": [
             {
               "color": 53,
@@ -277,21 +289,24 @@
           "field_name": "潜在客户联系人",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fldGxnKv7x",
           "field_name": "潜在客户联系人职位",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fldGjxOjUP",
           "field_name": "潜在客户联系方式",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fld90ek2aV",
@@ -299,6 +314,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "filter_info": {
               "conditions": {
@@ -325,7 +341,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldUY8GhbH",
@@ -333,6 +350,7 @@
           "type": 1001,
           "ui_type": "CreatedTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "date_formatter": "yyyy/MM/dd"
           }
@@ -342,7 +360,8 @@
           "field_name": "是否失效",
           "type": 7,
           "ui_type": "Checkbox",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
@@ -357,6 +376,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblYbqd9fIvN2miM].$field[fld7iTxfDE]&\"-\"&bitable::$table[tblYbqd9fIvN2miM].$field[fldjl72aUL]&\"-\"&bitable::$table[tblYbqd9fIvN2miM].$field[fld3oVCMMC]",
@@ -371,6 +391,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tbl8kQh9XlMp7PQW",
@@ -382,7 +403,8 @@
           "field_name": "商机描述",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldUNbAg1I",
@@ -390,6 +412,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -401,6 +424,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -411,6 +435,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 6,
@@ -494,6 +519,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "filter_info": {
               "conditions": {},
@@ -511,6 +537,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "filter_info": {
               "conditions": {
@@ -538,6 +565,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -548,21 +576,24 @@
           "field_name": "商机创建人",
           "type": 1003,
           "ui_type": "CreatedUser",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fld0NU2dkJ",
           "field_name": "查看详情",
           "type": 3001,
           "ui_type": "Button",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fldjTtAmGV",
           "field_name": "添加跟进记录",
           "type": 3001,
           "ui_type": "Button",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fld54dit5X",
@@ -570,6 +601,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldWqK8sPd",
             "back_field_name": "商机名称",
@@ -584,6 +616,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldkXXOhUW",
             "back_field_name": "转化商机",
@@ -598,6 +631,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldglsBGo7",
             "back_field_name": "商机",
@@ -611,7 +645,8 @@
           "field_name": "报价文件",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldToZaJLo",
@@ -619,6 +654,7 @@
           "type": 1001,
           "ui_type": "CreatedTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "date_formatter": "yyyy/MM/dd"
           }
@@ -628,7 +664,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
@@ -642,7 +679,8 @@
           "field_name": "跟进内容",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fldz8MaDq0",
@@ -650,6 +688,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -683,6 +722,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldcFEPDCD",
             "back_field_name": "客户跟进记录",
@@ -697,6 +737,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fld54dit5X",
             "back_field_name": "客户跟进记录",
@@ -711,6 +752,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -774,6 +816,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 18,
@@ -827,6 +870,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -837,6 +881,7 @@
           "type": 1001,
           "ui_type": "CreatedTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "date_formatter": "yyyy/MM/dd"
           }
@@ -846,7 +891,8 @@
           "field_name": "跟进笔记",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldsqbJTTG",
@@ -854,6 +900,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IFS(\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].ISBLANK()) && (bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fldELRctza] <= 2), \"低\",\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].ISBLANK()) && (bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fldELRctza] <= 4), \"中\",\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].ISBLANK()) && (bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fldELRctza] = 5), \"高\",\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldWqK8sPd].ISBLANK()), \"高\"\n)",
@@ -895,6 +942,7 @@
           "type": 2,
           "ui_type": "Rating",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0",
             "max": 5,
@@ -910,6 +958,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -921,6 +970,7 @@
           "type": 17,
           "ui_type": "Attachment",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "allowed_edit_modes": {
               "manual": false,
@@ -933,14 +983,16 @@
           "field_name": "跟进妙记链接",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fldeTdXUwK",
           "field_name": "提醒跟进",
           "type": 3001,
           "ui_type": "Button",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         },
         {
           "field_id": "fldvnda4VC",
@@ -948,6 +1000,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fld5Kbag4q].ISBLANK(), bitable::$table[tblbHGJwu0t2uoPC].$field[fldWqK8sPd].$column[fld3oVCMMC], bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fld5Kbag4q])",
@@ -961,7 +1014,7 @@
     {
       "table_id": "tbl6NK5lGE8Csah0",
       "name": "合同管理",
-      "revision": 1792,
+      "revision": 1795,
       "fields": [
         {
           "field_id": "fldfWAH551",
@@ -969,6 +1022,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "\"PO-\"&bitable::$table[tbl6NK5lGE8Csah0].$field[fldup3sZg2].$column[fld1V8Wxnq]& \"-\" &bitable::$table[tbl6NK5lGE8Csah0].$field[fldfHOTXro]",
@@ -982,7 +1036,8 @@
           "field_name": "项目名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldup3sZg2",
@@ -990,6 +1045,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldqYdqMqN",
             "back_field_name": "合同管理",
@@ -1004,6 +1060,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldQVfuVuw",
             "back_field_name": "合同管理",
@@ -1018,6 +1075,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -1029,6 +1087,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -1040,6 +1099,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "filter_info": {
               "conditions": {
@@ -1067,6 +1127,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -1078,6 +1139,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[flddqrekYn].$column[fldiMvHnFG].SUM()",
@@ -1097,6 +1159,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[flduZ2r8DK].FILTER(CurrentValue.$column[fldvH0OP1r]=\"收入\").$column[fldfgSmLLm].SUM()",
@@ -1116,6 +1179,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[fldZ5YzPLc]-bitable::$table[tbl6NK5lGE8Csah0].$field[fldbNJYGxD]",
@@ -1135,6 +1199,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "multiple": false
           }
@@ -1144,7 +1209,8 @@
           "field_name": "合同附件",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld78tztgM",
@@ -1152,6 +1218,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": true,
           "options": [
             {
               "color": 15,
@@ -1195,6 +1262,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[flddx7LQsq].YEAR()"
@@ -1206,6 +1274,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "formatter": "",
             "formula_expression": "IF(bitable::$table[tbl6NK5lGE8Csah0].$field[fldcyEnco5]=YEAR(TODAY()),\"是\",\"否\")",
@@ -1242,6 +1311,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "formatter": "",
             "formula_expression": "IF(bitable::$table[tbl6NK5lGE8Csah0].$field[fldcyEnco5]=EDATE(TODAY(),-12).YEAR(),\"是\",\"否\")",
@@ -1278,6 +1348,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldR9ZPRQh",
             "back_field_name": "关联合同",
@@ -1291,7 +1362,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "flddqrekYn",
@@ -1299,6 +1371,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fld9qTB7Mk",
             "back_field_name": "关联合同",
@@ -1313,6 +1386,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldLyKBql1",
             "back_field_name": "关联合同",
@@ -1326,7 +1400,8 @@
           "field_name": "甲方订单编号",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldfHOTXro",
@@ -1334,6 +1409,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -1367,6 +1443,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -1389,6 +1466,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldLAa8Ubt",
             "back_field_name": "客户管理",
@@ -1403,6 +1481,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "IF(\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldTj1UnXD]\n    .COUNTA() >\n    0,\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldYiZSN8T]\n    .$column[fldqYdqMqN]\n    .LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551],bitable::$table[tbl6NK5lGE8Csah0].$column[fldZ5YzPLc])\n    .LISTCOMBINE()\n    .SUM(),\n    bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldZ5YzPLc].SUM()\n)",
@@ -1422,6 +1501,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "IF(\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldTj1UnXD]\n    .COUNTA() >\n    0,\n  (bitable::$table[tblBd7jMyS5tzmxr].$field[fldh4UP3Aj].SUM()) /\n    IF(YEAR(TODAY()) -\n      bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n        .$column[fldYiZSN8T]\n        .$column[fldqYdqMqN]\n        .LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551],bitable::$table[tbl6NK5lGE8Csah0].$column[fldcyEnco5])\n        .LISTCOMBINE()\n        .MIN() > 0,\n        YEAR(TODAY()) -\n      bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n        .$column[fldYiZSN8T]\n        .$column[fldqYdqMqN]\n        .LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551],bitable::$table[tbl6NK5lGE8Csah0].$column[fldcyEnco5])\n        .LISTCOMBINE()\n        .MIN(), 1),\n  (bitable::$table[tblBd7jMyS5tzmxr].$field[fldh4UP3Aj].SUM()) /\n    IF(YEAR(TODAY()) - bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldcyEnco5].MIN() > 0, YEAR(TODAY()) - bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldcyEnco5].MIN(), 1)\n)",
@@ -1441,6 +1521,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "IF(\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldTj1UnXD]\n    .COUNTA() >\n    0,\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldYiZSN8T].$column[fldqYdqMqN].LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551], bitable::$table[tbl6NK5lGE8Csah0].$column[fldDM9G9Dk])\n    .LISTCOMBINE()\n    .SUM(),\n  bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldDM9G9Dk].SUM()\n)",
@@ -1460,6 +1541,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -1470,6 +1552,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "filter_info": {
               "conditions": {
@@ -1497,6 +1580,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "yyyy/MM/dd",
             "formula_expression": "bitable::$table[tblbHGJwu0t2uoPC]\n  .FILTER(\n    CurrentValue.$column[fldkgSqrsQ].CONTAINTEXT(bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]) ||\n      CurrentValue.$column[fldWqK8sPd].CONTAINTEXT(bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T])\n  )\n  .$column[fld0BIMWJ7]\n  .LISTCOMBINE()\n  .MAX()",
@@ -1515,6 +1599,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 3,
@@ -1578,6 +1663,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 15,
@@ -1621,6 +1707,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "formatter": "",
             "formula_expression": "IF((NOW()-bitable::$table[tblBd7jMyS5tzmxr].$field[fldMNf8jGK]<30)||(NOW()-bitable::$table[tblBd7jMyS5tzmxr].$field[flds9y1U7S]<30),\"否\",\"是\")"
@@ -1631,7 +1718,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldMNf8jGK",
@@ -1639,6 +1727,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "filter_info": {
               "conditions": {
@@ -1666,6 +1755,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "formatter": "",
             "formula_expression": "IF(bitable::$table[tblBd7jMyS5tzmxr].COUNTIF(CurrentValue.$column[fldTj1UnXD]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])>1,\"❗️重复\",\"\")"
@@ -1677,6 +1767,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "multiple": false,
             "table_id": "tblBd7jMyS5tzmxr",
@@ -1688,7 +1779,7 @@
     {
       "table_id": "tblyCsdyV1ywnFbn",
       "name": "流水明细",
-      "revision": 716,
+      "revision": 719,
       "fields": [
         {
           "field_id": "fldNkpVCsx",
@@ -1696,6 +1787,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -1726,6 +1818,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tbl8kQh9XlMp7PQW",
@@ -1738,6 +1831,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 15,
@@ -1771,6 +1865,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblFWIUAjN4tAzGr",
@@ -1783,6 +1878,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -1794,6 +1890,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -1847,6 +1944,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "multiple": false
           }
@@ -1857,6 +1955,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": true,
             "date_formatter": "yyyy/MM/dd"
@@ -1867,14 +1966,16 @@
           "field_name": "交易回执编号",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldYfa8k72",
           "field_name": "流水凭证",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldLyKBql1",
@@ -1882,6 +1983,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "flduZ2r8DK",
             "back_field_name": "流水明细 副本-关联合同",
@@ -1896,6 +1998,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldTLXuVwi",
             "back_field_name": "流水明细 副本-关联发票",
@@ -1909,14 +2012,15 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
     {
       "table_id": "tbleGT2x80302FkX",
       "name": "发票管理",
-      "revision": 1073,
+      "revision": 1074,
       "fields": [
         {
           "field_id": "fldwN8qUvs",
@@ -1924,6 +2028,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -1957,7 +2062,8 @@
           "field_name": "发票号码",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld0eI57X7",
@@ -1965,6 +2071,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -1998,6 +2105,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -2051,6 +2159,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblFWIUAjN4tAzGr",
@@ -2063,6 +2172,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -2176,6 +2286,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -2187,6 +2298,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tbl8kQh9XlMp7PQW",
@@ -2199,6 +2311,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -2210,6 +2323,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "%"
           }
@@ -2220,6 +2334,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tbleGT2x80302FkX].$field[fldoI8hqEL]*bitable::$table[tbleGT2x80302FkX].$field[fldcDR832t]",
@@ -2239,6 +2354,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tbleGT2x80302FkX].$field[fldoI8hqEL]+bitable::$table[tbleGT2x80302FkX].$field[fldiqJdqaI]",
@@ -2258,6 +2374,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tbleGT2x80302FkX].$field[fldTLXuVwi].$column[fldfgSmLLm].SUM()",
@@ -2277,6 +2394,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "flddqrekYn",
             "back_field_name": "发票管理",
@@ -2291,6 +2409,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(\n  bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs] = 0,\n  \"未付款\",\n  IF(\n    ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldiMvHnFG], 2) = ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs], 2),\n    \"已付款\",\n    IF(\n      ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldiMvHnFG], 2) < ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs], 2),\n      \"需退款\",\n      IF(ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldiMvHnFG], 2) > ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs], 2）, \"部分付款\", \"计算错误\")\n    )\n  )\n)",
@@ -2341,14 +2460,16 @@
           "field_name": "发票附件",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldRbRxapI",
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldTLXuVwi",
@@ -2356,6 +2477,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldEomCaqw",
             "back_field_name": "关联发票",
@@ -2370,6 +2492,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -2412,14 +2535,16 @@
           "field_name": "物流单号",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldBwYM87B",
           "field_name": "物流公司",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
@@ -2434,6 +2559,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -2467,7 +2593,8 @@
           "field_name": "项目名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld25xiQfH",
@@ -2475,6 +2602,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblFWIUAjN4tAzGr",
@@ -2487,6 +2615,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -2540,6 +2669,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -2551,6 +2681,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -2562,6 +2693,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldMwHAArU].$column[fldfgSmLLm].SUM(), 2)",
@@ -2581,6 +2713,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(\n  ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldrAivNQM], 2) = 0,\n  \"未付款\",\n  IF(\n    ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldvRyc8fs], 2) = ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldrAivNQM], 2),\n    \"已付款\",\n    IF(\n      ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldvRyc8fs], 2) > ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldrAivNQM], 2),\n      \"部分付款\",\n      \"需退款\"\n    )\n  )\n)",
@@ -2627,6 +2760,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblPoNgxw3euYITn",
@@ -2639,6 +2773,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true,
             "table_id": "tblyCsdyV1ywnFbn",
@@ -2651,6 +2786,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true,
             "table_id": "tbleGT2x80302FkX",
@@ -2662,21 +2798,23 @@
           "field_name": "附件",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldQxBX036",
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
     {
       "table_id": "tblBwpMwOhHtouw7",
       "name": "应收款项",
-      "revision": 72,
+      "revision": 73,
       "fields": [
         {
           "field_id": "fld6qXDMiY",
@@ -2684,6 +2822,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -2717,7 +2856,8 @@
           "field_name": "项目名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldxJjwKJZ",
@@ -2725,6 +2865,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblFWIUAjN4tAzGr",
@@ -2737,6 +2878,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -2770,6 +2912,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -2781,6 +2924,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -2792,6 +2936,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tblBwpMwOhHtouw7].$field[fldJtR7pwY].$column[fldfgSmLLm].SUM()",
@@ -2811,6 +2956,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(\n  ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldXeMqo08], 2) = 0,\n  \"未到款\",\n  IF(\n    ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldIAt0BWL], 2) = ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldXeMqo08], 2),\n    \"已结清\",\n    IF(\n      ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldIAt0BWL], 2) > ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldXeMqo08], 2),\n      \"部分收款\",\n      \"需退款\"\n    )\n  )\n)",
@@ -2857,6 +3003,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true,
             "table_id": "tblyCsdyV1ywnFbn",
@@ -2869,6 +3016,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true,
             "table_id": "tbleGT2x80302FkX",
@@ -2881,6 +3029,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblBwpMwOhHtouw7].$field[fldRARIlvL].$column[fldup3sZg2].$column[fldhZEX45y]",
@@ -2894,14 +3043,16 @@
           "field_name": "附件",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldB72D0BP",
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldRARIlvL",
@@ -2909,6 +3060,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tbl6NK5lGE8Csah0",
@@ -2928,6 +3080,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -2957,7 +3110,8 @@
           "field_name": "费用说明",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldSwbZPMi",
@@ -2965,6 +3119,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -2975,6 +3130,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "¥0.00",
             "formula_expression": "bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"支出\").$column[fldfgSmLLm].SUM()",
@@ -2994,6 +3150,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3027,6 +3184,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"支出\").$column[fldT2WMkxn].FIRST()",
@@ -3040,7 +3198,8 @@
           "field_name": "费用科目明细",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldSxcRESm",
@@ -3048,6 +3207,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(\n  bitable::$table[tblsNpPxjOuWUVuc].$field[fldsgYcqdd] = \"备用金核销\",\n  IF(\n    ROUND(bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"收入\").$column[fldfgSmLLm].SUM(), 2) = ROUND(bitable::$table[tblsNpPxjOuWUVuc].$field[fldWAFyGTC], 2),\n    \"已结清\",\n    \"未结清\"\n  ),\n  IF(\n    bitable::$table[tblsNpPxjOuWUVuc].$field[fldsgYcqdd] = \"员工报销\",\n    IF(\n      ROUND(bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"支出\").$column[fldfgSmLLm].SUM(), 2),\n      \"已结清\",\n      \"未结清\"\n    ),\n    \"未知报销类型\"\n  )\n)",
@@ -3089,6 +3249,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true,
             "table_id": "tblyCsdyV1ywnFbn",
@@ -3101,6 +3262,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true,
             "table_id": "tbleGT2x80302FkX",
@@ -3112,14 +3274,16 @@
           "field_name": "无票凭证",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldrwsFTo6",
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
@@ -3133,28 +3297,32 @@
           "field_name": "编号",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fldAJwsDk8",
           "field_name": "凭证号",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldauEMmHI",
           "field_name": "摘要",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldGFUzvtP",
           "field_name": "会计科目",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldITs125B",
@@ -3162,6 +3330,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -3173,6 +3342,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -3184,6 +3354,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblyCsdyV1ywnFbn",
@@ -3195,21 +3366,23 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
     {
       "table_id": "tblUSq2Ahy107T5g",
       "name": "费用报销",
-      "revision": 2121,
+      "revision": 2125,
       "fields": [
         {
           "field_id": "fldnNUwM35",
           "field_name": "申请编号",
           "type": 15,
           "ui_type": "Url",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fldamAspZC",
@@ -3217,6 +3390,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3300,6 +3474,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3323,6 +3498,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy-MM-dd HH:mm"
@@ -3334,6 +3510,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy-MM-dd HH:mm"
@@ -3345,6 +3522,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true
           }
@@ -3354,7 +3532,8 @@
           "field_name": "发起人部门",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldaX5wpNH",
@@ -3362,6 +3541,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true
           }
@@ -3371,7 +3551,8 @@
           "field_name": "审批节点",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldsGQ5fwM",
@@ -3379,6 +3560,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3461,7 +3643,8 @@
           "field_name": "报销事由",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldaM3GGce",
@@ -3469,6 +3652,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0.00"
           }
@@ -3478,7 +3662,8 @@
           "field_name": "费用明细_内容",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld9FkAwoi",
@@ -3486,6 +3671,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy-MM-dd"
@@ -3497,6 +3683,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0.00"
           }
@@ -3507,6 +3694,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3529,28 +3717,31 @@
           "field_name": "附件",
           "type": 15,
           "ui_type": "Url",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldXf1SgGN",
           "field_name": "SourceID",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         }
       ]
     },
     {
       "table_id": "tbl6P6aWA2Ux4yi5",
       "name": "采购申请",
-      "revision": 2119,
+      "revision": 2123,
       "fields": [
         {
           "field_id": "fldnNUwM35",
           "field_name": "申请编号",
           "type": 15,
           "ui_type": "Url",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fldamAspZC",
@@ -3558,6 +3749,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3641,6 +3833,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3664,6 +3857,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy-MM-dd HH:mm"
@@ -3675,6 +3869,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy-MM-dd HH:mm"
@@ -3686,6 +3881,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true
           }
@@ -3695,7 +3891,8 @@
           "field_name": "发起人部门",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldaX5wpNH",
@@ -3703,6 +3900,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true
           }
@@ -3712,14 +3910,16 @@
           "field_name": "审批节点",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldf0gYyvZ",
           "field_name": "采购事由",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld72bs6CF",
@@ -3727,6 +3927,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3780,6 +3981,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy-MM-dd"
@@ -3790,14 +3992,16 @@
           "field_name": "费用明细_名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldzOUkH8z",
           "field_name": "费用明细_规格",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld5qnW6qb",
@@ -3805,6 +4009,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0.00"
           }
@@ -3815,6 +4020,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0.00"
           }
@@ -3825,6 +4031,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3847,14 +4054,16 @@
           "field_name": "附件",
           "type": 15,
           "ui_type": "Url",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldACI3xHb",
           "field_name": "SourceID",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": true
         }
       ]
     },
@@ -3868,7 +4077,8 @@
           "field_name": "科目名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fldn25Ehbq",
@@ -3876,6 +4086,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0"
           }
@@ -3886,6 +4097,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -3919,6 +4131,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -4072,6 +4285,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -4144,7 +4358,7 @@
     {
       "table_id": "tblIHeTDf3g0bkTs",
       "name": "生产管理",
-      "revision": 662,
+      "revision": 665,
       "fields": [
         {
           "field_id": "fldTFbADFJ",
@@ -4152,6 +4366,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -4186,6 +4401,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "filter_info": {
               "conditions": {
@@ -4213,6 +4429,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldm2dibbp",
             "back_field_name": "生产管理",
@@ -4227,6 +4444,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "filter_info": {
               "conditions": {
@@ -4254,6 +4472,7 @@
           "type": 1001,
           "ui_type": "CreatedTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "date_formatter": "yyyy/MM/dd"
           }
@@ -4264,6 +4483,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -4275,6 +4495,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "filter_info": {
               "conditions": {
@@ -4302,6 +4523,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -4313,6 +4535,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -4324,6 +4547,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -4335,6 +4559,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0"
           }
@@ -4345,6 +4570,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF（bitable::$table[tblIHeTDf3g0bkTs].$field[fldza1PCHb].ISBLANK(), \"\", TEXT(bitable::$table[tblIHeTDf3g0bkTs].$field[fldza1PCHb]+bitable::$table[tblIHeTDf3g0bkTs].$field[fldZbK7DUi]*3/24, \"YYYY-MM-DD\"))"
@@ -4356,6 +4582,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd HH:mm"
@@ -4367,6 +4594,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd HH:mm"
@@ -4378,6 +4606,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(\n  bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldUYNz2Ey] = bitable::$table[tblIHeTDf3g0bkTs].$field[fldIUuc3Or])\n    .$column[fldDhEbQqH] =\n    \"待处理\",\n  \"🔄 等待返工\",\n  IF(\n    bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldUYNz2Ey] = bitable::$table[tblIHeTDf3g0bkTs].$field[fldIUuc3Or])\n      .$column[fldDhEbQqH] =\n      \"处理中\",\n    \"🔨 返工中\",\n    IF(\n      bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldUYNz2Ey] = bitable::$table[tblIHeTDf3g0bkTs].$field[fldIUuc3Or])\n        .$column[fldDhEbQqH] =\n        \"返工完成\",\n      \"☑️ 返工完成\",\n      IF(\n        bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT].ISBLANK() && TODAY() > bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU],\n        \"⚠️ 已延期\",\n        IF(\n          bitable::$table[tblIHeTDf3g0bkTs].$field[fld7tl1yhD].ISBLANK(), \"🔄 待生产\",\n          IF(\n            bitable::$table[tblIHeTDf3g0bkTs].$field[fldPcxIzmi].ISBLANK() && TODAY() <= bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU],\n            \"🔨 生产中\",\n            IF(\n              NOT(bitable::$table[tblIHeTDf3g0bkTs].$field[fldPcxIzmi].ISBLANK()) && TODAY() <= bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU] && bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT].ISBLANK(),\n              \"✅ 生产完毕|待交付\",\n              IF(\n                NOT(bitable::$table[tblIHeTDf3g0bkTs].$field[fld3PSkEWp].ISBLANK()) && TODAY() <= bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU] &&bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT].ISBLANK(),\n                \"🚧 正在交付\",\n                IF(\n                  bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT] > bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU],\n                  \"🔴 延期交付\",\n                  \"🎉 按时交付\"\n                )\n              )\n            )\n          )\n        )\n      )\n    )\n  )\n)",
@@ -4454,6 +4683,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true,
             "table_id": "tblTwnMLGUObYCTl",
@@ -4466,6 +4696,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldOYhrxyf",
             "back_field_name": "生产管理",
@@ -4480,6 +4711,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -4490,6 +4722,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -4499,7 +4732,8 @@
           "field_name": "设计图纸",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldV4II9RB",
@@ -4507,6 +4741,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tbldT6TDHtRrm6NA].FILTER(bitable::$table[tblIHeTDf3g0bkTs].$field[fldMh2WleA].CONTAIN(CurrentValue.$column[fldV7b23Oo])).$column[fld929OGln]",
@@ -4520,21 +4755,24 @@
           "field_name": "质检报告",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldvVF0r1W",
           "field_name": "物流单号",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld5vgfSAv",
           "field_name": "送货单",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldTAlNmRz",
@@ -4542,6 +4780,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd"
@@ -4552,14 +4791,16 @@
           "field_name": "产品照片",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldubPp1H3",
           "field_name": "交付照片",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldDk1U3Fz",
@@ -4567,6 +4808,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldcqyeuGD",
             "back_field_name": "关联生产单",
@@ -4581,6 +4823,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "IF(bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldcqyeuGD]=bitable::$table[tblIHeTDf3g0bkTs].$field[fldTFbADFJ]).ISBLANK(), \"\", bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldcqyeuGD]=bitable::$table[tblIHeTDf3g0bkTs].$field[fldTFbADFJ]).SORTBY(bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].$column[fld5Jd48O3]).LAST())"
@@ -4592,6 +4835,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldvFGw0JD",
             "back_field_name": "关联生产工单",
@@ -4606,6 +4850,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblIHeTDf3g0bkTs].$field[fldR9ZPRQh].$column[fldoEGIrMO]",
@@ -4627,6 +4872,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -4657,6 +4903,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldDk1U3Fz",
             "back_field_name": "返工管理",
@@ -4671,6 +4918,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -4764,6 +5012,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -4797,6 +5046,7 @@
           "type": 1001,
           "ui_type": "CreatedTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "date_formatter": "yyyy/MM/dd"
           }
@@ -4807,6 +5057,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -4857,6 +5108,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -4887,6 +5139,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldMh2WleA",
             "back_field_name": "BOM表",
@@ -4901,6 +5154,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "filter_info": {
               "conditions": {
@@ -4928,6 +5182,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblLuDJe8WU3pny2",
@@ -4939,7 +5194,8 @@
           "field_name": "规格",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldEIdZ8UW",
@@ -4947,6 +5203,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0"
           }
@@ -4957,6 +5214,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "filter_info": {
               "conditions": {
@@ -4983,7 +5241,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldp5VeQPZ",
@@ -4991,6 +5250,7 @@
           "type": 1001,
           "ui_type": "CreatedTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "date_formatter": "yyyy/MM/dd"
           }
@@ -5001,6 +5261,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldV7b23Oo",
             "back_field_name": "BOM表",
@@ -5022,6 +5283,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -5051,7 +5313,8 @@
           "field_name": "规格",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldlMMHQgk",
@@ -5059,6 +5322,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldbZPc4Hr",
             "back_field_name": "库存管理",
@@ -5073,6 +5337,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": true,
             "date_formatter": "yyyy/MM/dd HH:mm"
@@ -5084,6 +5349,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0"
           }
@@ -5094,6 +5360,7 @@
           "type": 19,
           "ui_type": "Lookup",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "filter_info": {
               "conditions": {
@@ -5120,7 +5387,8 @@
           "field_name": "物料证书（MTC/MTR）",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld4XXM9uA",
@@ -5128,6 +5396,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 7,
@@ -5171,6 +5440,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -5181,6 +5451,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd HH:mm"
@@ -5192,6 +5463,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldUoxygRs",
             "back_field_name": "关联物料批次",
@@ -5205,7 +5477,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
@@ -5219,7 +5492,8 @@
           "field_name": "物料名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fld2fPMKjH",
@@ -5227,6 +5501,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -5270,6 +5545,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -5353,6 +5629,7 @@
           "type": 2,
           "ui_type": "Currency",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "currency_code": "CNY",
             "formatter": "0.00"
@@ -5363,7 +5640,8 @@
           "field_name": "技术标准",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldIiZ9SQb",
@@ -5371,6 +5649,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldqx5oyVm",
             "back_field_name": "物料库",
@@ -5385,6 +5664,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblLuDJe8WU3pny2].$field[fldbZPc4Hr].$column[fldjegVXsY].SUM()-bitable::$table[tblLYRkaNqDMqVFv].FILTER(bitable::$table[tblLuDJe8WU3pny2].$field[fldbZPc4Hr].CONTAIN(CurrentValue.$column[fldUoxygRs])).$column[fldEIdZ8UW].SUM()",
@@ -5398,7 +5678,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldbZPc4Hr",
@@ -5406,6 +5687,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldlMMHQgk",
             "back_field_name": "关联物料",
@@ -5426,7 +5708,8 @@
           "field_name": "工序名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fld4dJje0g",
@@ -5434,6 +5717,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true
           }
@@ -5444,6 +5728,7 @@
           "type": 2,
           "ui_type": "Number",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "0"
           }
@@ -5461,6 +5746,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -5483,6 +5769,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false,
             "table_id": "tblTwnMLGUObYCTl",
@@ -5495,6 +5782,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true
           }
@@ -5505,6 +5793,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": true
           }
@@ -5514,7 +5803,8 @@
           "field_name": "检验结果",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fld1ZwLNQI",
@@ -5522,6 +5812,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd HH:mm"
@@ -5532,7 +5823,8 @@
           "field_name": "执行照片",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldOYhrxyf",
@@ -5540,6 +5832,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fld235ksYU",
             "back_field_name": "工序执行",
@@ -5554,6 +5847,7 @@
           "type": 1001,
           "ui_type": "CreatedTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "date_formatter": "yyyy/MM/dd HH:mm"
           }
@@ -5564,6 +5858,7 @@
           "type": 5,
           "ui_type": "DateTime",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "auto_fill": false,
             "date_formatter": "yyyy/MM/dd HH:mm"
@@ -5581,42 +5876,48 @@
           "field_name": "供应商名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fld9OZwtyS",
           "field_name": "联系人",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldLkKpDfr",
           "field_name": "联系方式",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldeVQ2vIx",
           "field_name": "关联流水明细",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldgq2mgd7",
           "field_name": "供应商地址",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldMOjjNrZ",
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldqx5oyVm",
@@ -5624,6 +5925,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldIiZ9SQb",
             "back_field_name": "供应商",
@@ -5637,21 +5939,23 @@
     {
       "table_id": "tbl8kQh9XlMp7PQW",
       "name": "往来单位管理",
-      "revision": 511,
+      "revision": 520,
       "fields": [
         {
           "field_id": "fldhZEX45y",
           "field_name": "单位名称",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": true
+          "is_primary": true,
+          "is_hidden": false
         },
         {
           "field_id": "fld1V8Wxnq",
           "field_name": "单位代码",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldLNkTMhi",
@@ -5659,6 +5963,7 @@
           "type": 4,
           "ui_type": "MultiSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -5692,6 +5997,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 53,
@@ -5855,6 +6161,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -5917,14 +6224,16 @@
           "field_name": "注册地址",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldmuTCG5H",
           "field_name": "通讯地址",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldRGftiad",
@@ -5932,6 +6241,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblPF4egNHEaxtlc].FILTER(bitable::$table[tbl8kQh9XlMp7PQW].$field[fldYMQcbwP].CONTAIN(CurrentValue.$column[fldHs4j2Lr])).$column[fldTuJIKXV].LISTCOMBINE()",
@@ -5946,6 +6256,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldup3sZg2",
             "back_field_name": "客户名称",
@@ -5960,6 +6271,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "back_field_id": "fldO73pbiS",
             "back_field_name": "关联往来单位",
@@ -5974,6 +6286,7 @@
           "type": 18,
           "ui_type": "SingleLink",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "multiple": false,
             "table_id": "tbl8kQh9XlMp7PQW",
@@ -5986,6 +6299,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": true,
           "property": {
             "back_field_id": "fldYiZSN8T",
             "back_field_name": "客户名称",
@@ -5999,21 +6313,24 @@
           "field_name": "统一社会信用代码",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldWeRwm2j",
           "field_name": "对公账号",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldYeg317b",
           "field_name": "对公开户行",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
@@ -6028,6 +6345,7 @@
           "type": 1005,
           "ui_type": "AutoNumber",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "auto_serial": {
               "options": [
@@ -6049,7 +6367,8 @@
           "field_name": "联系人",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldO73pbiS",
@@ -6057,6 +6376,7 @@
           "type": 21,
           "ui_type": "DuplexLink",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "back_field_id": "fldYMQcbwP",
             "back_field_name": "往来单位联系人",
@@ -6070,21 +6390,24 @@
           "field_name": "联系电话",
           "type": 13,
           "ui_type": "Phone",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldpvZo4Zj",
           "field_name": "Email",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldeOvW1ZL",
           "field_name": "微信",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldEsQLzMd",
@@ -6092,6 +6415,7 @@
           "type": 4,
           "ui_type": "MultiSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -6144,7 +6468,8 @@
           "field_name": "备注",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         }
       ]
     },
@@ -6159,6 +6484,7 @@
           "type": 20,
           "ui_type": "Formula",
           "is_primary": true,
+          "is_hidden": false,
           "property": {
             "formatter": "",
             "formula_expression": "bitable::$table[tblShYl1ymSSA4QL].$field[fldBgpiHnT]"
@@ -6170,6 +6496,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }
@@ -6179,7 +6506,8 @@
           "field_name": "员工照片",
           "type": 17,
           "ui_type": "Attachment",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldhVnheUQ",
@@ -6187,6 +6515,7 @@
           "type": 3,
           "ui_type": "SingleSelect",
           "is_primary": false,
+          "is_hidden": false,
           "options": [
             {
               "color": 0,
@@ -6219,7 +6548,8 @@
           "field_name": "工作地点",
           "type": 1,
           "ui_type": "Text",
-          "is_primary": false
+          "is_primary": false,
+          "is_hidden": false
         },
         {
           "field_id": "fldO9HYd2V",
@@ -6227,6 +6557,7 @@
           "type": 11,
           "ui_type": "User",
           "is_primary": false,
+          "is_hidden": false,
           "property": {
             "multiple": false
           }

@@ -1,8 +1,7 @@
 import { getLayoutBySlug, tableLayouts } from "@/generated/crm/manifest";
-import { getRecordCounts } from "@/lib/api/crm-api";
+import { useTableCounts } from "@/lib/api/crm-queries";
 import { Spinner } from "@heroui/react";
 import { ArrowRight, Table2 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Link, Navigate, Outlet, useParams } from "react-router-dom";
 import { CrmI18nProvider, useCrmTranslation } from "./CrmI18nProvider";
 import { CrmLayout } from "./CrmLayout";
@@ -20,24 +19,14 @@ function Loading() {
 
 export function Dashboard() {
   const { t } = useCrmTranslation();
-  const [counts, setCounts] = useState<Record<string, number>>({});
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    let cancelled = false;
-    getRecordCounts(tableLayouts.map((l) => l.tableId))
-      .then(({ counts, errors }) => {
-        if (cancelled) return;
-        setCounts(counts);
-        setErrors(errors);
-      })
-      .catch(() => {
-        /* leave cards showing "—" */
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const { data } = useTableCounts(
+    tableLayouts.map((l) => ({
+      table_id: l.tableId,
+      field_name: l.table.fields.find((f) => f.is_primary)?.field_name,
+    })),
+  );
+  const counts = data?.counts ?? {};
+  const errors = data?.errors ?? {};
 
   return (
     <CrmLayout>

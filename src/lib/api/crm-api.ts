@@ -1,8 +1,6 @@
 import type {
   CrmRecord,
   CrmSessionUser,
-  ListCursor,
-  ListRecordsResult,
   UploadedMedia,
 } from "@/lib/types/crm";
 
@@ -66,21 +64,13 @@ export function getSession(): Promise<CrmSessionUser> {
   return request<CrmSessionUser>("session");
 }
 
-export function listRecords(
+export function getRecordCount(
   tableId: string,
-  cursor?: ListCursor | null,
-  pageSize = 20,
-): Promise<ListRecordsResult> {
-  return request<ListRecordsResult>("records.list", {
-    method: "POST",
-    body: { table_id: tableId, cursor: cursor ?? null, page_size: pageSize },
-  });
-}
-
-export function getRecordCount(tableId: string): Promise<{ total: number }> {
+  fieldName?: string,
+): Promise<{ total: number }> {
   return request<{ total: number }>("records.count", {
     method: "POST",
-    body: { table_id: tableId },
+    body: { table_id: tableId, field_name: fieldName },
   });
 }
 
@@ -103,12 +93,25 @@ export function lookupRecords(
   });
 }
 
+export interface CountTarget {
+  table_id: string;
+  field_name?: string;
+}
+
 export function getRecordCounts(
-  tableIds: string[],
+  tables: CountTarget[],
 ): Promise<{ counts: Record<string, number>; errors: Record<string, string> }> {
   return request<{ counts: Record<string, number>; errors: Record<string, string> }>(
     "records.counts",
-    { method: "POST", body: { table_ids: tableIds } },
+    {
+      method: "POST",
+      body: {
+        table_ids: tables.map((t) => t.table_id),
+        field_names: Object.fromEntries(
+          tables.filter((t) => t.field_name).map((t) => [t.table_id, t.field_name]),
+        ),
+      },
+    },
   );
 }
 
@@ -116,6 +119,13 @@ export function createRecord(tableId: string, fields: Record<string, unknown>) {
   return request<{ record_id: string }>("records.create", {
     method: "POST",
     body: { table_id: tableId, fields },
+  });
+}
+
+export function getRecord(tableId: string, recordId: string) {
+  return request<{ record: CrmRecord }>("records.get", {
+    method: "POST",
+    body: { table_id: tableId, record_id: recordId },
   });
 }
 

@@ -59,10 +59,25 @@ async function main() {
 
   const result: unknown[] = [];
   for (const table of tables) {
-    const fieldsRes = await fetch(
-      `${FEISHU_DOMAIN}/open-apis/bitable/v1/apps/${BASE_TOKEN}/tables/${table.table_id}/fields?page_size=100`,
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+    // Feishu only reports `is_hidden` per-field when queried against a view, so
+    // resolve the table's grid view first (falling back to the first view).
+    let viewId: string | undefined;
+    try {
+      const viewsRes = await fetch(
+        `${FEISHU_DOMAIN}/open-apis/bitable/v1/apps/${BASE_TOKEN}/tables/${table.table_id}/views?page_size=100`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      const viewsData = await viewsRes.json();
+      const views = viewsData.data?.items ?? [];
+      viewId = (views.find((v: any) => v.view_type === "grid") ?? views[0])?.view_id;
+    } catch {
+      viewId = undefined;
+    }
+
+    const fieldsUrl =
+      `${FEISHU_DOMAIN}/open-apis/bitable/v1/apps/${BASE_TOKEN}/tables/${table.table_id}/fields?page_size=100` +
+      (viewId ? `&view_id=${viewId}` : "");
+    const fieldsRes = await fetch(fieldsUrl, { headers: { Authorization: `Bearer ${token}` } });
     const fieldsData = await fieldsRes.json();
     if (fieldsData.code !== 0) throw new Error(`list fields error: ${JSON.stringify(fieldsData)}`);
     const fields = (fieldsData.data?.items ?? []).map((f: any) => ({
@@ -71,6 +86,7 @@ async function main() {
       type: f.type,
       ui_type: f.ui_type,
       is_primary: !!f.is_primary,
+      is_hidden: !!f.is_hidden,
       options: f.property?.options ?? undefined,
       property: f.property ?? undefined,
     }));

@@ -39,6 +39,7 @@ export interface FieldDefinition {
   type: FieldType;
   ui_type: string;
   is_primary: boolean;
+  is_hidden?: boolean;
   options?: SelectOption[];
   property?: Record<string, unknown>;
 }

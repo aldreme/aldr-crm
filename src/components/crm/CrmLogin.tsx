@@ -3,14 +3,6 @@ import { CrmI18nProvider, useCrmTranslation } from "./CrmI18nProvider";
 import { Button } from "@heroui/react";
 import { Table2 } from "lucide-react";
 
-function FeishuLogo() {
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden>
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 4.2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3Zm0 12c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08A6.98 6.98 0 0 1 12 18.2Z" />
-    </svg>
-  );
-}
-
 function CrmLoginContent() {
   const { t } = useCrmTranslation();
   return (
@@ -36,10 +28,18 @@ function CrmLoginContent() {
             <p className="text-sm text-gray-500">{t("crm.login.subtitle")}</p>
           </div>
           <Button
-            className="w-full h-12 font-semibold shadow-lg shadow-blue-500/30"
+            className="w-full h-12 font-semibold shadow-lg shadow-[#3370FF]/30 !bg-[#3370FF] data-[hover=true]:!bg-[#2b5fe0]"
             color="primary"
             radius="full"
-            startContent={<FeishuLogo />}
+            startContent={
+              <img
+                src="/feishu-logo.png"
+                alt="Feishu"
+                width={20}
+                height={20}
+                className="brightness-0 invert"
+              />
+            }
             onPress={() => {
               window.location.href = loginUrl(window.location.origin);
             }}
