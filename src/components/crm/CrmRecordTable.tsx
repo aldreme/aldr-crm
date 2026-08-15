@@ -144,9 +144,6 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
             {table.name}
           </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            {records.length} {t("crm.records")}
-          </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center rounded-full border border-gray-200 dark:border-zinc-700 p-1">

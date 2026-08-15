@@ -202,7 +202,7 @@ async function createSession(session: Omit<Session, "sessionId">): Promise<strin
 // ---------------------------------------------------------------------------
 
 async function actionLogin(req: Request, url: URL): Promise<Response> {
-  const redirectTo = url.searchParams.get("redirect_to") || `${siteUrl()}/crm`;
+  const redirectTo = url.searchParams.get("redirect_to") || siteUrl();
   // When relayed through the Astro BFF, the OAuth redirect_uri points at the
   // site's own callback instead of this function.
   const redirectUri = url.searchParams.get("redirect_uri") || baseFunctionUrl(req);
@@ -253,7 +253,7 @@ async function actionCallback(req: Request, url: URL): Promise<Response> {
     return json({ error: "invalid state" }, 400);
   }
   const redirectTo =
-    (statePayload.redirect_to as string) || `${siteUrl()}/crm`;
+    (statePayload.redirect_to as string) || siteUrl();
   const redirectUri =
     (statePayload.redirect_uri as string) || baseFunctionUrl(req);
 
@@ -334,7 +334,7 @@ async function actionLogout(req: Request): Promise<Response> {
   return new Response(null, {
     status: 302,
     headers: {
-      Location: `${siteUrl()}/crm/login`,
+      Location: `${siteUrl()}/login`,
       "Set-Cookie": buildSessionCookie("", req, 0),
     },
   });

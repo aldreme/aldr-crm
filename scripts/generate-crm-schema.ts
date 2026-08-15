@@ -10,9 +10,16 @@ import dotenv from "dotenv";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 
-dotenv.config({ path: join(root, ".env") });
-dotenv.config({ path: join(root, ".env.local") });
-dotenv.config({ path: join(root, ".env.development.local") });
+// The testing and prod Feishu bases have different table/field ids, so the
+// schema snapshot is environment-specific. Load env files in Vite-style
+// precedence (highest priority last) and key off NODE_ENV:
+//   - dev (default) → .env.development.local → testing base
+//   - production     → .env.local               → prod base
+const mode = process.env.NODE_ENV === "production" ? "production" : "development";
+dotenv.config({ path: join(root, ".env"), override: true });
+dotenv.config({ path: join(root, ".env.local"), override: true });
+dotenv.config({ path: join(root, `.env.${mode}`), override: true });
+dotenv.config({ path: join(root, `.env.${mode}.local`), override: true });
 
 const FEISHU_DOMAIN = "https://open.feishu.cn";
 const APP_ID = process.env.FEISHU_APP_ID;
@@ -20,8 +27,9 @@ const APP_SECRET = process.env.FEISHU_APP_SECRET;
 const BASE_TOKEN = process.env.FEISHU_BASE_APP_TOKEN;
 
 const OUT_DIR = join(root, "src", "generated", "crm");
-const SCHEMA_PATH = join(OUT_DIR, "schema.json");
-const FINGERPRINT_PATH = join(OUT_DIR, "fingerprint.txt");
+const target = mode === "production" ? "prod" : "dev";
+const SCHEMA_PATH = join(OUT_DIR, `schema.${target}.json`);
+const FINGERPRINT_PATH = join(OUT_DIR, `fingerprint.${target}.txt`);
 
 async function tenantToken(): Promise<string> {
   const res = await fetch(`${FEISHU_DOMAIN}/open-apis/auth/v3/tenant_access_token/internal`, {
@@ -81,7 +89,7 @@ async function main() {
   mkdirSync(OUT_DIR, { recursive: true });
   writeFileSync(SCHEMA_PATH, json);
   writeFileSync(FINGERPRINT_PATH, fingerprint + "\n");
-  console.log(`wrote schema.json (${result.length} tables, fingerprint ${fingerprint})`);
+  console.log(`wrote schema.${target}.json (${result.length} tables, fingerprint ${fingerprint})`);
 }
 
 main().catch((err) => {

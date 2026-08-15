@@ -1,10 +1,16 @@
 import { tableLayouts } from "@/generated/crm/manifest";
 import { useCrmSession } from "./CrmSessionProvider";
-import { useCrmTranslation } from "./CrmI18nProvider";
+import { type CrmLocale, useCrmTranslation } from "./CrmI18nProvider";
 import { CrmDialogContainer } from "./CrmDialogContainer";
 import { cn } from "@/lib/utils";
-import { HeroUIProvider } from "@heroui/react";
-import { LayoutDashboard, LogOut, Table2 } from "lucide-react";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  HeroUIProvider,
+} from "@heroui/react";
+import { ChevronDown, Languages, LayoutDashboard, LogOut, Table2 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 interface CrmLayoutProps {
@@ -13,7 +19,7 @@ interface CrmLayoutProps {
 }
 
 export function CrmLayout({ currentTableId, children }: CrmLayoutProps) {
-  const { t } = useCrmTranslation();
+  const { t, locale, setLocale } = useCrmTranslation();
   const { user, logout } = useCrmSession();
   const { pathname: path } = useLocation();
 
@@ -67,6 +73,27 @@ export function CrmLayout({ currentTableId, children }: CrmLayoutProps) {
           </nav>
 
           <div className="p-4 border-t border-gray-100 dark:border-zinc-800/50">
+            <Dropdown placement="top-start">
+              <DropdownTrigger>
+                <button className="mb-3 flex items-center w-full px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
+                  <Languages className="w-4 h-4 mr-3" />
+                  <span className="flex-1 text-left">
+                    {locale === "zh" ? t("crm.locale.zh") : t("crm.locale.en")}
+                  </span>
+                  <ChevronDown className="w-4 h-4 opacity-50" />
+                </button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label={t("crm.locale.switch")}
+                selectionMode="single"
+                selectedKeys={new Set([locale])}
+                disallowEmptySelection
+                onAction={(key) => setLocale(key as CrmLocale)}
+              >
+                <DropdownItem key="zh">{t("crm.locale.zh")}</DropdownItem>
+                <DropdownItem key="en">{t("crm.locale.en")}</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
             {user && (
               <div className="mb-3 flex items-center gap-2 px-1">
                 {user.avatarUrl ? (

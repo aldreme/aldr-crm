@@ -1,10 +1,16 @@
 // CRM table manifest. Maps each CRM-related Feishu Base table to its statically
-// generated per-table layout component. Regenerate schema via
-// `pnpm tsx scripts/generate-crm-schema.ts` and re-run the per-table generators
-// when the Feishu schema changes.
+// generated per-table layout component. Regenerate schemas via
+// `pnpm gen:crm-schema` (testing) / `pnpm gen:crm-schema:prod` (prod).
+//
+// Testing and prod Feishu bases have different table/field ids, so two schema
+// snapshots are committed and the correct one is selected at build time
+// (Vite `import.meta.env.PROD`).
 import type { ComponentType } from "react";
 import type { FieldDefinition, TableDefinition } from "@/lib/types/crm";
-import schema from "./schema.json";
+import schemaDev from "./schema.dev.json";
+import schemaProd from "./schema.prod.json";
+
+const schema = import.meta.env.PROD ? schemaProd : schemaDev;
 
 import BusinessPartnersTableLayout from "./tables/BusinessPartnersTableLayout";
 import ContractsTableLayout from "./tables/ContractsTableLayout";
@@ -18,36 +24,39 @@ import PartnerContactsTableLayout from "./tables/PartnerContactsTableLayout";
 // production/inventory tables (流水明细, 发票管理, 应付款项, 应收款项, 费用报销,
 // 记账凭证, 采购申请, 会计科目, 生产管理, 返工管理, BOM表, 库存管理, 物料库,
 // 工序管理, 工序执行表, 供应商管理) are intentionally excluded.
-const CRM_TABLE_IDS = new Set([
-  "tblbaY45PfVbmSi3", // 线索管理 (Leads)
-  "tblafGbwGmJRGaKo", // 商机管理 (Opportunities)
-  "tblRetCmAYf60U8o", // 跟进记录 (Follow-ups)
-  "tblajabfE6jPibF4", // 合同管理 (Contracts)
-  "tbl62FWZXQDOxSmI", // 客户管理 (Customers)
-  "tblACJrUKaxQYxlk", // 往来单位管理 (Accounts)
-  "tblSsWyzzJL9g6uu", // 往来单位联系人 (Contacts)
+//
+// Tables are matched by *name* (stable across the testing and prod Feishu bases)
+// rather than by table_id, because table ids differ between bases.
+const CRM_TABLE_NAMES = new Set([
+  "线索管理", // Leads
+  "商机管理", // Opportunities
+  "跟进记录", // Follow-ups
+  "合同管理", // Contracts
+  "客户管理", // Customers
+  "往来单位管理", // Accounts / Business Partners
+  "往来单位联系人", // Contacts
 ]);
 
 type TableComponent = ComponentType<{ table: TableDefinition }>;
 
 const components: Record<string, TableComponent> = {
-  tblbaY45PfVbmSi3: LeadsTableLayout,
-  tblafGbwGmJRGaKo: OpportunitiesTableLayout,
-  tblRetCmAYf60U8o: FollowUpsTableLayout,
-  tblajabfE6jPibF4: ContractsTableLayout,
-  tbl62FWZXQDOxSmI: CustomersTableLayout,
-  tblACJrUKaxQYxlk: BusinessPartnersTableLayout,
-  tblSsWyzzJL9g6uu: PartnerContactsTableLayout,
+  线索管理: LeadsTableLayout,
+  商机管理: OpportunitiesTableLayout,
+  跟进记录: FollowUpsTableLayout,
+  合同管理: ContractsTableLayout,
+  客户管理: CustomersTableLayout,
+  往来单位管理: BusinessPartnersTableLayout,
+  往来单位联系人: PartnerContactsTableLayout,
 };
 
 const slugs: Record<string, string> = {
-  tblbaY45PfVbmSi3: "leads",
-  tblafGbwGmJRGaKo: "opportunities",
-  tblRetCmAYf60U8o: "follow-ups",
-  tblajabfE6jPibF4: "contracts",
-  tbl62FWZXQDOxSmI: "customers",
-  tblACJrUKaxQYxlk: "business-partners",
-  tblSsWyzzJL9g6uu: "partner-contacts",
+  线索管理: "leads",
+  商机管理: "opportunities",
+  跟进记录: "follow-ups",
+  合同管理: "contracts",
+  客户管理: "customers",
+  往来单位管理: "business-partners",
+  往来单位联系人: "partner-contacts",
 };
 
 interface RawField {
@@ -81,10 +90,10 @@ export interface TableLayoutDef {
 }
 
 export const tableLayouts: TableLayoutDef[] = (schema as unknown as RawSchema).tables
-  .filter((t) => CRM_TABLE_IDS.has(t.table_id))
+  .filter((t) => CRM_TABLE_NAMES.has(t.name))
   .map((t) => ({
     tableId: t.table_id,
-    slug: slugs[t.table_id] ?? t.table_id,
+    slug: slugs[t.name] ?? t.table_id,
     name: t.name,
     table: {
       table_id: t.table_id,
@@ -92,7 +101,7 @@ export const tableLayouts: TableLayoutDef[] = (schema as unknown as RawSchema).t
       revision: t.revision,
       fields: t.fields as FieldDefinition[],
     },
-    Component: components[t.table_id],
+    Component: components[t.name],
   }));
 
 export function getLayoutByTableId(tableId: string): TableLayoutDef | undefined {

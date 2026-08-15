@@ -18,7 +18,9 @@ interface CrmI18nContextType {
 const CrmI18nContext = createContext<CrmI18nContextType | undefined>(undefined);
 
 export function CrmI18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<CrmLocale>("en");
+  // Default to Chinese: the CRM data (Feishu table/field names) is Chinese and
+  // the primary users are the Chinese ALDR team.
+  const [locale, setLocaleState] = useState<CrmLocale>("zh");
 
   useEffect(() => {
     const saved = localStorage.getItem("crm_locale") as CrmLocale;

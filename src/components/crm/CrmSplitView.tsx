@@ -53,6 +53,13 @@ function sortValue(field: FieldDefinition, value: unknown): number | string | nu
   }
 }
 
+// The left panel lists records, so label it as a list rather than reusing the
+// page title (e.g. "合同管理" → "合同列表"). The "list" word is localized.
+function listPanelTitle(name: string, listWord: string): string {
+  const base = name.replace(/管理$/, "");
+  return `${base}${listWord}`;
+}
+
 export function CrmSplitView({
   table,
   columns,
@@ -129,7 +136,9 @@ export function CrmSplitView({
       <div className="lg:w-80 flex-shrink-0 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 flex flex-col overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-zinc-800">
           <div className="min-w-0">
-            <h2 className="font-semibold text-gray-900 dark:text-white truncate">{table.name}</h2>
+            <h2 className="font-semibold text-gray-900 dark:text-white truncate">
+              {listPanelTitle(table.name, t("crm.view.split"))}
+            </h2>
             <p className="text-xs text-gray-400">
               {sortedItems.length} {t("crm.records")}
             </p>

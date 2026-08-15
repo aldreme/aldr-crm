@@ -1,0 +1,6237 @@
+{
+  "base_token": "ZwxwbqXYIapMw7sqBVPcYOB4nkf",
+  "tables": [
+    {
+      "table_id": "tblBgJL8t2hyTKz6",
+      "name": "线索管理",
+      "revision": 358,
+      "fields": [
+        {
+          "field_id": "fldt6slobX",
+          "field_name": "线索名称",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": true,
+          "property": {
+            "formatter": "",
+            "formula_expression": "CONCATENATE(LEFT(bitable::$table[tblBgJL8t2hyTKz6].$field[fldepI8PT4],5),\"-\",IF(bitable::$table[tblBgJL8t2hyTKz6].$field[fld5Kbag4q]=\"\",CONCATENATE(bitable::$table[tblBgJL8t2hyTKz6].$field[fldKRG6mgR],\"-\",bitable::$table[tblBgJL8t2hyTKz6].$field[fldaxyzzbS]),bitable::$table[tblBgJL8t2hyTKz6].$field[fld5Kbag4q]))"
+          }
+        },
+        {
+          "field_id": "fldepI8PT4",
+          "field_name": "线索描述",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldaGWez2X",
+          "field_name": "线索状态",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(NOT(bitable::$table[tblBgJL8t2hyTKz6].$field[fldkXXOhUW].ISBLANK()),\"已转化\",IF(NOT(bitable::$table[tblBgJL8t2hyTKz6].$field[fldcFEPDCD].ISBLANK()),\"跟进中\",\"未跟进\"))",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 0,
+                    "id": "optUNc9Z1D",
+                    "name": "未跟进"
+                  },
+                  {
+                    "color": 1,
+                    "id": "optMVU0O1U",
+                    "name": "跟进中"
+                  },
+                  {
+                    "color": 2,
+                    "id": "opt4makqMj",
+                    "name": "已转化"
+                  },
+                  {
+                    "color": 32,
+                    "id": "opt08NrUa0",
+                    "name": "已失效"
+                  },
+                  {
+                    "color": 3,
+                    "id": "optXXm9aFv",
+                    "name": ""
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fldcFEPDCD",
+          "field_name": "客户跟进记录",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldkgSqrsQ",
+            "back_field_name": "关联线索",
+            "multiple": true,
+            "table_id": "tblbHGJwu0t2uoPC",
+            "table_name": "跟进记录"
+          }
+        },
+        {
+          "field_id": "fld6hvFemm",
+          "field_name": "潜在采购价值",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldkXXOhUW",
+          "field_name": "转化商机",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fld5R1kp8S",
+            "back_field_name": "线索管理",
+            "multiple": false,
+            "table_id": "tblYbqd9fIvN2miM",
+            "table_name": "商机管理"
+          }
+        },
+        {
+          "field_id": "fldELRctza",
+          "field_name": "线索级别",
+          "type": 2,
+          "ui_type": "Rating",
+          "is_primary": false,
+          "property": {
+            "formatter": "0",
+            "max": 5,
+            "min": 1,
+            "rating": {
+              "symbol": "star"
+            }
+          }
+        },
+        {
+          "field_id": "fldXykEwAJ",
+          "field_name": "客户类型",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldYiZSN8T]=bitable::$table[tblBgJL8t2hyTKz6].$field[fld5Kbag4q]).$column[fldKMAXDa2].FIRST()",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 2,
+                    "id": "optyibRLXo",
+                    "name": "潜在客户"
+                  },
+                  {
+                    "color": 15,
+                    "id": "optBzmQI34",
+                    "name": "新客户"
+                  },
+                  {
+                    "color": 5,
+                    "id": "optNIkm7Oi",
+                    "name": "已流失"
+                  },
+                  {
+                    "color": 9,
+                    "id": "optAMChOWp",
+                    "name": "现有客户"
+                  },
+                  {
+                    "color": 4,
+                    "id": "opt6hnysPC",
+                    "name": ""
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fld5Kbag4q",
+          "field_name": "客户名称",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fld20YPzJk",
+          "field_name": "线索负责人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fldKRG6mgR",
+          "field_name": "潜在客户名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldaxyzzbS",
+          "field_name": "潜在客户行业",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 53,
+              "id": "optR7BCUus",
+              "name": "生物"
+            },
+            {
+              "color": 51,
+              "id": "opthjFITnW",
+              "name": "医疗"
+            },
+            {
+              "color": 3,
+              "id": "optOgsjEZl",
+              "name": "食品"
+            },
+            {
+              "color": 4,
+              "id": "opt7Asz2YB",
+              "name": "制造"
+            },
+            {
+              "color": 7,
+              "id": "opt9H1oPLv",
+              "name": "其他"
+            },
+            {
+              "color": 0,
+              "id": "optiamieOL",
+              "name": "制药"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 53,
+                "id": "optR7BCUus",
+                "name": "生物"
+              },
+              {
+                "color": 51,
+                "id": "opthjFITnW",
+                "name": "医疗"
+              },
+              {
+                "color": 3,
+                "id": "optOgsjEZl",
+                "name": "食品"
+              },
+              {
+                "color": 4,
+                "id": "opt7Asz2YB",
+                "name": "制造"
+              },
+              {
+                "color": 7,
+                "id": "opt9H1oPLv",
+                "name": "其他"
+              },
+              {
+                "color": 0,
+                "id": "optiamieOL",
+                "name": "制药"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldMuyOvP0",
+          "field_name": "潜在客户联系人",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldGxnKv7x",
+          "field_name": "潜在客户联系人职位",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldGjxOjUP",
+          "field_name": "潜在客户联系方式",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld90ek2aV",
+          "field_name": "线索区域",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldWYghkrG",
+                    "field_type": 20,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tblShYl1ymSSA4QL"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblShYl1ymSSA4QL].FILTER(CurrentValue.$column[fldWYghkrG]=bitable::$table[tblBgJL8t2hyTKz6].$field[fld20YPzJk]).$column[fldhVnheUQ].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldhVnheUQ"
+          }
+        },
+        {
+          "field_id": "fldRGSZ1Tj",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldUY8GhbH",
+          "field_name": "线索创建时间",
+          "type": 1001,
+          "ui_type": "CreatedTime",
+          "is_primary": false,
+          "property": {
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldNLHj7Vb",
+          "field_name": "是否失效",
+          "type": 7,
+          "ui_type": "Checkbox",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblYbqd9fIvN2miM",
+      "name": "商机管理",
+      "revision": 178,
+      "fields": [
+        {
+          "field_id": "fld0BPUShc",
+          "field_name": "商机名称",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": true,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblYbqd9fIvN2miM].$field[fld7iTxfDE]&\"-\"&bitable::$table[tblYbqd9fIvN2miM].$field[fldjl72aUL]&\"-\"&bitable::$table[tblYbqd9fIvN2miM].$field[fld3oVCMMC]",
+            "type": {
+              "data_type": 1
+            }
+          }
+        },
+        {
+          "field_id": "fld3oVCMMC",
+          "field_name": "客户名称",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fldjl72aUL",
+          "field_name": "商机描述",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldUNbAg1I",
+          "field_name": "业务价值",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fld3R3MBej",
+          "field_name": "跟进销售人员",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fld7iTxfDE",
+          "field_name": "跟进阶段",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 6,
+              "id": "optzbesO4i",
+              "name": "待接触"
+            },
+            {
+              "color": 8,
+              "id": "opt4U0j3x0",
+              "name": "初步提议"
+            },
+            {
+              "color": 7,
+              "id": "optcSikVHD",
+              "name": "方案报价"
+            },
+            {
+              "color": 0,
+              "id": "opt9xehRw9",
+              "name": "协商议价"
+            },
+            {
+              "color": 37,
+              "id": "optZiVB31c",
+              "name": "赢单"
+            },
+            {
+              "color": 24,
+              "id": "opt6A7IymN",
+              "name": "丢单"
+            },
+            {
+              "color": 1,
+              "id": "opt47PMH06",
+              "name": "打样"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 6,
+                "id": "optzbesO4i",
+                "name": "待接触"
+              },
+              {
+                "color": 8,
+                "id": "opt4U0j3x0",
+                "name": "初步提议"
+              },
+              {
+                "color": 7,
+                "id": "optcSikVHD",
+                "name": "方案报价"
+              },
+              {
+                "color": 0,
+                "id": "opt9xehRw9",
+                "name": "协商议价"
+              },
+              {
+                "color": 37,
+                "id": "optZiVB31c",
+                "name": "赢单"
+              },
+              {
+                "color": 24,
+                "id": "opt6A7IymN",
+                "name": "丢单"
+              },
+              {
+                "color": 1,
+                "id": "opt47PMH06",
+                "name": "打样"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld0j4AOnT",
+          "field_name": "销售区域",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {},
+              "target_table": ""
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblShYl1ymSSA4QL].FILTER(CurrentValue.$column[fldBgpiHnT]=bitable::$table[tblYbqd9fIvN2miM].$field[fld3R3MBej]).$column[fldhVnheUQ].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": ""
+          }
+        },
+        {
+          "field_id": "fldU7EVQ9d",
+          "field_name": "BD经理",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldBgpiHnT",
+                    "field_type": 11,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tblShYl1ymSSA4QL"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblShYl1ymSSA4QL].FILTER(CurrentValue.$column[fldBgpiHnT]=bitable::$table[tblYbqd9fIvN2miM].$field[fld3R3MBej]).$column[fldO9HYd2V].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldO9HYd2V"
+          }
+        },
+        {
+          "field_id": "fldazfE0bp",
+          "field_name": "预计签单日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldjg5bG8X",
+          "field_name": "商机创建人",
+          "type": 1003,
+          "ui_type": "CreatedUser",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld0NU2dkJ",
+          "field_name": "查看详情",
+          "type": 3001,
+          "ui_type": "Button",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldjTtAmGV",
+          "field_name": "添加跟进记录",
+          "type": 3001,
+          "ui_type": "Button",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld54dit5X",
+          "field_name": "客户跟进记录",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldWqK8sPd",
+            "back_field_name": "商机名称",
+            "multiple": true,
+            "table_id": "tblbHGJwu0t2uoPC",
+            "table_name": "跟进记录"
+          }
+        },
+        {
+          "field_id": "fld5R1kp8S",
+          "field_name": "线索管理",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldkXXOhUW",
+            "back_field_name": "转化商机",
+            "multiple": false,
+            "table_id": "tblBgJL8t2hyTKz6",
+            "table_name": "线索管理"
+          }
+        },
+        {
+          "field_id": "fldQVfuVuw",
+          "field_name": "关联合同",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldglsBGo7",
+            "back_field_name": "商机",
+            "multiple": true,
+            "table_id": "tbl6NK5lGE8Csah0",
+            "table_name": "合同管理"
+          }
+        },
+        {
+          "field_id": "fld01sRK6l",
+          "field_name": "报价文件",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldToZaJLo",
+          "field_name": "商机创建时间",
+          "type": 1001,
+          "ui_type": "CreatedTime",
+          "is_primary": false,
+          "property": {
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldUlIikS4",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblbHGJwu0t2uoPC",
+      "name": "跟进记录",
+      "revision": 305,
+      "fields": [
+        {
+          "field_id": "fldaoWFCum",
+          "field_name": "跟进内容",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": true
+        },
+        {
+          "field_id": "fldz8MaDq0",
+          "field_name": "跟进类型",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optVMtiRj1",
+              "name": "线索"
+            },
+            {
+              "color": 1,
+              "id": "optt0ruztK",
+              "name": "商机"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optVMtiRj1",
+                "name": "线索"
+              },
+              {
+                "color": 1,
+                "id": "optt0ruztK",
+                "name": "商机"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldkgSqrsQ",
+          "field_name": "关联线索",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldcFEPDCD",
+            "back_field_name": "客户跟进记录",
+            "multiple": false,
+            "table_id": "tblBgJL8t2hyTKz6",
+            "table_name": "线索管理"
+          }
+        },
+        {
+          "field_id": "fldWqK8sPd",
+          "field_name": "关联商机",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fld54dit5X",
+            "back_field_name": "客户跟进记录",
+            "multiple": false,
+            "table_id": "tblYbqd9fIvN2miM",
+            "table_name": "商机管理"
+          }
+        },
+        {
+          "field_id": "fld8wV0rUh",
+          "field_name": "跟进目的",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt9AOHMFe",
+              "name": "线索挖掘"
+            },
+            {
+              "color": 1,
+              "id": "optSeTNwqe",
+              "name": "项目推进"
+            },
+            {
+              "color": 2,
+              "id": "optihM1tBs",
+              "name": "定期回访"
+            },
+            {
+              "color": 3,
+              "id": "optJLbotyD",
+              "name": "售后服务"
+            },
+            {
+              "color": 4,
+              "id": "optBAOduDg",
+              "name": "潜在商机"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt9AOHMFe",
+                "name": "线索挖掘"
+              },
+              {
+                "color": 1,
+                "id": "optSeTNwqe",
+                "name": "项目推进"
+              },
+              {
+                "color": 2,
+                "id": "optihM1tBs",
+                "name": "定期回访"
+              },
+              {
+                "color": 3,
+                "id": "optJLbotyD",
+                "name": "售后服务"
+              },
+              {
+                "color": 4,
+                "id": "optBAOduDg",
+                "name": "潜在商机"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldkMzf56r",
+          "field_name": "跟进形式",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 18,
+              "id": "optSAREJra",
+              "name": "电话沟通"
+            },
+            {
+              "color": 15,
+              "id": "optTLOHPPZ",
+              "name": "现场拜访"
+            },
+            {
+              "color": 0,
+              "id": "optg7Dn0kY",
+              "name": "Email"
+            },
+            {
+              "color": 1,
+              "id": "optWjXKoHi",
+              "name": "客户上门拜访"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 18,
+                "id": "optSAREJra",
+                "name": "电话沟通"
+              },
+              {
+                "color": 15,
+                "id": "optTLOHPPZ",
+                "name": "现场拜访"
+              },
+              {
+                "color": 0,
+                "id": "optg7Dn0kY",
+                "name": "Email"
+              },
+              {
+                "color": 1,
+                "id": "optWjXKoHi",
+                "name": "客户上门拜访"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldWWqQlzw",
+          "field_name": "跟进人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fld0BIMWJ7",
+          "field_name": "跟进时间",
+          "type": 1001,
+          "ui_type": "CreatedTime",
+          "is_primary": false,
+          "property": {
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldIWfINTx",
+          "field_name": "跟进笔记",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldsqbJTTG",
+          "field_name": "优先级",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IFS(\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].ISBLANK()) && (bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fldELRctza] <= 2), \"低\",\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].ISBLANK()) && (bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fldELRctza] <= 4), \"中\",\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].ISBLANK()) && (bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fldELRctza] = 5), \"高\",\n  NOT(bitable::$table[tblbHGJwu0t2uoPC].$field[fldWqK8sPd].ISBLANK()), \"高\"\n)",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 0,
+                    "id": "optsKXvpFo",
+                    "name": "低"
+                  },
+                  {
+                    "color": 1,
+                    "id": "optgv7lDvY",
+                    "name": "中"
+                  },
+                  {
+                    "color": 33,
+                    "id": "optp3cVOrE",
+                    "name": "高"
+                  },
+                  {
+                    "color": 3,
+                    "id": "optOHDq1mW",
+                    "name": ""
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fldHCKwfps",
+          "field_name": "跟进评分",
+          "type": 2,
+          "ui_type": "Rating",
+          "is_primary": false,
+          "property": {
+            "formatter": "0",
+            "max": 5,
+            "min": 1,
+            "rating": {
+              "symbol": "star"
+            }
+          }
+        },
+        {
+          "field_id": "fldA2ULdKI",
+          "field_name": "下次跟进时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldsXmM3mU",
+          "field_name": "跟进内容照片",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false,
+          "property": {
+            "allowed_edit_modes": {
+              "manual": false,
+              "scan": true
+            }
+          }
+        },
+        {
+          "field_id": "fldIlQuByo",
+          "field_name": "跟进妙记链接",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldeTdXUwK",
+          "field_name": "提醒跟进",
+          "type": 3001,
+          "ui_type": "Button",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldvnda4VC",
+          "field_name": "客户名称",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fld5Kbag4q].ISBLANK(), bitable::$table[tblbHGJwu0t2uoPC].$field[fldWqK8sPd].$column[fld3oVCMMC], bitable::$table[tblbHGJwu0t2uoPC].$field[fldkgSqrsQ].$column[fld5Kbag4q])",
+            "type": {
+              "data_type": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tbl6NK5lGE8Csah0",
+      "name": "合同管理",
+      "revision": 1792,
+      "fields": [
+        {
+          "field_id": "fldfWAH551",
+          "field_name": "合同编号",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": true,
+          "property": {
+            "formatter": "",
+            "formula_expression": "\"PO-\"&bitable::$table[tbl6NK5lGE8Csah0].$field[fldup3sZg2].$column[fld1V8Wxnq]& \"-\" &bitable::$table[tbl6NK5lGE8Csah0].$field[fldfHOTXro]",
+            "type": {
+              "data_type": 1
+            }
+          }
+        },
+        {
+          "field_id": "fldVOgxRzi",
+          "field_name": "项目名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldup3sZg2",
+          "field_name": "客户名称",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldqYdqMqN",
+            "back_field_name": "合同管理",
+            "multiple": true,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fldglsBGo7",
+          "field_name": "关联商机",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldQVfuVuw",
+            "back_field_name": "合同管理",
+            "multiple": true,
+            "table_id": "tblYbqd9fIvN2miM",
+            "table_name": "商机管理"
+          }
+        },
+        {
+          "field_id": "flddx7LQsq",
+          "field_name": "签约日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldMDGA6rd",
+          "field_name": "交付日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldSz9XJSp",
+          "field_name": "签约人员",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldYiZSN8T",
+                    "field_type": 21,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tblBd7jMyS5tzmxr"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldYiZSN8T]=bitable::$table[tbl6NK5lGE8Csah0].$field[fldup3sZg2]).$column[fldCSKSC1s].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldCSKSC1s"
+          }
+        },
+        {
+          "field_id": "fldZ5YzPLc",
+          "field_name": "合同金额",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldAdxx072",
+          "field_name": "已开票金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[flddqrekYn].$column[fldiMvHnFG].SUM()",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldbNJYGxD",
+          "field_name": "到账金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[flduZ2r8DK].FILTER(CurrentValue.$column[fldvH0OP1r]=\"收入\").$column[fldfgSmLLm].SUM()",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldDM9G9Dk",
+          "field_name": "应收账款",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[fldZ5YzPLc]-bitable::$table[tbl6NK5lGE8Csah0].$field[fldbNJYGxD]",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldpq1TCk2",
+          "field_name": "合同录入人员",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fldvjScLz8",
+          "field_name": "合同附件",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld78tztgM",
+          "field_name": "项目进度",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 15,
+              "id": "optjec4MUu",
+              "name": "已完工"
+            },
+            {
+              "color": 0,
+              "id": "optcRwoVu9",
+              "name": "未完工"
+            },
+            {
+              "color": 34,
+              "id": "optWPL8VA3",
+              "name": "需返工"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 15,
+                "id": "optjec4MUu",
+                "name": "已完工"
+              },
+              {
+                "color": 0,
+                "id": "optcRwoVu9",
+                "name": "未完工"
+              },
+              {
+                "color": 34,
+                "id": "optWPL8VA3",
+                "name": "需返工"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldcyEnco5",
+          "field_name": "所属财年",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tbl6NK5lGE8Csah0].$field[flddx7LQsq].YEAR()"
+          }
+        },
+        {
+          "field_id": "fldGkPAU39",
+          "field_name": "是否本财年",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(bitable::$table[tbl6NK5lGE8Csah0].$field[fldcyEnco5]=YEAR(TODAY()),\"是\",\"否\")",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 0,
+                    "id": "optsbhZRr4",
+                    "name": "否"
+                  },
+                  {
+                    "color": 1,
+                    "id": "optPvf3bWv",
+                    "name": "是"
+                  },
+                  {
+                    "color": 33,
+                    "id": "opt8wPKCLW",
+                    "name": "未知"
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fldrlsLGJI",
+          "field_name": "是否上财年",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(bitable::$table[tbl6NK5lGE8Csah0].$field[fldcyEnco5]=EDATE(TODAY(),-12).YEAR(),\"是\",\"否\")",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 0,
+                    "id": "optIRrQyos",
+                    "name": "否"
+                  },
+                  {
+                    "color": 1,
+                    "id": "optboqpt3S",
+                    "name": "是"
+                  },
+                  {
+                    "color": 33,
+                    "id": "optcf5XhDY",
+                    "name": "未知"
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fldm2dibbp",
+          "field_name": "生产管理",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldR9ZPRQh",
+            "back_field_name": "关联合同",
+            "multiple": true,
+            "table_id": "tblIHeTDf3g0bkTs",
+            "table_name": "生产管理"
+          }
+        },
+        {
+          "field_id": "fldTBwb7Eo",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "flddqrekYn",
+          "field_name": "关联发票",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fld9qTB7Mk",
+            "back_field_name": "关联合同",
+            "multiple": true,
+            "table_id": "tbleGT2x80302FkX",
+            "table_name": "发票管理"
+          }
+        },
+        {
+          "field_id": "flduZ2r8DK",
+          "field_name": "关联流水",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldLyKBql1",
+            "back_field_name": "关联合同",
+            "multiple": true,
+            "table_id": "tblyCsdyV1ywnFbn",
+            "table_name": "流水明细"
+          }
+        },
+        {
+          "field_id": "fldoEGIrMO",
+          "field_name": "甲方订单编号",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldfHOTXro",
+          "field_name": "自增编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": false,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblBd7jMyS5tzmxr",
+      "name": "客户管理",
+      "revision": 799,
+      "fields": [
+        {
+          "field_id": "fldTj1UnXD",
+          "field_name": "客户编码",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "CX-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "3"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldYiZSN8T",
+          "field_name": "客户名称",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldLAa8Ubt",
+            "back_field_name": "客户管理",
+            "multiple": false,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fldh4UP3Aj",
+          "field_name": "合同金额总计",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "IF(\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldTj1UnXD]\n    .COUNTA() >\n    0,\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldYiZSN8T]\n    .$column[fldqYdqMqN]\n    .LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551],bitable::$table[tbl6NK5lGE8Csah0].$column[fldZ5YzPLc])\n    .LISTCOMBINE()\n    .SUM(),\n    bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldZ5YzPLc].SUM()\n)",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldXJts8tr",
+          "field_name": "年均合同金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "IF(\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldTj1UnXD]\n    .COUNTA() >\n    0,\n  (bitable::$table[tblBd7jMyS5tzmxr].$field[fldh4UP3Aj].SUM()) /\n    IF(YEAR(TODAY()) -\n      bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n        .$column[fldYiZSN8T]\n        .$column[fldqYdqMqN]\n        .LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551],bitable::$table[tbl6NK5lGE8Csah0].$column[fldcyEnco5])\n        .LISTCOMBINE()\n        .MIN() > 0,\n        YEAR(TODAY()) -\n      bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n        .$column[fldYiZSN8T]\n        .$column[fldqYdqMqN]\n        .LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551],bitable::$table[tbl6NK5lGE8Csah0].$column[fldcyEnco5])\n        .LISTCOMBINE()\n        .MIN(), 1),\n  (bitable::$table[tblBd7jMyS5tzmxr].$field[fldh4UP3Aj].SUM()) /\n    IF(YEAR(TODAY()) - bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldcyEnco5].MIN() > 0, YEAR(TODAY()) - bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldcyEnco5].MIN(), 1)\n)",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldRsisJF8",
+          "field_name": "应收账款",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "IF(\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldTj1UnXD]\n    .COUNTA() >\n    0,\n  bitable::$table[tblBd7jMyS5tzmxr].FILTER(CurrentValue.$column[fldmarfKp9] = bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])\n    .$column[fldYiZSN8T].$column[fldqYdqMqN].LOOKUP(bitable::$table[tbl6NK5lGE8Csah0].$column[fldfWAH551], bitable::$table[tbl6NK5lGE8Csah0].$column[fldDM9G9Dk])\n    .LISTCOMBINE()\n    .SUM(),\n  bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[fldDM9G9Dk].SUM()\n)",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldCSKSC1s",
+          "field_name": "客户所有人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fld4q1HR7c",
+          "field_name": "BD经理",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldBgpiHnT",
+                    "field_type": 11,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tblShYl1ymSSA4QL"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblShYl1ymSSA4QL].FILTER(CurrentValue.$column[fldBgpiHnT]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldCSKSC1s]).$column[fldO9HYd2V].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldO9HYd2V"
+          }
+        },
+        {
+          "field_id": "flds9y1U7S",
+          "field_name": "最近跟进时间",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "yyyy/MM/dd",
+            "formula_expression": "bitable::$table[tblbHGJwu0t2uoPC]\n  .FILTER(\n    CurrentValue.$column[fldkgSqrsQ].CONTAINTEXT(bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]) ||\n      CurrentValue.$column[fldWqK8sPd].CONTAINTEXT(bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T])\n  )\n  .$column[fld0BIMWJ7]\n  .LISTCOMBINE()\n  .MAX()",
+            "type": {
+              "data_type": 5,
+              "ui_property": {
+                "date_formatter": "yyyy/MM/dd"
+              },
+              "ui_type": "DateTime"
+            }
+          }
+        },
+        {
+          "field_id": "fldKMAXDa2",
+          "field_name": "客户状态",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 3,
+              "id": "optXXztKLq",
+              "name": "潜在客户"
+            },
+            {
+              "color": 1,
+              "id": "opttWIfjf3",
+              "name": "新客户"
+            },
+            {
+              "color": 2,
+              "id": "optKkSDaj7",
+              "name": "现有客户"
+            },
+            {
+              "color": 0,
+              "id": "optMIJozf2",
+              "name": "已流失"
+            },
+            {
+              "color": 4,
+              "id": "optD7olPpj",
+              "name": "无效客户"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 3,
+                "id": "optXXztKLq",
+                "name": "潜在客户"
+              },
+              {
+                "color": 1,
+                "id": "opttWIfjf3",
+                "name": "新客户"
+              },
+              {
+                "color": 2,
+                "id": "optKkSDaj7",
+                "name": "现有客户"
+              },
+              {
+                "color": 0,
+                "id": "optMIJozf2",
+                "name": "已流失"
+              },
+              {
+                "color": 4,
+                "id": "optD7olPpj",
+                "name": "无效客户"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld4kdpJYz",
+          "field_name": "信用评级",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 15,
+              "id": "opt8b4GPMy",
+              "name": "低风险"
+            },
+            {
+              "color": 12,
+              "id": "opt8OPVapL",
+              "name": "中风险"
+            },
+            {
+              "color": 44,
+              "id": "opt4SNVLUD",
+              "name": "高风险"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 15,
+                "id": "opt8b4GPMy",
+                "name": "低风险"
+              },
+              {
+                "color": 12,
+                "id": "opt8OPVapL",
+                "name": "中风险"
+              },
+              {
+                "color": 44,
+                "id": "opt4SNVLUD",
+                "name": "高风险"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldpOxoUQy",
+          "field_name": "是否为公海客户",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF((NOW()-bitable::$table[tblBd7jMyS5tzmxr].$field[fldMNf8jGK]<30)||(NOW()-bitable::$table[tblBd7jMyS5tzmxr].$field[flds9y1U7S]<30),\"否\",\"是\")"
+          }
+        },
+        {
+          "field_id": "fldVCV0P3C",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldMNf8jGK",
+          "field_name": "创建时间",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldup3sZg2",
+                    "field_type": 21,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tbl6NK5lGE8Csah0"
+            },
+            "formatter": "yyyy-MM-dd",
+            "formula": "bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldup3sZg2]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldYiZSN8T]).$column[flddx7LQsq].LISTCOMBINE().MIN()",
+            "roll_up": 5,
+            "target_field": "flddx7LQsq"
+          }
+        },
+        {
+          "field_id": "fldqdCjLbZ",
+          "field_name": "是否重复录入",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(bitable::$table[tblBd7jMyS5tzmxr].COUNTIF(CurrentValue.$column[fldTj1UnXD]=bitable::$table[tblBd7jMyS5tzmxr].$field[fldTj1UnXD])>1,\"❗️重复\",\"\")"
+          }
+        },
+        {
+          "field_id": "fldmarfKp9",
+          "field_name": "父记录",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblBd7jMyS5tzmxr",
+            "table_name": "客户管理"
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblyCsdyV1ywnFbn",
+      "name": "流水明细",
+      "revision": 716,
+      "fields": [
+        {
+          "field_id": "fldNkpVCsx",
+          "field_name": "交易编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "TXN-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldGRFd8a9",
+          "field_name": "往来单位",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fldvH0OP1r",
+          "field_name": "收支类型",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 15,
+              "id": "opt8axSYa5",
+              "name": "收入"
+            },
+            {
+              "color": 11,
+              "id": "opt6HiB1ew",
+              "name": "支出"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 15,
+                "id": "opt8axSYa5",
+                "name": "收入"
+              },
+              {
+                "color": 11,
+                "id": "opt6HiB1ew",
+                "name": "支出"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldT2WMkxn",
+          "field_name": "会计科目",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblFWIUAjN4tAzGr",
+            "table_name": "会计科目（一级）"
+          }
+        },
+        {
+          "field_id": "fldfgSmLLm",
+          "field_name": "金额",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldeQ3RKX6",
+          "field_name": "支付方式",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt2yjoouz",
+              "name": "对公转账"
+            },
+            {
+              "color": 1,
+              "id": "optYjhbexr",
+              "name": "支付宝"
+            },
+            {
+              "color": 2,
+              "id": "opt37fwyqd",
+              "name": "现金"
+            },
+            {
+              "color": 3,
+              "id": "optVGVtREo",
+              "name": "银行转帐"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt2yjoouz",
+                "name": "对公转账"
+              },
+              {
+                "color": 1,
+                "id": "optYjhbexr",
+                "name": "支付宝"
+              },
+              {
+                "color": 2,
+                "id": "opt37fwyqd",
+                "name": "现金"
+              },
+              {
+                "color": 3,
+                "id": "optVGVtREo",
+                "name": "银行转帐"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldsgUDch5",
+          "field_name": "经办人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fld4fz1sst",
+          "field_name": "交易日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": true,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldypVsh3p",
+          "field_name": "交易回执编号",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldYfa8k72",
+          "field_name": "流水凭证",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldLyKBql1",
+          "field_name": "关联合同",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "flduZ2r8DK",
+            "back_field_name": "流水明细 副本-关联合同",
+            "multiple": false,
+            "table_id": "tbl6NK5lGE8Csah0",
+            "table_name": "合同管理"
+          }
+        },
+        {
+          "field_id": "fldEomCaqw",
+          "field_name": "关联发票",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldTLXuVwi",
+            "back_field_name": "流水明细 副本-关联发票",
+            "multiple": false,
+            "table_id": "tbleGT2x80302FkX",
+            "table_name": "发票管理"
+          }
+        },
+        {
+          "field_id": "fldeFXZQFD",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tbleGT2x80302FkX",
+      "name": "发票管理",
+      "revision": 1073,
+      "fields": [
+        {
+          "field_id": "fldwN8qUvs",
+          "field_name": "发票编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "INVOICE"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldc1PghVj",
+          "field_name": "发票号码",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld0eI57X7",
+          "field_name": "进项/销项",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optaYzRDeE",
+              "name": "进项"
+            },
+            {
+              "color": 7,
+              "id": "optaHxn1NH",
+              "name": "销项"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optaYzRDeE",
+                "name": "进项"
+              },
+              {
+                "color": 7,
+                "id": "optaHxn1NH",
+                "name": "销项"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldoNYb5kn",
+          "field_name": "票据种类",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt0USrTLn",
+              "name": "增值税专用发票"
+            },
+            {
+              "color": 1,
+              "id": "optcrRdtGk",
+              "name": "增值税普通发票"
+            },
+            {
+              "color": 5,
+              "id": "optkf7I8xT",
+              "name": "未知"
+            },
+            {
+              "color": 44,
+              "id": "optLyfP9lL",
+              "name": "红字冲销"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt0USrTLn",
+                "name": "增值税专用发票"
+              },
+              {
+                "color": 1,
+                "id": "optcrRdtGk",
+                "name": "增值税普通发票"
+              },
+              {
+                "color": 5,
+                "id": "optkf7I8xT",
+                "name": "未知"
+              },
+              {
+                "color": 44,
+                "id": "optLyfP9lL",
+                "name": "红字冲销"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldH8FKx8w",
+          "field_name": "会计科目（一级）",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblFWIUAjN4tAzGr",
+            "table_name": "会计科目（一级）"
+          }
+        },
+        {
+          "field_id": "fld9LXc7nn",
+          "field_name": "发票状态",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optlSXLh2o",
+              "name": "待开票"
+            },
+            {
+              "color": 9,
+              "id": "opt0et5Cf2",
+              "name": "已开票"
+            },
+            {
+              "color": 6,
+              "id": "optXUs0Oc6",
+              "name": "待邮寄"
+            },
+            {
+              "color": 2,
+              "id": "opt44eLeLY",
+              "name": "已发出"
+            },
+            {
+              "color": 14,
+              "id": "optCd2tNwK",
+              "name": "已送达"
+            },
+            {
+              "color": 11,
+              "id": "optVyg3yEk",
+              "name": "作废"
+            },
+            {
+              "color": 44,
+              "id": "optRJkEflS",
+              "name": "红字冲销"
+            },
+            {
+              "color": 1,
+              "id": "opttCu28IP",
+              "name": "待校验"
+            },
+            {
+              "color": 14,
+              "id": "opt5RxV7h5",
+              "name": "已入账"
+            },
+            {
+              "color": 11,
+              "id": "opt51DlWlE",
+              "name": "拒收"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optlSXLh2o",
+                "name": "待开票"
+              },
+              {
+                "color": 9,
+                "id": "opt0et5Cf2",
+                "name": "已开票"
+              },
+              {
+                "color": 6,
+                "id": "optXUs0Oc6",
+                "name": "待邮寄"
+              },
+              {
+                "color": 2,
+                "id": "opt44eLeLY",
+                "name": "已发出"
+              },
+              {
+                "color": 14,
+                "id": "optCd2tNwK",
+                "name": "已送达"
+              },
+              {
+                "color": 11,
+                "id": "optVyg3yEk",
+                "name": "作废"
+              },
+              {
+                "color": 44,
+                "id": "optRJkEflS",
+                "name": "红字冲销"
+              },
+              {
+                "color": 1,
+                "id": "opttCu28IP",
+                "name": "待校验"
+              },
+              {
+                "color": 14,
+                "id": "opt5RxV7h5",
+                "name": "已入账"
+              },
+              {
+                "color": 11,
+                "id": "opt51DlWlE",
+                "name": "拒收"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldZVfzYHu",
+          "field_name": "开票日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldrfWKEbB",
+          "field_name": "往来单位",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fldoI8hqEL",
+          "field_name": "未税金额",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldcDR832t",
+          "field_name": "税率",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "%"
+          }
+        },
+        {
+          "field_id": "fldiqJdqaI",
+          "field_name": "税额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tbleGT2x80302FkX].$field[fldoI8hqEL]*bitable::$table[tbleGT2x80302FkX].$field[fldcDR832t]",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldiMvHnFG",
+          "field_name": "含税金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tbleGT2x80302FkX].$field[fldoI8hqEL]+bitable::$table[tbleGT2x80302FkX].$field[fldiqJdqaI]",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldW51Wzrs",
+          "field_name": "已付金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tbleGT2x80302FkX].$field[fldTLXuVwi].$column[fldfgSmLLm].SUM()",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fld9qTB7Mk",
+          "field_name": "关联合同",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "flddqrekYn",
+            "back_field_name": "发票管理",
+            "multiple": true,
+            "table_id": "tbl6NK5lGE8Csah0",
+            "table_name": "合同管理"
+          }
+        },
+        {
+          "field_id": "fld8dQX2NB",
+          "field_name": "付款状态",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(\n  bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs] = 0,\n  \"未付款\",\n  IF(\n    ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldiMvHnFG], 2) = ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs], 2),\n    \"已付款\",\n    IF(\n      ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldiMvHnFG], 2) < ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs], 2),\n      \"需退款\",\n      IF(ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldiMvHnFG], 2) > ROUND(bitable::$table[tbleGT2x80302FkX].$field[fldW51Wzrs], 2）, \"部分付款\", \"计算错误\")\n    )\n  )\n)",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 9,
+                    "id": "optKU7lw1e",
+                    "name": "已付款"
+                  },
+                  {
+                    "color": 1,
+                    "id": "optRhssdN0",
+                    "name": "需退款"
+                  },
+                  {
+                    "color": 44,
+                    "id": "optWrymnkR",
+                    "name": "未付款"
+                  },
+                  {
+                    "color": 12,
+                    "id": "opts4aRGQn",
+                    "name": "部分付款"
+                  },
+                  {
+                    "color": 0,
+                    "id": "opt7Fkid05",
+                    "name": "计算错误"
+                  },
+                  {
+                    "color": 4,
+                    "id": "optjTGHQG9",
+                    "name": "N/A"
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fld7R6tQlx",
+          "field_name": "发票附件",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldRbRxapI",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldTLXuVwi",
+          "field_name": "关联流水明细",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldEomCaqw",
+            "back_field_name": "关联发票",
+            "multiple": true,
+            "table_id": "tblyCsdyV1ywnFbn",
+            "table_name": "流水明细"
+          }
+        },
+        {
+          "field_id": "fldtRrZ5DM",
+          "field_name": "送达方式",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optbT5gBJ6",
+              "name": "邮寄"
+            },
+            {
+              "color": 1,
+              "id": "optYGSlZTQ",
+              "name": "电邮"
+            },
+            {
+              "color": 2,
+              "id": "optSDMfJQz",
+              "name": "微信"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optbT5gBJ6",
+                "name": "邮寄"
+              },
+              {
+                "color": 1,
+                "id": "optYGSlZTQ",
+                "name": "电邮"
+              },
+              {
+                "color": 2,
+                "id": "optSDMfJQz",
+                "name": "微信"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldBvyuyZb",
+          "field_name": "物流单号",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldBwYM87B",
+          "field_name": "物流公司",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tbl95vLqDzHk0wOY",
+      "name": "应付款项",
+      "revision": 49,
+      "fields": [
+        {
+          "field_id": "fldR2Wglh5",
+          "field_name": "编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "YF"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fld6XFVh9L",
+          "field_name": "项目名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld25xiQfH",
+          "field_name": "会计科目（一级）",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblFWIUAjN4tAzGr",
+            "table_name": "会计科目（一级）"
+          }
+        },
+        {
+          "field_id": "fldlE7qdp9",
+          "field_name": "支出分类",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt2wotOYl",
+              "name": "对公打款"
+            },
+            {
+              "color": 1,
+              "id": "optxQNIQpe",
+              "name": "员工借款"
+            },
+            {
+              "color": 2,
+              "id": "opttnwybmE",
+              "name": "其他支出"
+            },
+            {
+              "color": 3,
+              "id": "optjONfwlf",
+              "name": "员工垫付"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt2wotOYl",
+                "name": "对公打款"
+              },
+              {
+                "color": 1,
+                "id": "optxQNIQpe",
+                "name": "员工借款"
+              },
+              {
+                "color": 2,
+                "id": "opttnwybmE",
+                "name": "其他支出"
+              },
+              {
+                "color": 3,
+                "id": "optjONfwlf",
+                "name": "员工垫付"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldvRyc8fs",
+          "field_name": "应付金额",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fld0aVTcFb",
+          "field_name": "应付日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldrAivNQM",
+          "field_name": "实付金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldMwHAArU].$column[fldfgSmLLm].SUM(), 2)",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldSp8ZOI5",
+          "field_name": "付款状态",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(\n  ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldrAivNQM], 2) = 0,\n  \"未付款\",\n  IF(\n    ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldvRyc8fs], 2) = ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldrAivNQM], 2),\n    \"已付款\",\n    IF(\n      ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldvRyc8fs], 2) > ROUND(bitable::$table[tbl95vLqDzHk0wOY].$field[fldrAivNQM], 2),\n      \"部分付款\",\n      \"需退款\"\n    )\n  )\n)",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 23,
+                    "id": "optVQELZSF",
+                    "name": "未付款"
+                  },
+                  {
+                    "color": 26,
+                    "id": "optz2AfPsD",
+                    "name": "已付款"
+                  },
+                  {
+                    "color": 24,
+                    "id": "optT1xYgL1",
+                    "name": "部分付款"
+                  },
+                  {
+                    "color": 42,
+                    "id": "opta0wMnwa",
+                    "name": "需退款"
+                  },
+                  {
+                    "color": 32,
+                    "id": "optXmvluvD",
+                    "name": "N/A"
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fld8JrHZlV",
+          "field_name": "供应商",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblPoNgxw3euYITn",
+            "table_name": "供应商管理"
+          }
+        },
+        {
+          "field_id": "fldMwHAArU",
+          "field_name": "关联流水",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": true,
+            "table_id": "tblyCsdyV1ywnFbn",
+            "table_name": "流水明细"
+          }
+        },
+        {
+          "field_id": "fldkdZnrqp",
+          "field_name": "关联发票",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": true,
+            "table_id": "tbleGT2x80302FkX",
+            "table_name": "发票管理"
+          }
+        },
+        {
+          "field_id": "fldixgxAR6",
+          "field_name": "附件",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldQxBX036",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblBwpMwOhHtouw7",
+      "name": "应收款项",
+      "revision": 72,
+      "fields": [
+        {
+          "field_id": "fld6qXDMiY",
+          "field_name": "编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "YS"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldDTOxTFP",
+          "field_name": "项目名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldxJjwKJZ",
+          "field_name": "会计科目（一级）",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblFWIUAjN4tAzGr",
+            "table_name": "会计科目（一级）"
+          }
+        },
+        {
+          "field_id": "fld8HntO2y",
+          "field_name": "收入分类",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optE7UpB7R",
+              "name": "销售收入"
+            },
+            {
+              "color": 9,
+              "id": "optM3RAEhU",
+              "name": "其他收入"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optE7UpB7R",
+                "name": "销售收入"
+              },
+              {
+                "color": 9,
+                "id": "optM3RAEhU",
+                "name": "其他收入"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldIAt0BWL",
+          "field_name": "应收金额",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldQFyesV6",
+          "field_name": "应收日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldXeMqo08",
+          "field_name": "实收金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tblBwpMwOhHtouw7].$field[fldJtR7pwY].$column[fldfgSmLLm].SUM()",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldtpNBtlR",
+          "field_name": "收款状态",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(\n  ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldXeMqo08], 2) = 0,\n  \"未到款\",\n  IF(\n    ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldIAt0BWL], 2) = ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldXeMqo08], 2),\n    \"已结清\",\n    IF(\n      ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldIAt0BWL], 2) > ROUND(bitable::$table[tblBwpMwOhHtouw7].$field[fldXeMqo08], 2),\n      \"部分收款\",\n      \"需退款\"\n    )\n  )\n)",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 33,
+                    "id": "optHEQy2U5",
+                    "name": "未到款"
+                  },
+                  {
+                    "color": 24,
+                    "id": "optXbs9Avz",
+                    "name": "部分收款"
+                  },
+                  {
+                    "color": 26,
+                    "id": "optrwNCnLI",
+                    "name": "已结清"
+                  },
+                  {
+                    "color": 42,
+                    "id": "optpDurU8G",
+                    "name": "需退款"
+                  },
+                  {
+                    "color": 32,
+                    "id": "opt3E7Lzjc",
+                    "name": "N/A"
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fldJtR7pwY",
+          "field_name": "关联流水",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": true,
+            "table_id": "tblyCsdyV1ywnFbn",
+            "table_name": "流水明细"
+          }
+        },
+        {
+          "field_id": "flduULDcoB",
+          "field_name": "关联票据",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": true,
+            "table_id": "tbleGT2x80302FkX",
+            "table_name": "发票管理"
+          }
+        },
+        {
+          "field_id": "fldH6s0CcN",
+          "field_name": "客户",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblBwpMwOhHtouw7].$field[fldRARIlvL].$column[fldup3sZg2].$column[fldhZEX45y]",
+            "type": {
+              "data_type": 1
+            }
+          }
+        },
+        {
+          "field_id": "fldkcVQZ8p",
+          "field_name": "附件",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldB72D0BP",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldRARIlvL",
+          "field_name": "关联合同",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tbl6NK5lGE8Csah0",
+            "table_name": "合同管理"
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblsNpPxjOuWUVuc",
+      "name": "费用报销与核销",
+      "revision": 44,
+      "fields": [
+        {
+          "field_id": "fldnNeSAbA",
+          "field_name": "报销单号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "EXP-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldEAL5nEa",
+          "field_name": "费用说明",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldSwbZPMi",
+          "field_name": "报销人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fldWAFyGTC",
+          "field_name": "金额",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "¥0.00",
+            "formula_expression": "bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"支出\").$column[fldfgSmLLm].SUM()",
+            "type": {
+              "data_type": 2,
+              "ui_property": {
+                "currency_code": "CNY",
+                "formatter": "0.00"
+              },
+              "ui_type": "Currency"
+            }
+          }
+        },
+        {
+          "field_id": "fldsgYcqdd",
+          "field_name": "类型",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optgJ4WQOH",
+              "name": "备用金核销"
+            },
+            {
+              "color": 7,
+              "id": "optd4uSVNg",
+              "name": "员工报销"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optgJ4WQOH",
+                "name": "备用金核销"
+              },
+              {
+                "color": 7,
+                "id": "optd4uSVNg",
+                "name": "员工报销"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldGgA85PZ",
+          "field_name": "会计科目（一级）",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"支出\").$column[fldT2WMkxn].FIRST()",
+            "type": {
+              "data_type": 1
+            }
+          }
+        },
+        {
+          "field_id": "fldetdmWGF",
+          "field_name": "费用科目明细",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldSxcRESm",
+          "field_name": "处理状态",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(\n  bitable::$table[tblsNpPxjOuWUVuc].$field[fldsgYcqdd] = \"备用金核销\",\n  IF(\n    ROUND(bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"收入\").$column[fldfgSmLLm].SUM(), 2) = ROUND(bitable::$table[tblsNpPxjOuWUVuc].$field[fldWAFyGTC], 2),\n    \"已结清\",\n    \"未结清\"\n  ),\n  IF(\n    bitable::$table[tblsNpPxjOuWUVuc].$field[fldsgYcqdd] = \"员工报销\",\n    IF(\n      ROUND(bitable::$table[tblsNpPxjOuWUVuc].$field[fldLxzLsnC].FILTER(CurrentValue.$column[fldvH0OP1r]=\"支出\").$column[fldfgSmLLm].SUM(), 2),\n      \"已结清\",\n      \"未结清\"\n    ),\n    \"未知报销类型\"\n  )\n)",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 26,
+                    "id": "opt8rUzWYZ",
+                    "name": "已结清"
+                  },
+                  {
+                    "color": 11,
+                    "id": "optnmnnxMK",
+                    "name": "未结清"
+                  },
+                  {
+                    "color": 4,
+                    "id": "optCzXrNQU",
+                    "name": "未知报销类型"
+                  },
+                  {
+                    "color": 21,
+                    "id": "optQxHELgz",
+                    "name": "N/A"
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fldLxzLsnC",
+          "field_name": "关联流水",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": true,
+            "table_id": "tblyCsdyV1ywnFbn",
+            "table_name": "流水明细"
+          }
+        },
+        {
+          "field_id": "fldP5vftAK",
+          "field_name": "关联发票",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": true,
+            "table_id": "tbleGT2x80302FkX",
+            "table_name": "发票管理"
+          }
+        },
+        {
+          "field_id": "fldVMISdze",
+          "field_name": "无票凭证",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldrwsFTo6",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblY1TKOp4FLAUN8",
+      "name": "记账凭证",
+      "revision": 11,
+      "fields": [
+        {
+          "field_id": "fldGWPBles",
+          "field_name": "编号",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": true
+        },
+        {
+          "field_id": "fldAJwsDk8",
+          "field_name": "凭证号",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldauEMmHI",
+          "field_name": "摘要",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldGFUzvtP",
+          "field_name": "会计科目",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldITs125B",
+          "field_name": "借方金额",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldDMuhcCL",
+          "field_name": "贷方金额",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fld8PRx67K",
+          "field_name": "关联流水",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblyCsdyV1ywnFbn",
+            "table_name": "流水明细"
+          }
+        },
+        {
+          "field_id": "fldzAxqEE6",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblUSq2Ahy107T5g",
+      "name": "费用报销",
+      "revision": 2121,
+      "fields": [
+        {
+          "field_id": "fldnNUwM35",
+          "field_name": "申请编号",
+          "type": 15,
+          "ui_type": "Url",
+          "is_primary": true
+        },
+        {
+          "field_id": "fldamAspZC",
+          "field_name": "申请状态",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optKHPZPeI",
+              "name": "已通过"
+            },
+            {
+              "color": 1,
+              "id": "optQMBVomd",
+              "name": "已删除"
+            },
+            {
+              "color": 2,
+              "id": "optMHJoqm0",
+              "name": "审批中"
+            },
+            {
+              "color": 3,
+              "id": "opt1rpQKvr",
+              "name": "已拒绝"
+            },
+            {
+              "color": 4,
+              "id": "opteDAKcEA",
+              "name": "已取消"
+            },
+            {
+              "color": 5,
+              "id": "optCHdV4FC",
+              "name": "已终止"
+            },
+            {
+              "color": 6,
+              "id": "optMBxJWHR",
+              "name": "已撤回"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optKHPZPeI",
+                "name": "已通过"
+              },
+              {
+                "color": 1,
+                "id": "optQMBVomd",
+                "name": "已删除"
+              },
+              {
+                "color": 2,
+                "id": "optMHJoqm0",
+                "name": "审批中"
+              },
+              {
+                "color": 3,
+                "id": "opt1rpQKvr",
+                "name": "已拒绝"
+              },
+              {
+                "color": 4,
+                "id": "opteDAKcEA",
+                "name": "已取消"
+              },
+              {
+                "color": 5,
+                "id": "optCHdV4FC",
+                "name": "已终止"
+              },
+              {
+                "color": 6,
+                "id": "optMBxJWHR",
+                "name": "已撤回"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldffN5UpV",
+          "field_name": "审批流程",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optvlDsIUs",
+              "name": "费用报销"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optvlDsIUs",
+                "name": "费用报销"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld9bo7VQq",
+          "field_name": "发起时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy-MM-dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldwbbnW1f",
+          "field_name": "完成时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy-MM-dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldxh36E5r",
+          "field_name": "发起人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": true
+          }
+        },
+        {
+          "field_id": "fldyM8OoyR",
+          "field_name": "发起人部门",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldaX5wpNH",
+          "field_name": "当前处理人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": true
+          }
+        },
+        {
+          "field_id": "fldp68or9B",
+          "field_name": "审批节点",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldsGQ5fwM",
+          "field_name": "报销类型",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optHP9Ds5M",
+              "name": "差旅费"
+            },
+            {
+              "color": 1,
+              "id": "optEtLzzv4",
+              "name": "住宿费"
+            },
+            {
+              "color": 2,
+              "id": "optkai868A",
+              "name": "交通费"
+            },
+            {
+              "color": 3,
+              "id": "optCwoURpT",
+              "name": "招待费"
+            },
+            {
+              "color": 4,
+              "id": "optnsF1zfh",
+              "name": "团建费"
+            },
+            {
+              "color": 5,
+              "id": "opttgSgKG5",
+              "name": "通讯费"
+            },
+            {
+              "color": 6,
+              "id": "optX1SG0pu",
+              "name": "其他"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optHP9Ds5M",
+                "name": "差旅费"
+              },
+              {
+                "color": 1,
+                "id": "optEtLzzv4",
+                "name": "住宿费"
+              },
+              {
+                "color": 2,
+                "id": "optkai868A",
+                "name": "交通费"
+              },
+              {
+                "color": 3,
+                "id": "optCwoURpT",
+                "name": "招待费"
+              },
+              {
+                "color": 4,
+                "id": "optnsF1zfh",
+                "name": "团建费"
+              },
+              {
+                "color": 5,
+                "id": "opttgSgKG5",
+                "name": "通讯费"
+              },
+              {
+                "color": 6,
+                "id": "optX1SG0pu",
+                "name": "其他"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld68YOu75",
+          "field_name": "报销事由",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldaM3GGce",
+          "field_name": "费用汇总",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldt5WHy7x",
+          "field_name": "费用明细_内容",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld9FkAwoi",
+          "field_name": "费用明细_日期（年-月-日）",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy-MM-dd"
+          }
+        },
+        {
+          "field_id": "fld6T5kqtk",
+          "field_name": "费用明细_金额",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fld4QklCPo",
+          "field_name": "费用明细_金额-币种",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt156381445",
+              "name": "CNY"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt156381445",
+                "name": "CNY"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldwxo9wm5",
+          "field_name": "附件",
+          "type": 15,
+          "ui_type": "Url",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldXf1SgGN",
+          "field_name": "SourceID",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tbl6P6aWA2Ux4yi5",
+      "name": "采购申请",
+      "revision": 2119,
+      "fields": [
+        {
+          "field_id": "fldnNUwM35",
+          "field_name": "申请编号",
+          "type": 15,
+          "ui_type": "Url",
+          "is_primary": true
+        },
+        {
+          "field_id": "fldamAspZC",
+          "field_name": "申请状态",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optKvGg17t",
+              "name": "已通过"
+            },
+            {
+              "color": 1,
+              "id": "optWPxfHTQ",
+              "name": "已删除"
+            },
+            {
+              "color": 2,
+              "id": "optNkOXlbE",
+              "name": "审批中"
+            },
+            {
+              "color": 3,
+              "id": "optfmABCLm",
+              "name": "已拒绝"
+            },
+            {
+              "color": 4,
+              "id": "optmQ4EQF6",
+              "name": "已取消"
+            },
+            {
+              "color": 5,
+              "id": "optBFo83Wx",
+              "name": "已终止"
+            },
+            {
+              "color": 6,
+              "id": "optY6Yvbgf",
+              "name": "已撤回"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optKvGg17t",
+                "name": "已通过"
+              },
+              {
+                "color": 1,
+                "id": "optWPxfHTQ",
+                "name": "已删除"
+              },
+              {
+                "color": 2,
+                "id": "optNkOXlbE",
+                "name": "审批中"
+              },
+              {
+                "color": 3,
+                "id": "optfmABCLm",
+                "name": "已拒绝"
+              },
+              {
+                "color": 4,
+                "id": "optmQ4EQF6",
+                "name": "已取消"
+              },
+              {
+                "color": 5,
+                "id": "optBFo83Wx",
+                "name": "已终止"
+              },
+              {
+                "color": 6,
+                "id": "optY6Yvbgf",
+                "name": "已撤回"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldffN5UpV",
+          "field_name": "审批流程",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optKQyk2TI",
+              "name": "采购申请"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optKQyk2TI",
+                "name": "采购申请"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld9bo7VQq",
+          "field_name": "发起时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy-MM-dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldwbbnW1f",
+          "field_name": "完成时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy-MM-dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldxh36E5r",
+          "field_name": "发起人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": true
+          }
+        },
+        {
+          "field_id": "fldyM8OoyR",
+          "field_name": "发起人部门",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldaX5wpNH",
+          "field_name": "当前处理人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": true
+          }
+        },
+        {
+          "field_id": "fldp68or9B",
+          "field_name": "审批节点",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldf0gYyvZ",
+          "field_name": "采购事由",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld72bs6CF",
+          "field_name": "采购类别",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optDOxB5gQ",
+              "name": "办公用品"
+            },
+            {
+              "color": 1,
+              "id": "opttqyOVuC",
+              "name": "活动用品"
+            },
+            {
+              "color": 2,
+              "id": "optMySzdcM",
+              "name": "生产物料"
+            },
+            {
+              "color": 3,
+              "id": "optbHgysBl",
+              "name": "其他"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optDOxB5gQ",
+                "name": "办公用品"
+              },
+              {
+                "color": 1,
+                "id": "opttqyOVuC",
+                "name": "活动用品"
+              },
+              {
+                "color": 2,
+                "id": "optMySzdcM",
+                "name": "生产物料"
+              },
+              {
+                "color": 3,
+                "id": "optbHgysBl",
+                "name": "其他"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldtnmzK82",
+          "field_name": "期望交付时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy-MM-dd"
+          }
+        },
+        {
+          "field_id": "fldxGnd4qj",
+          "field_name": "费用明细_名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldzOUkH8z",
+          "field_name": "费用明细_规格",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld5qnW6qb",
+          "field_name": "费用明细_数量",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fld2nTlxa7",
+          "field_name": "费用明细_金额",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldbKCXRb9",
+          "field_name": "费用明细_金额-币种",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt156381445",
+              "name": "CNY"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt156381445",
+                "name": "CNY"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld4mC3jK3",
+          "field_name": "附件",
+          "type": 15,
+          "ui_type": "Url",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldACI3xHb",
+          "field_name": "SourceID",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblFWIUAjN4tAzGr",
+      "name": "会计科目（一级）",
+      "revision": 59,
+      "fields": [
+        {
+          "field_id": "flda4BFr5S",
+          "field_name": "科目名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": true
+        },
+        {
+          "field_id": "fldn25Ehbq",
+          "field_name": "科目代码",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0"
+          }
+        },
+        {
+          "field_id": "fldfa1707C",
+          "field_name": "余额方向",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optmF1mkpz",
+              "name": "借"
+            },
+            {
+              "color": 1,
+              "id": "optGGj1zg7",
+              "name": "贷"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optmF1mkpz",
+                "name": "借"
+              },
+              {
+                "color": 1,
+                "id": "optGGj1zg7",
+                "name": "贷"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldP5iDAeV",
+          "field_name": "科目类别",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optlX1EhBq",
+              "name": "流动资产"
+            },
+            {
+              "color": 1,
+              "id": "opt1PQNTRd",
+              "name": "长期资产"
+            },
+            {
+              "color": 2,
+              "id": "optf12gSnD",
+              "name": "流动负债"
+            },
+            {
+              "color": 3,
+              "id": "opt4KTYq4C",
+              "name": "长期负债"
+            },
+            {
+              "color": 4,
+              "id": "optBMYi9Za",
+              "name": "所有者权益"
+            },
+            {
+              "color": 5,
+              "id": "optqiuL426",
+              "name": "成本"
+            },
+            {
+              "color": 6,
+              "id": "opt4sdNpnT",
+              "name": "营业收入"
+            },
+            {
+              "color": 7,
+              "id": "optphMzthe",
+              "name": "其他收益"
+            },
+            {
+              "color": 8,
+              "id": "optWPowa4w",
+              "name": "营业成本及税金"
+            },
+            {
+              "color": 9,
+              "id": "optgB4pP3w",
+              "name": "其他损失"
+            },
+            {
+              "color": 10,
+              "id": "optyaL5p4V",
+              "name": "期间费用"
+            },
+            {
+              "color": 0,
+              "id": "optEoZptfe",
+              "name": "所得税"
+            },
+            {
+              "color": 1,
+              "id": "opt0ei9dgf",
+              "name": "以前年度损益调整"
+            },
+            {
+              "color": 2,
+              "id": "optff8dTb2",
+              "name": "共同类"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optlX1EhBq",
+                "name": "流动资产"
+              },
+              {
+                "color": 1,
+                "id": "opt1PQNTRd",
+                "name": "长期资产"
+              },
+              {
+                "color": 2,
+                "id": "optf12gSnD",
+                "name": "流动负债"
+              },
+              {
+                "color": 3,
+                "id": "opt4KTYq4C",
+                "name": "长期负债"
+              },
+              {
+                "color": 4,
+                "id": "optBMYi9Za",
+                "name": "所有者权益"
+              },
+              {
+                "color": 5,
+                "id": "optqiuL426",
+                "name": "成本"
+              },
+              {
+                "color": 6,
+                "id": "opt4sdNpnT",
+                "name": "营业收入"
+              },
+              {
+                "color": 7,
+                "id": "optphMzthe",
+                "name": "其他收益"
+              },
+              {
+                "color": 8,
+                "id": "optWPowa4w",
+                "name": "营业成本及税金"
+              },
+              {
+                "color": 9,
+                "id": "optgB4pP3w",
+                "name": "其他损失"
+              },
+              {
+                "color": 10,
+                "id": "optyaL5p4V",
+                "name": "期间费用"
+              },
+              {
+                "color": 0,
+                "id": "optEoZptfe",
+                "name": "所得税"
+              },
+              {
+                "color": 1,
+                "id": "opt0ei9dgf",
+                "name": "以前年度损益调整"
+              },
+              {
+                "color": 2,
+                "id": "optff8dTb2",
+                "name": "共同类"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldbzpCvTy",
+          "field_name": "分类",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optYIVhOtJ",
+              "name": "资产类"
+            },
+            {
+              "color": 1,
+              "id": "opt0MfteiY",
+              "name": "负债类"
+            },
+            {
+              "color": 2,
+              "id": "optfmiTvOn",
+              "name": "共同类"
+            },
+            {
+              "color": 3,
+              "id": "optGJb76OI",
+              "name": "权益类"
+            },
+            {
+              "color": 4,
+              "id": "opt9SiWHio",
+              "name": "成本类"
+            },
+            {
+              "color": 5,
+              "id": "optgQmcARu",
+              "name": "损益类"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optYIVhOtJ",
+                "name": "资产类"
+              },
+              {
+                "color": 1,
+                "id": "opt0MfteiY",
+                "name": "负债类"
+              },
+              {
+                "color": 2,
+                "id": "optfmiTvOn",
+                "name": "共同类"
+              },
+              {
+                "color": 3,
+                "id": "optGJb76OI",
+                "name": "权益类"
+              },
+              {
+                "color": 4,
+                "id": "opt9SiWHio",
+                "name": "成本类"
+              },
+              {
+                "color": 5,
+                "id": "optgQmcARu",
+                "name": "损益类"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblIHeTDf3g0bkTs",
+      "name": "生产管理",
+      "revision": 662,
+      "fields": [
+        {
+          "field_id": "fldTFbADFJ",
+          "field_name": "生产单号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "MO"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fld7gPuOlh",
+          "field_name": "项目名称",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldfWAH551",
+                    "field_type": 1,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tbl6NK5lGE8Csah0"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldfWAH551]=bitable::$table[tblIHeTDf3g0bkTs].$field[fldR9ZPRQh]).$column[fldVOgxRzi].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldVOgxRzi"
+          }
+        },
+        {
+          "field_id": "fldR9ZPRQh",
+          "field_name": "关联合同",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldm2dibbp",
+            "back_field_name": "生产管理",
+            "multiple": false,
+            "table_id": "tbl6NK5lGE8Csah0",
+            "table_name": "合同管理"
+          }
+        },
+        {
+          "field_id": "fldTAtPuAv",
+          "field_name": "客户名称",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldfWAH551",
+                    "field_type": 1,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tbl6NK5lGE8Csah0"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldfWAH551]=bitable::$table[tblIHeTDf3g0bkTs].$field[fldR9ZPRQh]).$column[fldup3sZg2].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldup3sZg2"
+          }
+        },
+        {
+          "field_id": "fldaZZM6VW",
+          "field_name": "创建时间",
+          "type": 1001,
+          "ui_type": "CreatedTime",
+          "is_primary": false,
+          "property": {
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldX8Nm74I",
+          "field_name": "计划交付日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldqx5whfU",
+          "field_name": "交付日期截止",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldfWAH551",
+                    "field_type": 1,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tbl6NK5lGE8Csah0"
+            },
+            "formatter": "yyyy/MM/dd",
+            "formula": "bitable::$table[tbl6NK5lGE8Csah0].FILTER(CurrentValue.$column[fldfWAH551]=bitable::$table[tblIHeTDf3g0bkTs].$field[fldR9ZPRQh]).$column[fldMDGA6rd].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldMDGA6rd"
+          }
+        },
+        {
+          "field_id": "fld3PSkEWp",
+          "field_name": "交付开始日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldk1dKwuT",
+          "field_name": "交付结束日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldza1PCHb",
+          "field_name": "计划开始日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldZbK7DUi",
+          "field_name": "计划工时",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0"
+          }
+        },
+        {
+          "field_id": "fldx9YguQU",
+          "field_name": "计划结束日期",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF（bitable::$table[tblIHeTDf3g0bkTs].$field[fldza1PCHb].ISBLANK(), \"\", TEXT(bitable::$table[tblIHeTDf3g0bkTs].$field[fldza1PCHb]+bitable::$table[tblIHeTDf3g0bkTs].$field[fldZbK7DUi]*3/24, \"YYYY-MM-DD\"))"
+          }
+        },
+        {
+          "field_id": "fld7tl1yhD",
+          "field_name": "生产开始时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldPcxIzmi",
+          "field_name": "生产结束时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fld5hfg1MZ",
+          "field_name": "生产状态",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(\n  bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldUYNz2Ey] = bitable::$table[tblIHeTDf3g0bkTs].$field[fldIUuc3Or])\n    .$column[fldDhEbQqH] =\n    \"待处理\",\n  \"🔄 等待返工\",\n  IF(\n    bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldUYNz2Ey] = bitable::$table[tblIHeTDf3g0bkTs].$field[fldIUuc3Or])\n      .$column[fldDhEbQqH] =\n      \"处理中\",\n    \"🔨 返工中\",\n    IF(\n      bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldUYNz2Ey] = bitable::$table[tblIHeTDf3g0bkTs].$field[fldIUuc3Or])\n        .$column[fldDhEbQqH] =\n        \"返工完成\",\n      \"☑️ 返工完成\",\n      IF(\n        bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT].ISBLANK() && TODAY() > bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU],\n        \"⚠️ 已延期\",\n        IF(\n          bitable::$table[tblIHeTDf3g0bkTs].$field[fld7tl1yhD].ISBLANK(), \"🔄 待生产\",\n          IF(\n            bitable::$table[tblIHeTDf3g0bkTs].$field[fldPcxIzmi].ISBLANK() && TODAY() <= bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU],\n            \"🔨 生产中\",\n            IF(\n              NOT(bitable::$table[tblIHeTDf3g0bkTs].$field[fldPcxIzmi].ISBLANK()) && TODAY() <= bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU] && bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT].ISBLANK(),\n              \"✅ 生产完毕|待交付\",\n              IF(\n                NOT(bitable::$table[tblIHeTDf3g0bkTs].$field[fld3PSkEWp].ISBLANK()) && TODAY() <= bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU] &&bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT].ISBLANK(),\n                \"🚧 正在交付\",\n                IF(\n                  bitable::$table[tblIHeTDf3g0bkTs].$field[fldk1dKwuT] > bitable::$table[tblIHeTDf3g0bkTs].$field[fldqx5whfU],\n                  \"🔴 延期交付\",\n                  \"🎉 按时交付\"\n                )\n              )\n            )\n          )\n        )\n      )\n    )\n  )\n)",
+            "type": {
+              "data_type": 3,
+              "ui_property": {
+                "defaultValue": "LastOption",
+                "options": [
+                  {
+                    "color": 44,
+                    "id": "optHBGUwC5",
+                    "name": "⚠️ 已延期"
+                  },
+                  {
+                    "color": 5,
+                    "id": "optAsygm8c",
+                    "name": "🔴 延期交付"
+                  },
+                  {
+                    "color": 3,
+                    "id": "optuK80Vp5",
+                    "name": "🔄 待生产"
+                  },
+                  {
+                    "color": 4,
+                    "id": "optyaE6Moz",
+                    "name": "🔨 生产中"
+                  },
+                  {
+                    "color": 6,
+                    "id": "optG6LKT9J",
+                    "name": "🔨 返工中"
+                  },
+                  {
+                    "color": 8,
+                    "id": "optz2kd7bd",
+                    "name": "🔄 等待返工"
+                  },
+                  {
+                    "color": 0,
+                    "id": "opt9M3FWcr",
+                    "name": "☑️ 返工完成"
+                  },
+                  {
+                    "color": 1,
+                    "id": "optZ9XMyyJ",
+                    "name": "✅ 生产完毕|待交付"
+                  },
+                  {
+                    "color": 2,
+                    "id": "opt08PrOoX",
+                    "name": "🚧 正在交付"
+                  },
+                  {
+                    "color": 15,
+                    "id": "optVLzaIp6",
+                    "name": "🎉 按时交付"
+                  },
+                  {
+                    "color": 5,
+                    "id": "optt9elzcK",
+                    "name": ""
+                  }
+                ],
+                "optionsType": 0
+              },
+              "ui_type": "SingleSelect"
+            }
+          }
+        },
+        {
+          "field_id": "fldxCwYsGr",
+          "field_name": "所需工序",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": true,
+            "table_id": "tblTwnMLGUObYCTl",
+            "table_name": "工序管理"
+          }
+        },
+        {
+          "field_id": "fld235ksYU",
+          "field_name": "工序执行",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldOYhrxyf",
+            "back_field_name": "生产管理",
+            "multiple": true,
+            "table_id": "tblUTdc0TeCnby2a",
+            "table_name": "工序执行表"
+          }
+        },
+        {
+          "field_id": "fld8Vsfrx8",
+          "field_name": "生产负责人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fldmybjSvW",
+          "field_name": "质检负责人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fldWLIwoal",
+          "field_name": "设计图纸",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldV4II9RB",
+          "field_name": "材质证明",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tbldT6TDHtRrm6NA].FILTER(bitable::$table[tblIHeTDf3g0bkTs].$field[fldMh2WleA].CONTAIN(CurrentValue.$column[fldV7b23Oo])).$column[fld929OGln]",
+            "type": {
+              "data_type": 17
+            }
+          }
+        },
+        {
+          "field_id": "fldHVUvOND",
+          "field_name": "质检报告",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldvVF0r1W",
+          "field_name": "物流单号",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld5vgfSAv",
+          "field_name": "送货单",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldTAlNmRz",
+          "field_name": "签收日期",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldYD9KZ7l",
+          "field_name": "产品照片",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldubPp1H3",
+          "field_name": "交付照片",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldDk1U3Fz",
+          "field_name": "返工管理",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldcqyeuGD",
+            "back_field_name": "关联生产单",
+            "multiple": true,
+            "table_id": "tblhMjrjR0IBgHRh",
+            "table_name": "返工管理"
+          }
+        },
+        {
+          "field_id": "fldIUuc3Or",
+          "field_name": "最近返工",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "IF(bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldcqyeuGD]=bitable::$table[tblIHeTDf3g0bkTs].$field[fldTFbADFJ]).ISBLANK(), \"\", bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].FILTER(CurrentValue.$column[fldcqyeuGD]=bitable::$table[tblIHeTDf3g0bkTs].$field[fldTFbADFJ]).SORTBY(bitable::$table[tblIHeTDf3g0bkTs].$field[fldDk1U3Fz].$column[fld5Jd48O3]).LAST())"
+          }
+        },
+        {
+          "field_id": "fldMh2WleA",
+          "field_name": "BOM清单",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldvFGw0JD",
+            "back_field_name": "关联生产工单",
+            "multiple": true,
+            "table_id": "tblLYRkaNqDMqVFv",
+            "table_name": "BOM表"
+          }
+        },
+        {
+          "field_id": "fldXzST5Mf",
+          "field_name": "甲方订单编号",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblIHeTDf3g0bkTs].$field[fldR9ZPRQh].$column[fldoEGIrMO]",
+            "type": {
+              "data_type": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblhMjrjR0IBgHRh",
+      "name": "返工管理",
+      "revision": 39,
+      "fields": [
+        {
+          "field_id": "fldUYNz2Ey",
+          "field_name": "返工单号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "RO-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldcqyeuGD",
+          "field_name": "关联生产单",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldDk1U3Fz",
+            "back_field_name": "返工管理",
+            "multiple": true,
+            "table_id": "tblIHeTDf3g0bkTs",
+            "table_name": "生产管理"
+          }
+        },
+        {
+          "field_id": "fldj2VfIux",
+          "field_name": "返工原因",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optFbbddqY",
+              "name": "原材料质量问题"
+            },
+            {
+              "color": 1,
+              "id": "optG4bQSlS",
+              "name": "生产工艺失误"
+            },
+            {
+              "color": 2,
+              "id": "optBrFZ6UY",
+              "name": "设备故障"
+            },
+            {
+              "color": 3,
+              "id": "optIvcjZq3",
+              "name": "设计图纸错误"
+            },
+            {
+              "color": 4,
+              "id": "optdnKQS5f",
+              "name": "操作不规范"
+            },
+            {
+              "color": 5,
+              "id": "optYyEmDDA",
+              "name": "施工失误"
+            },
+            {
+              "color": 6,
+              "id": "optsLVAkhz",
+              "name": "客户沟通问题"
+            },
+            {
+              "color": 3,
+              "id": "optMBo4IIx",
+              "name": "采购失误"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optFbbddqY",
+                "name": "原材料质量问题"
+              },
+              {
+                "color": 1,
+                "id": "optG4bQSlS",
+                "name": "生产工艺失误"
+              },
+              {
+                "color": 2,
+                "id": "optBrFZ6UY",
+                "name": "设备故障"
+              },
+              {
+                "color": 3,
+                "id": "optIvcjZq3",
+                "name": "设计图纸错误"
+              },
+              {
+                "color": 4,
+                "id": "optdnKQS5f",
+                "name": "操作不规范"
+              },
+              {
+                "color": 5,
+                "id": "optYyEmDDA",
+                "name": "施工失误"
+              },
+              {
+                "color": 6,
+                "id": "optsLVAkhz",
+                "name": "客户沟通问题"
+              },
+              {
+                "color": 3,
+                "id": "optMBo4IIx",
+                "name": "采购失误"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldQKpe32O",
+          "field_name": "工单发起方",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opttUbceIv",
+              "name": "质检"
+            },
+            {
+              "color": 12,
+              "id": "optGSdGKK8",
+              "name": "客户"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opttUbceIv",
+                "name": "质检"
+              },
+              {
+                "color": 12,
+                "id": "optGSdGKK8",
+                "name": "客户"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld5Jd48O3",
+          "field_name": "创建时间",
+          "type": 1001,
+          "ui_type": "CreatedTime",
+          "is_primary": false,
+          "property": {
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldDhEbQqH",
+          "field_name": "返工状态",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optznNMUhR",
+              "name": "待处理"
+            },
+            {
+              "color": 1,
+              "id": "opth1NkXnK",
+              "name": "处理中"
+            },
+            {
+              "color": 7,
+              "id": "opt1gbkv2j",
+              "name": "返工完成"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optznNMUhR",
+                "name": "待处理"
+              },
+              {
+                "color": 1,
+                "id": "opth1NkXnK",
+                "name": "处理中"
+              },
+              {
+                "color": 7,
+                "id": "opt1gbkv2j",
+                "name": "返工完成"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblLYRkaNqDMqVFv",
+      "name": "BOM表",
+      "revision": 132,
+      "fields": [
+        {
+          "field_id": "fldVh4KyNJ",
+          "field_name": "BOM编码",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "BOM-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "5"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldvFGw0JD",
+          "field_name": "关联生产工单",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldMh2WleA",
+            "back_field_name": "BOM表",
+            "multiple": false,
+            "table_id": "tblIHeTDf3g0bkTs",
+            "table_name": "生产管理"
+          }
+        },
+        {
+          "field_id": "fldOTVF60E",
+          "field_name": "项目名称",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldTFbADFJ",
+                    "field_type": 1005,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tblIHeTDf3g0bkTs"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblIHeTDf3g0bkTs].FILTER(CurrentValue.$column[fldTFbADFJ]=bitable::$table[tblLYRkaNqDMqVFv].$field[fldvFGw0JD]).$column[fld7gPuOlh].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fld7gPuOlh"
+          }
+        },
+        {
+          "field_id": "fldnU2QuDv",
+          "field_name": "物料名称",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblLuDJe8WU3pny2",
+            "table_name": "物料库"
+          }
+        },
+        {
+          "field_id": "fldvdN0Ats",
+          "field_name": "规格",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldEIdZ8UW",
+          "field_name": "所需物料数量",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0"
+          }
+        },
+        {
+          "field_id": "fldtOod1k7",
+          "field_name": "物料计量单位",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldZ5sY0Rj",
+                    "field_type": 1005,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tblLuDJe8WU3pny2"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblLuDJe8WU3pny2].FILTER(CurrentValue.$column[fldZ5sY0Rj]=bitable::$table[tblLYRkaNqDMqVFv].$field[fldnU2QuDv]).$column[fldhQj9DMD].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldhQj9DMD"
+          }
+        },
+        {
+          "field_id": "fld7OGTj7H",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldp5VeQPZ",
+          "field_name": "创建时间",
+          "type": 1001,
+          "ui_type": "CreatedTime",
+          "is_primary": false,
+          "property": {
+            "date_formatter": "yyyy/MM/dd"
+          }
+        },
+        {
+          "field_id": "fldUoxygRs",
+          "field_name": "关联物料批次",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldV7b23Oo",
+            "back_field_name": "BOM表",
+            "multiple": true,
+            "table_id": "tbldT6TDHtRrm6NA",
+            "table_name": "库存管理"
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tbldT6TDHtRrm6NA",
+      "name": "库存管理",
+      "revision": 77,
+      "fields": [
+        {
+          "field_id": "fld2rU0F5H",
+          "field_name": "批次编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "BN-"
+                },
+                {
+                  "type": "created_time",
+                  "value": "yyyyMMdd"
+                },
+                {
+                  "type": "fixed_text",
+                  "value": "-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "5"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fld8yb1xPK",
+          "field_name": "规格",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldlMMHQgk",
+          "field_name": "关联物料",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldbZPc4Hr",
+            "back_field_name": "库存管理",
+            "multiple": false,
+            "table_id": "tblLuDJe8WU3pny2",
+            "table_name": "物料库"
+          }
+        },
+        {
+          "field_id": "fldMskFbBT",
+          "field_name": "入库时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": true,
+            "date_formatter": "yyyy/MM/dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldjegVXsY",
+          "field_name": "入库数量",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0"
+          }
+        },
+        {
+          "field_id": "fld55P46j2",
+          "field_name": "计量单位",
+          "type": 19,
+          "ui_type": "Lookup",
+          "is_primary": false,
+          "property": {
+            "filter_info": {
+              "conditions": {
+                "children": [
+                  {
+                    "field_id": "fldZ5sY0Rj",
+                    "field_type": 1005,
+                    "operator": "is",
+                    "value": null
+                  }
+                ],
+                "conjunction": "and"
+              },
+              "target_table": "tblLuDJe8WU3pny2"
+            },
+            "formatter": "",
+            "formula": "bitable::$table[tblLuDJe8WU3pny2].FILTER(CurrentValue.$column[fldZ5sY0Rj]=bitable::$table[tbldT6TDHtRrm6NA].$field[fldlMMHQgk]).$column[fldhQj9DMD].LISTCOMBINE()",
+            "roll_up": 0,
+            "target_field": "fldhQj9DMD"
+          }
+        },
+        {
+          "field_id": "fld929OGln",
+          "field_name": "物料证书（MTC/MTR）",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld4XXM9uA",
+          "field_name": "质检状态",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 7,
+              "id": "optMS0wGtD",
+              "name": "合格"
+            },
+            {
+              "color": 5,
+              "id": "opt9wvrsk4",
+              "name": "不合格"
+            },
+            {
+              "color": 13,
+              "id": "opti2OIiPl",
+              "name": "未检"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 7,
+                "id": "optMS0wGtD",
+                "name": "合格"
+              },
+              {
+                "color": 5,
+                "id": "opt9wvrsk4",
+                "name": "不合格"
+              },
+              {
+                "color": 13,
+                "id": "opti2OIiPl",
+                "name": "未检"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldRWf2fDu",
+          "field_name": "检验人员",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fldUIPfaIq",
+          "field_name": "检验时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldV7b23Oo",
+          "field_name": "BOM表",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldUoxygRs",
+            "back_field_name": "关联物料批次",
+            "multiple": true,
+            "table_id": "tblLYRkaNqDMqVFv",
+            "table_name": "BOM表"
+          }
+        },
+        {
+          "field_id": "fldClEW0vj",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblLuDJe8WU3pny2",
+      "name": "物料库",
+      "revision": 115,
+      "fields": [
+        {
+          "field_id": "fldZ5sY0Rj",
+          "field_name": "物料名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": true
+        },
+        {
+          "field_id": "fld2fPMKjH",
+          "field_name": "材质",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optOEql4mF",
+              "name": "SUS304"
+            },
+            {
+              "color": 1,
+              "id": "optvKXUG2N",
+              "name": "SUS316L"
+            },
+            {
+              "color": 2,
+              "id": "optZB1pH7G",
+              "name": "SUS201"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optOEql4mF",
+                "name": "SUS304"
+              },
+              {
+                "color": 1,
+                "id": "optvKXUG2N",
+                "name": "SUS316L"
+              },
+              {
+                "color": 2,
+                "id": "optZB1pH7G",
+                "name": "SUS201"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldhQj9DMD",
+          "field_name": "计量单位",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optHJInsco",
+              "name": "千克"
+            },
+            {
+              "color": 1,
+              "id": "optDppOlwa",
+              "name": "平米"
+            },
+            {
+              "color": 2,
+              "id": "optwyeoPrV",
+              "name": "个"
+            },
+            {
+              "color": 3,
+              "id": "optYu9f7at",
+              "name": "张"
+            },
+            {
+              "color": 4,
+              "id": "optVZQpzkj",
+              "name": "米"
+            },
+            {
+              "color": 5,
+              "id": "optZ6TpfUv",
+              "name": "件"
+            },
+            {
+              "color": 6,
+              "id": "opttrsOgWY",
+              "name": "根"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optHJInsco",
+                "name": "千克"
+              },
+              {
+                "color": 1,
+                "id": "optDppOlwa",
+                "name": "平米"
+              },
+              {
+                "color": 2,
+                "id": "optwyeoPrV",
+                "name": "个"
+              },
+              {
+                "color": 3,
+                "id": "optYu9f7at",
+                "name": "张"
+              },
+              {
+                "color": 4,
+                "id": "optVZQpzkj",
+                "name": "米"
+              },
+              {
+                "color": 5,
+                "id": "optZ6TpfUv",
+                "name": "件"
+              },
+              {
+                "color": 6,
+                "id": "opttrsOgWY",
+                "name": "根"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldKo0NDDR",
+          "field_name": "物料单价",
+          "type": 2,
+          "ui_type": "Currency",
+          "is_primary": false,
+          "property": {
+            "currency_code": "CNY",
+            "formatter": "0.00"
+          }
+        },
+        {
+          "field_id": "fldyJ33pNO",
+          "field_name": "技术标准",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldIiZ9SQb",
+          "field_name": "供应商",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldqx5oyVm",
+            "back_field_name": "物料库",
+            "multiple": false,
+            "table_id": "tblPoNgxw3euYITn",
+            "table_name": "供应商管理"
+          }
+        },
+        {
+          "field_id": "fldaO95UHO",
+          "field_name": "库存数量",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblLuDJe8WU3pny2].$field[fldbZPc4Hr].$column[fldjegVXsY].SUM()-bitable::$table[tblLYRkaNqDMqVFv].FILTER(bitable::$table[tblLuDJe8WU3pny2].$field[fldbZPc4Hr].CONTAIN(CurrentValue.$column[fldUoxygRs])).$column[fldEIdZ8UW].SUM()",
+            "type": {
+              "data_type": 1
+            }
+          }
+        },
+        {
+          "field_id": "fld5hI8C0P",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldbZPc4Hr",
+          "field_name": "库存管理",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldlMMHQgk",
+            "back_field_name": "关联物料",
+            "multiple": false,
+            "table_id": "tbldT6TDHtRrm6NA",
+            "table_name": "库存管理"
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblTwnMLGUObYCTl",
+      "name": "工序管理",
+      "revision": 57,
+      "fields": [
+        {
+          "field_id": "fldxRAPchC",
+          "field_name": "工序名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": true
+        },
+        {
+          "field_id": "fld4dJje0g",
+          "field_name": "工序负责人",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": true
+          }
+        },
+        {
+          "field_id": "fldCGbH4Ma",
+          "field_name": "工序优先级",
+          "type": 2,
+          "ui_type": "Number",
+          "is_primary": false,
+          "property": {
+            "formatter": "0"
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblUTdc0TeCnby2a",
+      "name": "工序执行表",
+      "revision": 63,
+      "fields": [
+        {
+          "field_id": "fld1CLNkn9",
+          "field_name": "工序执行编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "WPE-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "3"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldjRzoFVT",
+          "field_name": "关联工序",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tblTwnMLGUObYCTl",
+            "table_name": "工序管理"
+          }
+        },
+        {
+          "field_id": "fldXYjfO86",
+          "field_name": "执行人员",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": true
+          }
+        },
+        {
+          "field_id": "fld8b0fqzr",
+          "field_name": "检验人员",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": true
+          }
+        },
+        {
+          "field_id": "fldMuIdLI8",
+          "field_name": "检验结果",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fld1ZwLNQI",
+          "field_name": "检验时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldVzD6mdR",
+          "field_name": "执行照片",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldOYhrxyf",
+          "field_name": "生产工单",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fld235ksYU",
+            "back_field_name": "工序执行",
+            "multiple": true,
+            "table_id": "tblIHeTDf3g0bkTs",
+            "table_name": "生产管理"
+          }
+        },
+        {
+          "field_id": "fldtOibe2Z",
+          "field_name": "执行时间",
+          "type": 1001,
+          "ui_type": "CreatedTime",
+          "is_primary": false,
+          "property": {
+            "date_formatter": "yyyy/MM/dd HH:mm"
+          }
+        },
+        {
+          "field_id": "fldS0kuQjx",
+          "field_name": "完成时间",
+          "type": 5,
+          "ui_type": "DateTime",
+          "is_primary": false,
+          "property": {
+            "auto_fill": false,
+            "date_formatter": "yyyy/MM/dd HH:mm"
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tblPoNgxw3euYITn",
+      "name": "供应商管理",
+      "revision": 17,
+      "fields": [
+        {
+          "field_id": "fldBcQYUd7",
+          "field_name": "供应商名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": true
+        },
+        {
+          "field_id": "fld9OZwtyS",
+          "field_name": "联系人",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldLkKpDfr",
+          "field_name": "联系方式",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldeVQ2vIx",
+          "field_name": "关联流水明细",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldgq2mgd7",
+          "field_name": "供应商地址",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldMOjjNrZ",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldqx5oyVm",
+          "field_name": "关联物料",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldIiZ9SQb",
+            "back_field_name": "供应商",
+            "multiple": true,
+            "table_id": "tblLuDJe8WU3pny2",
+            "table_name": "物料库"
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "tbl8kQh9XlMp7PQW",
+      "name": "往来单位管理",
+      "revision": 511,
+      "fields": [
+        {
+          "field_id": "fldhZEX45y",
+          "field_name": "单位名称",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": true
+        },
+        {
+          "field_id": "fld1V8Wxnq",
+          "field_name": "单位代码",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldLNkTMhi",
+          "field_name": "往来类型",
+          "type": 4,
+          "ui_type": "MultiSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optNt7fZhw",
+              "name": "客户"
+            },
+            {
+              "color": 1,
+              "id": "optRWKKpWn",
+              "name": "供应商"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optNt7fZhw",
+                "name": "客户"
+              },
+              {
+                "color": 1,
+                "id": "optRWKKpWn",
+                "name": "供应商"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldTp3WAF5",
+          "field_name": "所属行业",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 53,
+              "id": "optIZvnrd4",
+              "name": "生物"
+            },
+            {
+              "color": 51,
+              "id": "optjAtfI9t",
+              "name": "医疗"
+            },
+            {
+              "color": 3,
+              "id": "optS3yhZ2w",
+              "name": "食品"
+            },
+            {
+              "color": 4,
+              "id": "optVHLIXNv",
+              "name": "制造"
+            },
+            {
+              "color": 7,
+              "id": "optqK9lhYH",
+              "name": "其他"
+            },
+            {
+              "color": 0,
+              "id": "optKYUmYXe",
+              "name": "制药"
+            },
+            {
+              "color": 1,
+              "id": "optaIPi3HZ",
+              "name": "洁净室净化"
+            },
+            {
+              "color": 2,
+              "id": "opt4n2Psug",
+              "name": "仪器"
+            },
+            {
+              "color": 5,
+              "id": "optQ0vI0xf",
+              "name": "生命科学"
+            },
+            {
+              "color": 6,
+              "id": "optkRFyfSS",
+              "name": "机器人"
+            },
+            {
+              "color": 8,
+              "id": "optm8l4v0m",
+              "name": "建筑工程"
+            },
+            {
+              "color": 0,
+              "id": "optYdlprNI",
+              "name": "机电"
+            },
+            {
+              "color": 1,
+              "id": "optjit5eAH",
+              "name": "汽车"
+            },
+            {
+              "color": 32,
+              "id": "optb6uB4gk",
+              "name": "待定"
+            },
+            {
+              "color": 3,
+              "id": "opt1CwBhsA",
+              "name": "人力资源"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 53,
+                "id": "optIZvnrd4",
+                "name": "生物"
+              },
+              {
+                "color": 51,
+                "id": "optjAtfI9t",
+                "name": "医疗"
+              },
+              {
+                "color": 3,
+                "id": "optS3yhZ2w",
+                "name": "食品"
+              },
+              {
+                "color": 4,
+                "id": "optVHLIXNv",
+                "name": "制造"
+              },
+              {
+                "color": 7,
+                "id": "optqK9lhYH",
+                "name": "其他"
+              },
+              {
+                "color": 0,
+                "id": "optKYUmYXe",
+                "name": "制药"
+              },
+              {
+                "color": 1,
+                "id": "optaIPi3HZ",
+                "name": "洁净室净化"
+              },
+              {
+                "color": 2,
+                "id": "opt4n2Psug",
+                "name": "仪器"
+              },
+              {
+                "color": 5,
+                "id": "optQ0vI0xf",
+                "name": "生命科学"
+              },
+              {
+                "color": 6,
+                "id": "optkRFyfSS",
+                "name": "机器人"
+              },
+              {
+                "color": 8,
+                "id": "optm8l4v0m",
+                "name": "建筑工程"
+              },
+              {
+                "color": 0,
+                "id": "optYdlprNI",
+                "name": "机电"
+              },
+              {
+                "color": 1,
+                "id": "optjit5eAH",
+                "name": "汽车"
+              },
+              {
+                "color": 32,
+                "id": "optb6uB4gk",
+                "name": "待定"
+              },
+              {
+                "color": 3,
+                "id": "opt1CwBhsA",
+                "name": "人力资源"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldTEHyBMG",
+          "field_name": "企业规模",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt4vtz09z",
+              "name": "<10"
+            },
+            {
+              "color": 1,
+              "id": "optTc6QufF",
+              "name": "10-100"
+            },
+            {
+              "color": 2,
+              "id": "optmRWy4oI",
+              "name": "100-1000"
+            },
+            {
+              "color": 3,
+              "id": "optfjeV5Ln",
+              "name": "1000-10000"
+            },
+            {
+              "color": 4,
+              "id": "opthNkJdvI",
+              "name": ">10000"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt4vtz09z",
+                "name": "<10"
+              },
+              {
+                "color": 1,
+                "id": "optTc6QufF",
+                "name": "10-100"
+              },
+              {
+                "color": 2,
+                "id": "optmRWy4oI",
+                "name": "100-1000"
+              },
+              {
+                "color": 3,
+                "id": "optfjeV5Ln",
+                "name": "1000-10000"
+              },
+              {
+                "color": 4,
+                "id": "opthNkJdvI",
+                "name": ">10000"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldRu91D30",
+          "field_name": "注册地址",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldmuTCG5H",
+          "field_name": "通讯地址",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldRGftiad",
+          "field_name": "联系人",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": false,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblPF4egNHEaxtlc].FILTER(bitable::$table[tbl8kQh9XlMp7PQW].$field[fldYMQcbwP].CONTAIN(CurrentValue.$column[fldHs4j2Lr])).$column[fldTuJIKXV].LISTCOMBINE()",
+            "type": {
+              "data_type": 1
+            }
+          }
+        },
+        {
+          "field_id": "fldqYdqMqN",
+          "field_name": "关联合同",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldup3sZg2",
+            "back_field_name": "客户名称",
+            "multiple": true,
+            "table_id": "tbl6NK5lGE8Csah0",
+            "table_name": "合同管理"
+          }
+        },
+        {
+          "field_id": "fldYMQcbwP",
+          "field_name": "关联往来单位联系人",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldO73pbiS",
+            "back_field_name": "关联往来单位",
+            "multiple": true,
+            "table_id": "tblPF4egNHEaxtlc",
+            "table_name": "往来单位联系人"
+          }
+        },
+        {
+          "field_id": "fldhAVqpj4",
+          "field_name": "上级单位",
+          "type": 18,
+          "ui_type": "SingleLink",
+          "is_primary": false,
+          "property": {
+            "multiple": false,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fldLAa8Ubt",
+          "field_name": "客户管理",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldYiZSN8T",
+            "back_field_name": "客户名称",
+            "multiple": false,
+            "table_id": "tblBd7jMyS5tzmxr",
+            "table_name": "客户管理"
+          }
+        },
+        {
+          "field_id": "fldzx8XS5U",
+          "field_name": "统一社会信用代码",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldWeRwm2j",
+          "field_name": "对公账号",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldYeg317b",
+          "field_name": "对公开户行",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblPF4egNHEaxtlc",
+      "name": "往来单位联系人",
+      "revision": 38,
+      "fields": [
+        {
+          "field_id": "fldHs4j2Lr",
+          "field_name": "联系人编号",
+          "type": 1005,
+          "ui_type": "AutoNumber",
+          "is_primary": true,
+          "property": {
+            "auto_serial": {
+              "options": [
+                {
+                  "type": "fixed_text",
+                  "value": "POC-"
+                },
+                {
+                  "type": "system_number",
+                  "value": "1"
+                }
+              ],
+              "type": "custom"
+            }
+          }
+        },
+        {
+          "field_id": "fldTuJIKXV",
+          "field_name": "联系人",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldO73pbiS",
+          "field_name": "关联往来单位",
+          "type": 21,
+          "ui_type": "DuplexLink",
+          "is_primary": false,
+          "property": {
+            "back_field_id": "fldYMQcbwP",
+            "back_field_name": "往来单位联系人",
+            "multiple": true,
+            "table_id": "tbl8kQh9XlMp7PQW",
+            "table_name": "往来单位管理"
+          }
+        },
+        {
+          "field_id": "fldnGfO6FD",
+          "field_name": "联系电话",
+          "type": 13,
+          "ui_type": "Phone",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldpvZo4Zj",
+          "field_name": "Email",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldeOvW1ZL",
+          "field_name": "微信",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldEsQLzMd",
+          "field_name": "职位",
+          "type": 4,
+          "ui_type": "MultiSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "optVxn0Fw8",
+              "name": "项目经理"
+            },
+            {
+              "color": 2,
+              "id": "optKMKFE3Y",
+              "name": "技术负责人"
+            },
+            {
+              "color": 3,
+              "id": "optEPfqMOQ",
+              "name": "采购经理"
+            },
+            {
+              "color": 5,
+              "id": "optYpbxBym",
+              "name": "总经理"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "optVxn0Fw8",
+                "name": "项目经理"
+              },
+              {
+                "color": 2,
+                "id": "optKMKFE3Y",
+                "name": "技术负责人"
+              },
+              {
+                "color": 3,
+                "id": "optEPfqMOQ",
+                "name": "采购经理"
+              },
+              {
+                "color": 5,
+                "id": "optYpbxBym",
+                "name": "总经理"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fldNPQffAp",
+          "field_name": "备注",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "table_id": "tblShYl1ymSSA4QL",
+      "name": "销售人员管理",
+      "revision": 30,
+      "fields": [
+        {
+          "field_id": "fldWYghkrG",
+          "field_name": "销售姓名",
+          "type": 20,
+          "ui_type": "Formula",
+          "is_primary": true,
+          "property": {
+            "formatter": "",
+            "formula_expression": "bitable::$table[tblShYl1ymSSA4QL].$field[fldBgpiHnT]"
+          }
+        },
+        {
+          "field_id": "fldBgpiHnT",
+          "field_name": "销售",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        },
+        {
+          "field_id": "fld8XU6ymL",
+          "field_name": "员工照片",
+          "type": 17,
+          "ui_type": "Attachment",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldhVnheUQ",
+          "field_name": "销售区域",
+          "type": 3,
+          "ui_type": "SingleSelect",
+          "is_primary": false,
+          "options": [
+            {
+              "color": 0,
+              "id": "opt32c8OpX",
+              "name": "美国"
+            },
+            {
+              "color": 1,
+              "id": "optUaQN9zF",
+              "name": "中国大陆"
+            }
+          ],
+          "property": {
+            "options": [
+              {
+                "color": 0,
+                "id": "opt32c8OpX",
+                "name": "美国"
+              },
+              {
+                "color": 1,
+                "id": "optUaQN9zF",
+                "name": "中国大陆"
+              }
+            ]
+          }
+        },
+        {
+          "field_id": "fld6S1BSyL",
+          "field_name": "工作地点",
+          "type": 1,
+          "ui_type": "Text",
+          "is_primary": false
+        },
+        {
+          "field_id": "fldO9HYd2V",
+          "field_name": "BD经理",
+          "type": 11,
+          "ui_type": "User",
+          "is_primary": false,
+          "property": {
+            "multiple": false
+          }
+        }
+      ]
+    }
+  ]
+}

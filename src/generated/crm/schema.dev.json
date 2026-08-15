@@ -3267,7 +3267,7 @@
     {
       "table_id": "tbleOlbY62RehB7R",
       "name": "费用报销",
-      "revision": 34,
+      "revision": 38,
       "fields": [
         {
           "field_id": "fldnNUwM35",
@@ -3608,7 +3608,7 @@
     {
       "table_id": "tblyjuzeXe62TYG7",
       "name": "采购申请",
-      "revision": 34,
+      "revision": 38,
       "fields": [
         {
           "field_id": "fldnNUwM35",
