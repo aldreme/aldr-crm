@@ -1,8 +1,9 @@
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 
 // Shared QueryClient. Feishu data is small (~750 records total) so we treat it
-// as "load once": queries never go stale on their own (`staleTime: Infinity`),
-// so the only triggers for a refetch are an explicit `refetch()` (manual refresh)
+// as "load once": queries never go stale on their own (`staleTime: Infinity`)
+// and are never garbage-collected while the app lives (`gcTime: Infinity`), so
+// the only triggers for a refetch are an explicit `refetch()` (manual refresh)
 // or `invalidateQueries` after a mutation.
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -16,6 +17,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,
+      gcTime: Infinity,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
