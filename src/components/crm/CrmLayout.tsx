@@ -10,7 +10,16 @@ import {
   DropdownTrigger,
   HeroUIProvider,
 } from "@heroui/react";
-import { ChevronDown, Languages, LayoutDashboard, LogOut, Table2 } from "lucide-react";
+import {
+  ChevronDown,
+  Languages,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Table2,
+  X,
+} from "lucide-react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 interface CrmLayoutProps {
@@ -22,11 +31,29 @@ export function CrmLayout({ currentTableId, children }: CrmLayoutProps) {
   const { t, locale, setLocale } = useCrmTranslation();
   const { user, logout } = useCrmSession();
   const { pathname: path } = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <HeroUIProvider>
       <div className="flex h-screen bg-gray-50 dark:bg-zinc-950">
-        <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-r border-gray-200 dark:border-zinc-800 flex flex-col">
+        {/* Mobile backdrop */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+            onClick={closeSidebar}
+            aria-hidden
+          />
+        )}
+
+        <aside
+          className={cn(
+            "fixed inset-y-0 left-0 z-50 w-64 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-r border-gray-200 dark:border-zinc-800 flex flex-col transition-transform duration-300",
+            sidebarOpen ? "translate-x-0" : "-translate-x-full",
+            "lg:translate-x-0",
+          )}
+        >
           <div className="flex items-center gap-2 px-6 h-16 border-b border-gray-100 dark:border-zinc-800/50">
             <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
               <Table2 className="w-5 h-5 text-white" />
@@ -34,11 +61,19 @@ export function CrmLayout({ currentTableId, children }: CrmLayoutProps) {
             <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
               {t("crm.title")}
             </span>
+            <button
+              onClick={closeSidebar}
+              className="lg:hidden ml-auto p-2 -mr-2 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
           <nav className="flex-1 overflow-y-auto p-3 space-y-1">
             <Link
               to="/"
+              onClick={closeSidebar}
               className={cn(
                 "flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all",
                 path === "/"
@@ -59,6 +94,7 @@ export function CrmLayout({ currentTableId, children }: CrmLayoutProps) {
                 <Link
                   key={layout.tableId}
                   to={href}
+                  onClick={closeSidebar}
                   className={cn(
                     "flex items-center px-3 py-2 text-sm font-medium rounded-xl transition-all",
                     active
@@ -121,8 +157,20 @@ export function CrmLayout({ currentTableId, children }: CrmLayoutProps) {
           </div>
         </aside>
 
-        <main className="flex-1 ml-64 overflow-x-hidden overflow-y-auto p-6 lg:p-10">
-          <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <main className="flex-1 lg:ml-64 overflow-x-hidden overflow-y-auto">
+          <header className="lg:hidden sticky top-0 z-30 flex items-center gap-3 h-14 px-4 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-b border-gray-200 dark:border-zinc-800">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="p-2 -ml-2 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <span className="font-bold tracking-tight text-gray-900 dark:text-white">
+              {t("crm.title")}
+            </span>
+          </header>
+          <div className="max-w-7xl mx-auto p-4 lg:p-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {children}
           </div>
         </main>

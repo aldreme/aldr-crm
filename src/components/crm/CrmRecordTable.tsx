@@ -153,11 +153,11 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
     <div className="w-full space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
             {table.name}
           </h1>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 sm:w-auto">
           <div className="flex items-center rounded-full border border-gray-200 dark:border-zinc-700 p-1">
             <button
               onClick={() => setView("table")}
@@ -191,7 +191,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
               placeholder={t("crm.search")}
               variant="bordered"
               radius="full"
-              className="w-48"
+              className="w-full sm:w-48 flex-1 min-w-32 sm:flex-none"
             />
           )}
           <Button
@@ -243,7 +243,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
           }}
         />
       ) : (
-        <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-hidden">
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-x-auto">
         {isLoading || refreshingTable ? (
           <div className="w-full animate-in fade-in duration-300">
             <div className="flex items-center gap-6 px-4 py-4 border-b border-gray-100 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-800/50">

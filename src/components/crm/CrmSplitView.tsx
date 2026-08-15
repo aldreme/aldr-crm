@@ -122,9 +122,9 @@ export function CrmSplitView({
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-14rem)] min-h-[480px]">
+    <div className="flex flex-col lg:flex-row gap-4 lg:h-[calc(100vh-14rem)] lg:min-h-[480px]">
       {/* Left: paginated list */}
-      <div className="lg:w-80 flex-shrink-0 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 flex flex-col overflow-hidden">
+      <div className="lg:w-80 flex-shrink-0 h-72 lg:h-auto bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 flex flex-col overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-zinc-800">
           <div className="min-w-0">
             <h2 className="font-semibold text-gray-900 dark:text-white truncate">
@@ -249,7 +249,7 @@ export function CrmSplitView({
       </div>
 
       {/* Right: details */}
-      <div className="flex-1 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-y-auto">
+      <div className="flex-1 min-h-[360px] lg:min-h-0 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-y-auto">
         {selected ? (
           <div className="p-6 h-full flex flex-col">
             <div className="flex items-start justify-between gap-4">

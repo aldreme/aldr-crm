@@ -32,7 +32,7 @@ export function Dashboard() {
     <CrmLayout>
       <div className="space-y-6">
         <div className="flex flex-col gap-1">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
             {t("crm.dashboard.title")}
           </h1>
           <p className="text-gray-500 dark:text-gray-400">{t("crm.dashboard.subtitle")}</p>
