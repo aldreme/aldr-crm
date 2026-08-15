@@ -2,9 +2,11 @@ import {
   useCreateRecord,
   useDeleteRecord,
   useFillRecordFields,
+  useLookupRecords,
   useOwnedRecords,
   useUpdateRecord,
 } from "@/lib/api/crm-queries";
+import { tablePrimaryFieldMap } from "@/generated/crm/manifest";
 import type { CrmRecord, FieldDefinition, TableDefinition } from "@/lib/types/crm";
 import { FIELD_TYPE } from "@/lib/types/crm";
 import { cn } from "@/lib/utils";
@@ -28,6 +30,39 @@ import { useCrmDialog } from "@/store/crm-ui";
 import { FieldRenderer, formatFieldValue } from "./FieldRenderer";
 import { CrmSplitView } from "./CrmSplitView";
 import { RecordForm } from "./RecordForm";
+
+function PrefetchLookup({ tableId, fieldName }: { tableId: string; fieldName?: string }) {
+  useLookupRecords(tableId, fieldName);
+  return null;
+}
+
+/** Warms the link-field lookup cache in the background when a table page opens,
+ *  so the link pickers in the record form load instantly. */
+function LinkLookupPrefetcher({ table }: { table: TableDefinition }) {
+  const targets = useMemo(() => {
+    const seen = new Set<string>();
+    const result: { tableId: string; fieldName?: string }[] = [];
+    for (const f of table.fields) {
+      if (f.type !== FIELD_TYPE.SingleLink && f.type !== FIELD_TYPE.DuplexLink) continue;
+      const tableId = (f.property as { table_id?: string } | undefined)?.table_id;
+      if (!tableId) continue;
+      const primary = tablePrimaryFieldMap.get(tableId);
+      const key = `${tableId}:${primary?.field_name ?? ""}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      result.push({ tableId, fieldName: primary?.field_name });
+    }
+    return result;
+  }, [table]);
+
+  return (
+    <>
+      {targets.map((t) => (
+        <PrefetchLookup key={t.tableId} tableId={t.tableId} fieldName={t.fieldName} />
+      ))}
+    </>
+  );
+}
 
 interface CrmRecordTableProps {
   table: TableDefinition;
@@ -151,6 +186,7 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
 
   return (
     <div className="w-full space-y-6">
+      <LinkLookupPrefetcher table={table} />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex flex-col gap-1">
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -237,10 +273,6 @@ export function CrmRecordTable({ table, columns, sortField, sortDirection }: Crm
           onDelete={handleDelete}
           deletingRecordId={deletingRecordId}
           refreshingTable={refreshingTable}
-          onCreate={() => {
-            setEditing(null);
-            setFormOpen(true);
-          }}
         />
       ) : (
         <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-x-auto">

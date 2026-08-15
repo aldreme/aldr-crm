@@ -1,9 +1,9 @@
 import { useOwnedRecords, useRefreshRecord } from "@/lib/api/crm-queries";
 import { FIELD_TYPE, type CrmRecord, type FieldDefinition, type TableDefinition } from "@/lib/types/crm";
 import { cn } from "@/lib/utils";
-import { Button, Skeleton } from "@heroui/react";
-import { ChevronLeft, ChevronRight, Edit, Plus, RefreshCw, Trash2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Button, Input, Skeleton } from "@heroui/react";
+import { ChevronLeft, ChevronRight, Edit, RefreshCw, Search, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useCrmTranslation } from "./CrmI18nProvider";
 import { FieldRenderer, formatFieldValue } from "./FieldRenderer";
 
@@ -16,7 +16,6 @@ interface CrmSplitViewProps {
   sortDirection?: "asc" | "desc";
   onEdit: (record: CrmRecord) => void;
   onDelete: (record: CrmRecord) => void;
-  onCreate: () => void;
   deletingRecordId?: string | null;
   refreshingTable?: boolean;
 }
@@ -69,7 +68,6 @@ export function CrmSplitView({
   sortDirection,
   onEdit,
   onDelete,
-  onCreate,
   deletingRecordId,
   refreshingTable = false,
 }: CrmSplitViewProps) {
@@ -80,6 +78,13 @@ export function CrmSplitView({
   const [page, setPage] = useState(0);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (searchOpen) inputRef.current?.focus();
+  }, [searchOpen]);
 
   // On mobile this is a drill-down: selecting a record opens the detail view
   // full-screen (with a back button). On desktop both panels stay visible.
@@ -108,10 +113,23 @@ export function CrmSplitView({
     });
   }, [items, sortField, sortDirection, table.fields]);
 
-  const totalPages = Math.max(1, Math.ceil(sortedItems.length / PAGE_SIZE));
+  const filteredItems = useMemo(() => {
+    if (!query.trim()) return sortedItems;
+    const q = query.toLowerCase();
+    const searchColumns = [primaryColumn, ...secondaryColumns].filter(
+      Boolean,
+    ) as FieldDefinition[];
+    return sortedItems.filter((r) =>
+      searchColumns.some((c) =>
+        formatFieldValue(c, r.fields?.[c.field_name]).toLowerCase().includes(q),
+      ),
+    );
+  }, [sortedItems, query, primaryColumn, secondaryColumns]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE));
   const currentItems = useMemo(
-    () => sortedItems.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE),
-    [sortedItems, page],
+    () => filteredItems.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE),
+    [filteredItems, page],
   );
   const selected =
     currentItems.find((r) => r.record_id === selectedId) ?? currentItems[0] ?? null;
@@ -129,8 +147,13 @@ export function CrmSplitView({
     setPage(clamped);
   };
 
+  const handleQueryChange = (value: string) => {
+    setQuery(value);
+    setPage(0);
+  };
+
   return (
-    <div className="flex gap-4 h-[calc(100dvh-13rem)] min-h-[420px] lg:h-[calc(100vh-14rem)] lg:min-h-[480px]">
+    <div className="flex gap-4 h-[calc(100dvh-16.5rem)] min-h-[420px] lg:h-[calc(100vh-14rem)] lg:min-h-[480px]">
       {/* Left: paginated list */}
       <div
         className={cn(
@@ -138,18 +161,54 @@ export function CrmSplitView({
           mobileDetailOpen ? "hidden lg:flex" : "flex",
         )}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-zinc-800">
+        <div className="flex items-center justify-between gap-2 p-4 border-b border-gray-100 dark:border-zinc-800">
           <div className="min-w-0">
-            <h2 className="font-semibold text-gray-900 dark:text-white truncate">
+            <h2 className="font-semibold text-gray-900 dark:text-white break-words leading-snug">
               {listPanelTitle(table.name, t("crm.view.split"))}
             </h2>
             <p className="text-xs text-gray-400">
               {sortedItems.length} {t("crm.records")}
             </p>
           </div>
-          <Button isIconOnly size="sm" color="primary" variant="flat" radius="full" onPress={onCreate}>
-            <Plus className="w-4 h-4" />
-          </Button>
+          <div
+            className={cn(
+              "relative h-9 flex-1 transition-[max-width] duration-300 ease-in-out overflow-hidden",
+              searchOpen ? "max-w-full ml-2" : "max-w-9",
+            )}
+          >
+            <button
+              type="button"
+              aria-label={t("crm.search")}
+              onClick={() => setSearchOpen(true)}
+              className={cn(
+                "absolute right-0 inset-y-0 w-9 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer transition-all duration-200",
+                searchOpen ? "opacity-0 scale-75 pointer-events-none" : "opacity-100 scale-100",
+              )}
+            >
+              <Search className="w-4 h-4" />
+            </button>
+            <div
+              className={cn(
+                "absolute right-0 inset-y-0 flex items-center w-full transition-all duration-200",
+                searchOpen ? "opacity-100" : "opacity-0 translate-x-4 pointer-events-none",
+              )}
+            >
+              <Input
+                ref={inputRef}
+                size="sm"
+                variant="bordered"
+                radius="lg"
+                placeholder={t("crm.search")}
+                value={query}
+                onValueChange={handleQueryChange}
+                className="w-full"
+                startContent={<Search className="w-4 h-4 text-gray-400" />}
+                onBlur={() => {
+                  if (!query) setSearchOpen(false);
+                }}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto">
@@ -219,7 +278,7 @@ export function CrmSplitView({
           )}
         </div>
 
-        <div className="flex items-center justify-center gap-1 p-3 border-t border-gray-100 dark:border-zinc-800 flex-wrap">
+        <div className="flex items-center justify-between gap-2 p-3 border-t border-gray-100 dark:border-zinc-800">
           <Button
             isIconOnly
             size="sm"
@@ -229,26 +288,28 @@ export function CrmSplitView({
           >
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          {pageNumbers(page, totalPages).map((p, i) =>
-            p === "gap" ? (
-              <span key={`gap-${i}`} className="px-1 text-xs text-gray-400">
-                …
-              </span>
-            ) : (
-              <Button
-                key={p}
-                size="sm"
-                isIconOnly
-                radius="full"
-                variant={p === page ? "solid" : "light"}
-                color={p === page ? "primary" : "default"}
-                className="min-w-0 w-8 h-8"
-                onPress={() => goto(p)}
-              >
-                {p + 1}
-              </Button>
-            ),
-          )}
+          <div className="flex items-center gap-1">
+            {pageNumbers(page, totalPages).map((p, i) =>
+              p === "gap" ? (
+                <span key={`gap-${i}`} className="px-1 text-xs text-gray-400">
+                  …
+                </span>
+              ) : (
+                <Button
+                  key={p}
+                  size="sm"
+                  isIconOnly
+                  radius="full"
+                  variant={p === page ? "solid" : "light"}
+                  color={p === page ? "primary" : "default"}
+                  className="min-w-0 w-8 h-8"
+                  onPress={() => goto(p)}
+                >
+                  {p + 1}
+                </Button>
+              ),
+            )}
+          </div>
           <Button
             isIconOnly
             size="sm"
@@ -265,13 +326,13 @@ export function CrmSplitView({
       <div
         className={cn(
           "w-full lg:w-auto flex-1 bg-white dark:bg-zinc-900 rounded-3xl shadow-sm border border-gray-100 dark:border-zinc-800 overflow-y-auto",
-          mobileDetailOpen ? "flex" : "hidden lg:flex",
+          mobileDetailOpen ? "block" : "hidden lg:block",
         )}
       >
         {selected ? (
           <div className="p-6 h-full flex flex-col">
             <div className="flex items-start justify-between gap-4">
-              <div>
+              <div className="min-w-0 flex-1">
                 {showDetailSkeleton ? (
                   <div className="space-y-2 animate-in fade-in duration-200">
                     <Skeleton className="rounded-lg">
@@ -283,7 +344,7 @@ export function CrmSplitView({
                   </div>
                 ) : (
                   <>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white animate-in fade-in duration-200">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white animate-in fade-in duration-200 break-words">
                       {primaryColumn
                         ? formatFieldValue(primaryColumn, selected.fields?.[primaryColumn.field_name]) ||
                           selected.record_id
@@ -351,11 +412,11 @@ export function CrmSplitView({
             ) : (
               <dl className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 animate-in fade-in duration-300">
                 {table.fields.map((field) => (
-                  <div key={field.field_id} className="flex flex-col gap-1">
+                  <div key={field.field_id} className="flex flex-col gap-1 min-w-0">
                     <dt className="text-[11px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
                       {field.field_name}
                     </dt>
-                    <dd className="text-sm text-gray-800 dark:text-gray-200">
+                    <dd className="text-sm text-gray-800 dark:text-gray-200 break-words">
                       <FieldRenderer
                         field={field}
                         value={selected.fields?.[field.field_name]}
